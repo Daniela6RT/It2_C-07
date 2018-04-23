@@ -173,11 +173,57 @@ public class DAOContrato
 	}
 	
 	
+	public ArrayList<Contrato> getContratoByidApartamentoEnFechas(String id, Date fechaInicio, Date fechaFin) throws SQLException
+	{
+		ArrayList<Contrato> contrato = new ArrayList<>();
+
+		String sql = String.format("SELECT c.IDCONTRATO, FECHAINICIO, FECHAFIN, IDAPARTAMENTO FROM %1$s.CONTRATOS c FULL OUTER "
+				+ "JOIN CONTRATOSAPARTAMENTOS ON c.IDCONTRATO = CONTRATOSAPARTAMENTOS.IDCONTRATO WHERE IDAPARTAMENTO = %2$d AND (FECHAINICIO BETWEEN %3$d AND %4$d "
+				+ "OR FECHAFIN BETWEEN %5$d AND %6$d",
+				USUARIO, id,fechaInicio, fechaFin,fechaInicio, fechaFin ); 
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		while(rs.next())
+		{
+			contrato.add(convertResultSetToContrato(rs));
+		}
+
+
+		return contrato;
+	}
+	
+	
 	public ArrayList<Contrato> getContratoByidHabitacionEnFechas(String id, Date fechaInicio, Date fechaFin) throws SQLException
 	{
 		ArrayList<Contrato> contrato = new ArrayList<>();
 
-		String sql = String.format("SELECT * FROM %1$s.CONTRATOSHABITACIONES WHERE IDHABITACION = %2$d AND (FECHAINICIO BETWEEN %3$d AND %4$d OR FECHAFIN BETWEEN %3$d AND %4$d  ) ", USUARIO, id,fechaInicio, fechaFin ); 
+		String sql = String.format("SELECT c.IDCONTRATO, FECHAINICIO, FECHAFIN, IDHABITACION FROM %1$s.CONTRATOS c FULL OUTER "
+				+ "JOIN CONTRATOSHABITACIONES ON c.IDCONTRATO = CONTRATOSHABITACIONES.IDCONTRATO WHERE IDHABITACION = %2$d AND (FECHAINICIO BETWEEN %3$d AND %4$d "
+				+ "OR FECHAFIN BETWEEN %5$d AND %6$d",
+				USUARIO, id,fechaInicio, fechaFin,fechaInicio, fechaFin ); 
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		while(rs.next())
+		{
+			contrato.add(convertResultSetToContrato(rs));
+		}
+
+
+		return contrato;
+	}
+	
+	public ArrayList<Contrato> getContratoByidViviendaEnFechas(String id, Date fechaInicio, Date fechaFin) throws SQLException
+	{
+		ArrayList<Contrato> contrato = new ArrayList<>();
+
+		String sql = String.format("SELECT c.IDCONTRATO, FECHAINICIO, FECHAFIN, IDVIVIENDA FROM %1$s.CONTRATOS c FULL OUTER "
+				+ "JOIN CONTRATOSVIVIENDAS ON c.IDCONTRATO = CONTRATOSAPARTAMENTOS.IDCONTRATO WHERE IDVIVIENDA = %2$d AND (FECHAINICIO BETWEEN %3$d AND %4$d "
+				+ "OR FECHAFIN BETWEEN %5$d AND %6$d",
+				USUARIO, id,fechaInicio, fechaFin,fechaInicio, fechaFin ); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
