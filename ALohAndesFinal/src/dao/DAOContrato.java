@@ -425,6 +425,4 @@ public class DAOContrato
 		
 		return contrato;
 	}
-
-
 }
