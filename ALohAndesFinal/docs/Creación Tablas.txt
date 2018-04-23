@@ -1,0 +1,135 @@
+CREATE TABLE Cliente 
+(
+IdCliente INTEGER primary key,
+Nombre VARCHAR (30) not null,
+Apellido VARCHAR (30) not null,
+Login  VARCHAR (16) not null unique,
+PasswordUsuario VARCHAR (16) not null
+
+);
+
+
+CREATE TABLE TipoProveedor
+(
+IdTipo INTEGER primary key,
+Tipo VARCHAR(30) NOT NULL
+
+);
+
+CREATE TABLE ProveedorAlojamiento
+(
+Id INTEGER primary key,
+nombre VARCHAR(32) not null unique,
+tipo INTEGER not null,
+FOREIGN KEY(tipo) REFERENCES TipoProveedor (IdTipo)
+);
+
+CREATE TABLE Apartamentos
+(
+IdApartamento INTEGER primary key,
+
+ Amoblado char (2) check (Amoblado IN('Y','N')),
+PrecioBase INTEGER not null,
+idProveedor INTEGER not null,
+FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
+);
+
+
+CREATE TABLE Viviendas
+(
+IdVivienda INTEGER primary key,
+Habitaciones INTEGER not null,
+PrecioBase INTEGER not null,
+Ubicacion VARCHAR(160) not null,
+idProveedor INTEGER not null,
+FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
+);
+
+
+CREATE TABLE Habitaciones
+(
+IdHabitacion INTEGER primary key,
+Tipo Varchar (25) not null,
+PrecioBase INTEGER not null,
+Compartida char (2) check (Compartida IN('Y','N'))not null,
+HoraApertura VARCHAR(10),
+MinApertura VARCHAR(10),
+HoraCierre VARCHAR(10),
+MinCierre VARCHAR(10),
+Tamaño Integer not null,
+Capacidad Integer not null,
+idProveedor INTEGER not null,
+FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
+);
+
+CREATE TABLE Seguros
+(
+IdSeguro INTEGER primary key,
+Costo INTEGER not null,
+IdVivienda INTEGER not null,
+FOREIGN KEY (idVivienda) REFERENCES Viviendas (idVivienda)
+);
+
+CREATE TABLE Menaje
+(
+IdMenaje INTEGER primary key,
+Nombre VARCHAR (30),
+Descripcion VARCHAR (160) not null,
+IdVivienda INTEGER not null,
+FOREIGN KEY (idVivienda) REFERENCES Viviendas (idVivienda)
+);
+
+CREATE TABLE Contratos
+(
+idContrato INTEGER primary key,
+fechaInicio DATE not null,
+fechaFin DATE not null,
+IdCliente INTEGER not null,
+idProveedor INTEGER not null,
+FOREIGN KEY (idCliente) REFERENCES Cliente(IdCliente),
+FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento(id),
+Estado varchar(20)
+);
+
+CREATE TABLE Servicios
+(
+idServicio INTEGER primary key,
+Nombre VARCHAR (30),
+Descripcion VARCHAR(160) not null,
+Precio INTEGER not null,
+IdContrato INTEGER not null,
+FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato)
+);
+
+CREATE TABLE TIENESERVICIOS
+(
+  IdContrato INTEGER not NULL,
+  IdServicios INTEGER not null,
+  FOREIGN KEY (IdContrato )  REFERENCES CONTRATOS(IDCONTRATO) ,
+  FOREIGN KEY (IdServicios) REFERENCES SERVICIOS(IDSERVICIO) 
+);
+
+CREATE TABLE ContratosApartamentos
+(
+IdContrato INTEGER not null,
+IdApartamento INTEGER not null,
+FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
+FOREIGN KEY (idApartamento) REFERENCES Apartamentos(idApartamento)
+);
+
+
+CREATE TABLE ContratosViviendas
+(
+IdContrato INTEGER not null,
+IdVivienda INTEGER not null,
+FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
+FOREIGN KEY (IdVivienda) REFERENCES Viviendas(IdVivienda)
+);
+
+CREATE TABLE ContratosHabitaciones
+(
+IdContrato INTEGER not null,
+IdHabitacion INTEGER not null,
+FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
+FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion)
+);
