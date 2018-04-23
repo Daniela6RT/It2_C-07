@@ -1732,7 +1732,7 @@ public class AlohaAndesTransactionManager
 			this.conn = darConexion();
 			daoContrato.setConn(conn);
 
-			if(daoContrato.findContratoById(Integer.parseInt(Contrato.getIdProveedor()))==null )
+			if(daoContrato.findContratoById(Contrato.getIdProveedor())==null )
 			{
 				addContrato(Contrato);
 			}
@@ -1783,7 +1783,7 @@ public class AlohaAndesTransactionManager
 			this.conn = darConexion();
 			daoContrato.setConn( conn );
 
-			if(daoContrato.findContratoById(Integer.parseInt(Contrato.getIdProveedor()))==null)
+			if(daoContrato.findContratoById(Contrato.getIdProveedor())==null)
 			{
 				throw new Exception ("no existe el Contrato");
 			}
@@ -1837,7 +1837,7 @@ public class AlohaAndesTransactionManager
 			daoContrato.setConn( conn );
 
 
-			if(daoContrato.findContratoById(Integer.parseInt(Contrato.getIdProveedor()))==null)
+			if(daoContrato.findContratoById(Contrato.getIdProveedor())==null)
 			{
 				throw new Exception ("no existe el Contrato");
 			}
@@ -1889,7 +1889,7 @@ public class AlohaAndesTransactionManager
 			daoContrato.setConn( conn );
 
 
-			if(daoContrato.findContratoById(Integer.parseInt(contrato.getIdProveedor()))==null)
+			if(daoContrato.findContratoById(contrato.getIdProveedor())==null)
 			{
 				throw new Exception ("no existe el Contrato");
 			}
@@ -2780,6 +2780,24 @@ public class AlohaAndesTransactionManager
 			}
 		}	
 	}
-
+	public void crearReserva(Integer idAlojamiento, Date fechaInicio, Date fechaFinal, Integer idCliente, Integer idProveedor, Integer idContrato, String tipoAlojamiento, String servicios) throws Exception
+	{	
+		Contrato reserva = null;
+		
+		if(tipoAlojamiento.equals("Apartamento"))
+		{
+			 reserva = new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso");
+		}
+		else if(tipoAlojamiento.equals("Vivienda")) 
+		{
+			 reserva = new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso");
+		}
+		else if(tipoAlojamiento.equals("Habitacion"))
+		{
+			 reserva = new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso");
+		}
+		
+		addContrato(reserva);
+	}
 
 }

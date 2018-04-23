@@ -7,20 +7,20 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class ContratoVivienda extends Contrato {
 	
 	@JsonProperty(value="idVivienda")
-	int idVivienda;
+	Integer idVivienda;
 	
-	public ContratoVivienda(int id, Date fechaInicio, Date fechaFinal, String idCliente, String idProveedor,
+	public ContratoVivienda(Integer id, Date fechaInicio, Date fechaFinal, Integer idCliente, Integer idProveedor,
 			String estado) {
 		super(id, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
 		
 		idVivienda = this.idVivienda;
 	}
 
-	public int getIdVivienda() {
+	public Integer getIdVivienda() {
 		return idVivienda;
 	}
 	
-	public void setIdVivienda(int idVivienda) {
+	public void setIdVivienda(Integer idVivienda) {
 		this.idVivienda=idVivienda;
 	}
 }
