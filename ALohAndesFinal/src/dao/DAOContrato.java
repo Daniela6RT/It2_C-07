@@ -507,6 +507,8 @@ public class DAOContrato
 		String estado = resultSet.getString("ESTADO");
 		Contrato contrato = null;
 		
+		String idAlojamiento = resultSet
+		
 		if (tipo.equals(Contrato.APARTAMENTO)) {
 			String idApartamentoS = resultSet.getString("IDAPARTAMENTO");
 			Integer idApartamento = Integer.parseInt(idApartamentoS);

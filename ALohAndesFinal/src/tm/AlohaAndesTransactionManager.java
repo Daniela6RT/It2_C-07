@@ -1653,9 +1653,6 @@ public class AlohaAndesTransactionManager
 	 */
 	public void addContrato(Contrato contrato) throws Exception 
 	{
-
-		
-		///apartamento ,vivienda , cliente ,proveedoralojamiento y habitación
 		
 		DAOContrato daoContrato = new DAOContrato( );
 		try
@@ -1671,7 +1668,8 @@ public class AlohaAndesTransactionManager
 
 			if(contrato.getTipo().equals(Contrato.HABITACION))
 			{if(duracionContratoEnDias>=1){
-				daoContrato.addContratoHabitacion((ContratoHabitacion) contrato);
+				daoContrato.addContratoHabitacionContratos((ContratoHabitacion) contrato);
+				daoContrato.addContratoHabitacion((ContratoHabitacion)contrato);
 			}
 			}
 
@@ -1679,6 +1677,7 @@ public class AlohaAndesTransactionManager
 			{
 				if(duracionContratoEnDias>=30){
 					daoContrato.addContratoApartamentoContratos((ContratoApartamento) contrato);
+					daoContrato.addContratoApartamento((ContratoApartamento) contrato);
 				}
 			}
 
@@ -1686,6 +1685,7 @@ public class AlohaAndesTransactionManager
 			{
 				if(duracionContratoEnDias>=30){
 					daoContrato.addContratoViviendaContratos((ContratoVivienda) contrato);
+					daoContrato.addContratoVivienda((ContratoVivienda) contrato);
 				}
 			}
 
