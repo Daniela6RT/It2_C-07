@@ -26,13 +26,13 @@ public abstract class Contrato
 	private double costo;
 
 	@JsonProperty(value="id")
-	private int id;
+	private Integer id;
 
 	@JsonProperty(value="idCliente")
-	private String idCliente;
+	private Integer idCliente;
 
 	@JsonProperty(value="idProveedor")
-	private String idProveedor;
+	private Integer idProveedor;
 	
 	@JsonProperty(value="fechaCreacion")
 	private Date fechaCreacion;
@@ -41,20 +41,20 @@ public abstract class Contrato
 	private String tipo;
 	
 	@JsonProperty(value="idTipo")
-	private int idTipo;
+	private Integer idTipo;
 
 	@JsonProperty(value="idVivienda")
-	private int idVivienda;
+	private Integer idVivienda;
 
 	@JsonProperty(value="estado")
 	private String estado;
 		
 	public Contrato(
-			@JsonProperty(value="id")int id, 
+			@JsonProperty(value="id")Integer id, 
 			@JsonProperty(value="fechaInicio")Date fechaInicio,
 			@JsonProperty(value="fechaFinal")Date fechaFinal,
-			@JsonProperty(value="idCliente") String idCliente,
-			@JsonProperty(value="idProveedor") String idProveedor,
+			@JsonProperty(value="idCliente") Integer idCliente,
+			@JsonProperty(value="idProveedor") Integer idProveedor,
 			@JsonProperty(value="estado") String estado
 			) {
 		super();
@@ -105,30 +105,30 @@ public abstract class Contrato
 		this.fechaFinal = fechaFin;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 
-	public String getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
 
 
-	public void setIdCliente(String idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 
-	public String getIdProveedor() {
+	public Integer getIdProveedor() {
 		return idProveedor;
 	}
 
 
-	public void setIdProveedor(String idProveedor) {
+	public void setIdProveedor(Integer idProveedor) {
 		this.idProveedor= idProveedor;
 	}
 
@@ -136,7 +136,7 @@ public abstract class Contrato
 		estado=CANCELADO;
 	}
 
-	public int getIdVivienda() {
+	public Integer getIdVivienda() {
 		return idVivienda;
 	}
 
@@ -148,12 +148,12 @@ public abstract class Contrato
 		this.tipo= tipo;
 	}
 	
-	public int getIdTipo() {
+	public Integer getIdTipo() {
 		return idTipo;
 	}
 
 
-	public void setIdTipo(int idTipo) {
+	public void setIdTipo(Integer idTipo) {
 		this.idTipo= idTipo;
 	}
 
