@@ -54,6 +54,12 @@ public class Habitacion
 	private int idProveedor;
 
 	/**
+	 * Atributo que define si se encuentra reservado
+	 */
+	private boolean reservado;
+		
+	
+	/**
 	 * Metodo constructor de la habitacion
 	 * <b>post: </b> Crea la habitacion con los valores que entran por parametro
 	 * @param pIdHabitacion - Id de la habitacion.
@@ -180,5 +186,15 @@ public class Habitacion
 	{
 		idProveedor = pIdProveedor;
 	}
-
+	public boolean getReservado()
+	{
+		return reservado;
+	}
+	
+	public void setReservado(String tf)
+	{
+		if(tf.equals(true)) reservado = true;
+		else if(tf.equals(false)) reservado = false;
+		
+	}
 }

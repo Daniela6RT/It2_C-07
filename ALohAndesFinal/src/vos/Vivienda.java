@@ -36,6 +36,12 @@ public class Vivienda
 	private int idProveedor;
 
 	/**
+	 * Atributo que define si se encuentra reservado
+	 */
+	private boolean reservado;
+	
+	
+	/**
 	 * Metodo constructor de la Vivienda
 	 * <b>post: </b> Crea la Vivienda con los valores que entran por parametro
 	 * @param pIdVivienda - Id de la vivienda.
@@ -96,5 +102,15 @@ public class Vivienda
 	{
 		idProveedor = pIdProveedor;
 	}
-
+	public boolean getReservado()
+	{
+		return reservado;
+	}
+	
+	public void setReservado(String tf)
+	{
+		if(tf.equals(true)) reservado = true;
+		else if(tf.equals(false)) reservado = false;
+		
+	}
 }

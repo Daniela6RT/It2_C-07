@@ -234,6 +234,16 @@ public class DAOContrato
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
+	
+	public void cancelarContrato(Contrato contrato) throws SQLException, Exception {
+		String sql = String.format("UPDATE %1$s.CONTRATOS SET Estado= 'Cancelado' WHERE IDCONTRATO=%2$d", USUARIO, contrato.getId());
+
+		System.out.println(sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
 
 	/**
 	 * Metodo que actualiza la informacion del contrato en la Base de Datos que tiene el identificador dado por parametro<br/>
@@ -354,6 +364,8 @@ public class DAOContrato
 
 		
 		String tipo = resultSet.getString("TIPO");
+		
+		String estado = resultSet.getString("ESTADO");
 		Contrato contrato = null;
 		
 		if (tipo.equals(Contrato.APARTAMENTO)) {
@@ -365,13 +377,13 @@ public class DAOContrato
 		else if (tipo.equals(Contrato.HABITACION)) {
 			String idHabitacionS = resultSet.getString("IDHABITACION");
 			int idHabitacion = Integer.parseInt(idHabitacionS);
-			contrato= new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, fechaCreacion, costo, idHabitacion);
+			contrato= new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, fechaCreacion, costo, idHabitacion);
 		}
 		
 		else if (tipo.equals(Contrato.VIVIENDA)) {
 			String idViviendaS = resultSet.getString("IDVIVIENDA");
 			int idVivienda = Integer.parseInt(idViviendaS);
-			contrato= new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, fechaCreacion, costo, idVivienda);
+			contrato= new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, fechaCreacion, costo, idVivienda);
 		}
 		
 		return contrato;

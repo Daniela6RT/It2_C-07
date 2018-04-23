@@ -235,4 +235,22 @@ public class ContratoService {
 	
 	}
 
+	@DELETE
+	@Path( "{id: \\d+}" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response cancelContrato(Contrato Contrato) {
+		try{
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager( getPath( ) );
+			
+			tm.deleteContrato(Contrato);
+			return Response.status( 200 ).entity( Contrato ).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	
+	}
+
 }

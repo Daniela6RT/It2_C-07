@@ -106,7 +106,7 @@ public class MenajeService {
 	 * Metodo que recibe un Menaje en formato JSON y lo agrega a la Base de Datos <br/>
 	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
 	 * <b>Postcondicion: </b> Se agrega a la Base de datos la informacion correspondiente al Menaje. <br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/menajes <br/>
+	 * <b>URL: </b> http://localhost:8080/AlohAndesFinal/rest/menajes <br/>
 	 * @param Menaje JSON con la informacion del Menaje que se desea agregar
 	 * @return	<b>Response Status 200</b> - JSON que contiene al Menaje que ha sido agregado <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
@@ -135,7 +135,7 @@ public class MenajeService {
 	 * si el número de menajes que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
 	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
 	 * <b>Postcondicion: </b> Se agrega a la Base de datos la informacion correspondiente al Menaje. <br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/menajes <br/>
+	 * <b>URL: </b> http://localhost:8080/AlohAndesFinal/rest/menajes <br/>
 	 * @param cantidadMaxima representa la cantidad maxima de menajes que pueden haber en la misma ciudad
 	 * @return	<b>Response Status 200</b> - JSON que contiene al Menaje que ha sido agregado <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
@@ -191,7 +191,7 @@ public class MenajeService {
 	 * Metodo que recibe un Menaje en formato JSON y lo elimina de la Base de Datos <br/>
 	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
 	 * <b>Postcondicion: </b> Se elimina de la Base de datos al Menaje con la informacion correspondiente.<br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/menajes <br/>
+	 * <b>URL: </b> http://localhost:8080/AlohAndesFinal/rest/menajes <br/>
 	 * @param Menaje JSON con la informacion del Menaje que se desea eliminar
 	 * @return	<b>Response Status 200</b> - JSON que contiene al Menaje que se desea eliminar <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion

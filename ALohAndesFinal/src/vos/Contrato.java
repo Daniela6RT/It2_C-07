@@ -12,6 +12,8 @@ public abstract class Contrato
 	public final static String HABITACION = "Habitación";
 	public final static String APARTAMENTO = "Apartamento";
 	public final static String VIVIENDA = "Vivienda";
+	public final static String EN_CURSO = "En curso";
+	public final static String CANCELADO = "Cancelado";
 	
 	
 	@JsonProperty(value="fechaInicio")
@@ -43,7 +45,9 @@ public abstract class Contrato
 
 	@JsonProperty(value="idVivienda")
 	private int idVivienda;
-	
+
+	@JsonProperty(value="estado")
+	private String estado;
 		
 	public Contrato(
 			@JsonProperty(value="id")int id, 
@@ -134,7 +138,9 @@ public abstract class Contrato
 		this.idProveedor= idProveedor;
 	}
 
-
+	public void setCancelado() {
+		estado=CANCELADO;
+	}
 
 	public int getIdVivienda() {
 		return idVivienda;

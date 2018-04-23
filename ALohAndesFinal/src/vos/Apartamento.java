@@ -33,6 +33,12 @@ public class Apartamento {
 	 */
 	@JsonProperty (value = "idProveedor")
 	private int idProveedor;
+	
+	/**
+	 * Atributo que define si se encuentra reservado
+	 */
+	private boolean reservado;
+	
 
 	/**
 	 * Metodo constructor del Apartamento
@@ -94,5 +100,16 @@ public class Apartamento {
 	public void setIdProveedor(int pIdProveedor)
 	{
 		idProveedor = pIdProveedor;
+	}
+	public boolean getReservado()
+	{
+		return reservado;
+	}
+	
+	public void setReservado(String tf)
+	{
+		if(tf.equals(true)) reservado = true;
+		else if(tf.equals(false)) reservado = false;
+		
 	}
 }
