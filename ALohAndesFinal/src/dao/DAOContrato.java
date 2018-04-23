@@ -221,7 +221,7 @@ public class DAOContrato
 		ArrayList<Contrato> contrato = new ArrayList<>();
 
 		String sql = String.format("SELECT c.IDCONTRATO, FECHAINICIO, FECHAFIN, IDVIVIENDA FROM %1$s.CONTRATOS c FULL OUTER "
-				+ "JOIN CONTRATOSVIVIENDAS ON c.IDCONTRATO = CONTRATOSAPARTAMENTOS.IDCONTRATO WHERE IDVIVIENDA = %2$d AND (FECHAINICIO BETWEEN %3$d AND %4$d "
+				+ "JOIN CONTRATOSVIVIENDAS ON c.IDCONTRATO = CONTRATOSVIVIENDAS.IDCONTRATO WHERE IDVIVIENDA = %2$d AND (FECHAINICIO BETWEEN %3$d AND %4$d "
 				+ "OR FECHAFIN BETWEEN %5$d AND %6$d",
 				USUARIO, id,fechaInicio, fechaFin,fechaInicio, fechaFin ); 
 
@@ -408,19 +408,19 @@ public class DAOContrato
 		if (tipo.equals(Contrato.APARTAMENTO)) {
 			String idApartamentoS = resultSet.getString("IDAPARTAMENTO");
 			int idApartamento = Integer.parseInt(idApartamentoS);
-			contrato= new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, fechaCreacion, costo, idApartamento);
+			contrato= new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
 		}
 		
 		else if (tipo.equals(Contrato.HABITACION)) {
 			String idHabitacionS = resultSet.getString("IDHABITACION");
 			int idHabitacion = Integer.parseInt(idHabitacionS);
-			contrato= new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, fechaCreacion, costo, idHabitacion);
+			contrato= new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
 		}
 		
 		else if (tipo.equals(Contrato.VIVIENDA)) {
 			String idViviendaS = resultSet.getString("IDVIVIENDA");
 			int idVivienda = Integer.parseInt(idViviendaS);
-			contrato= new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, fechaCreacion, costo, idVivienda);
+			contrato= new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
 		}
 		
 		return contrato;

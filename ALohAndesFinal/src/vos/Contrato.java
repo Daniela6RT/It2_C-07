@@ -55,10 +55,7 @@ public abstract class Contrato
 			@JsonProperty(value="fechaFinal")Date fechaFinal,
 			@JsonProperty(value="idCliente") String idCliente,
 			@JsonProperty(value="idProveedor") String idProveedor,
-			@JsonProperty(value="fechaCreacion")Date fechaCreacion,
-			@JsonProperty(value="costo")int costo,
-			@JsonProperty(value="tipo")String tipo,
-			@JsonProperty(value="idTipo")int idTipo
+			@JsonProperty(value="estado") String estado
 			) {
 		super();
 		this.id = id;
@@ -66,10 +63,7 @@ public abstract class Contrato
 		this.fechaFinal = fechaFinal;
 		this.idCliente = idCliente;
 		this.idProveedor = idProveedor;
-		this.fechaCreacion = fechaCreacion;
-		this.costo = costo;
-		this.tipo = tipo;
-		this.idTipo = idTipo;
+		this.estado = estado;
 		
 	}
 

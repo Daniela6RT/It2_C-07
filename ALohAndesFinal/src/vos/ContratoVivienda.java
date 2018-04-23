@@ -10,8 +10,9 @@ public class ContratoVivienda extends Contrato {
 	int idVivienda;
 	
 	public ContratoVivienda(int id, Date fechaInicio, Date fechaFinal, String idCliente, String idProveedor,
-			Date fechaCreacion, int costo, int idVivienda) {
-		super(id, fechaInicio, fechaFinal, idCliente, idProveedor, fechaCreacion, costo, idProveedor, idVivienda);
+			String estado) {
+		super(id, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
+		
 		idVivienda = this.idVivienda;
 	}
 
