@@ -94,7 +94,7 @@ public class DAOHabitacion
 	 */
 	public void addHabitacion(Habitacion habitacion) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.HABITACIONES (IDHABITACION, TIPO, PRECIOBASE, COMPARTIDA,HORAAPERTURA,MINAPERTURA,HORACIERRE,MINCIERRE,TAMAÑO,CAPACIDAD,IDPROVEEDOR) VALUES (%2$s, '%3$s', '%4$s', '%5$s','%6$s',%7$s','%8$s','%9$s','%10$s','%11$s','%12$s')", 
+		String sql = String.format("INSERT INTO %1$s.HABITACIONES (IDHABITACION, TIPO, PRECIOBASE, COMPARTIDA,HORAAPERTURA,MINAPERTURA,HORACIERRE,MINCIERRE,TAMAÑO,CAPACIDAD,IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s','%6$s',%7$s','%8$s','%9$s','%10$s','%11$s','%12$s','%13$s')", 
 									USUARIO, 
 									habitacion.getIdHabitacion(), 
 									habitacion.getTipo(),
@@ -106,7 +106,8 @@ public class DAOHabitacion
 									habitacion.getMinCierre(),
 									habitacion.getTamanio(),
 									habitacion.getCapacidad(),
-									habitacion.getIdProveedor());
+									habitacion.getIdProveedor(),
+									habitacion.getEstado());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

@@ -93,13 +93,14 @@ public class DAOVivienda
 	 */
 	public void addVivienda(Vivienda vivienda) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.VIVIENDAS (IDVIVIENDA, HABITACIONES, PRECIOBASE, UBICACION,IDPROVEEDOR) VALUES (%2$s, '%3$s', '%4$s', '%5$s','%6$s')", 
+		String sql = String.format("INSERT INTO %1$s.VIVIENDAS (IDVIVIENDA, HABITACIONES, PRECIOBASE, UBICACION,IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s','%6$s','%7$s')", 
 									USUARIO, 
 									vivienda.getIdVivienda(), 
 									vivienda.getHabitaciones(),
 									vivienda.getPrecioBase(), 
 									vivienda.getUbicacion(),
-									vivienda.getIdProveedor());
+									vivienda.getIdProveedor(),
+									vivienda.getEstado());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

@@ -94,13 +94,14 @@ public class DAOApartamento
 	 */
 	public void addApartamento(Apartamento apartamento) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.APARTAMENTO (IDAPARTAMENTO, AMOBLADO, HABITACIONES, PRECIOBASE,IDPROVEEDOR) VALUES (%2$s, '%3$s', '%4$s', '%5$s','%6$s')", 
+		String sql = String.format("INSERT INTO %1$s.APARTAMENTO (IDAPARTAMENTO, AMOBLADO, HABITACIONES, PRECIOBASE,IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s','%6$s','%7$s')", 
 									USUARIO, 
 									apartamento.getidApartamento(), 
 									apartamento.getAmoblado(),
 									apartamento.getHabitaciones(), 
 									apartamento.getPrecioBase(),
-									apartamento.getIdProveedor());
+									apartamento.getIdProveedor(),
+									apartamento.getEstado());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

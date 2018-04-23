@@ -35,9 +35,10 @@ public class Apartamento {
 	private int idProveedor;
 	
 	/**
-	 * Atributo que define si se encuentra reservado
+	 * Atributo que define si se encuentra disponible
 	 */
-	private boolean reservado;
+	@JsonProperty (value = "estado")
+	private String estado;
 	
 
 	/**
@@ -56,6 +57,7 @@ public class Apartamento {
 		this.precioBase = pPrecioBase;
 		this.habitaciones = pHabitaciones;
 		this.idProveedor = pIdProveedor;
+		this.estado = "Disponible";
 	}
 
 	public int getidApartamento()
@@ -101,15 +103,14 @@ public class Apartamento {
 	{
 		idProveedor = pIdProveedor;
 	}
-	public boolean getReservado()
+	public String getEstado()
 	{
-		return reservado;
+		return estado;
 	}
 	
-	public void setReservado(String tf)
+	public void setEstado(String pEstado)
 	{
-		if(tf.equals(true)) reservado = true;
-		else if(tf.equals(false)) reservado = false;
 		
+		estado = pEstado;
 	}
 }

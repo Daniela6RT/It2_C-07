@@ -54,10 +54,10 @@ public class Habitacion
 	private int idProveedor;
 
 	/**
-	 * Atributo que define si se encuentra reservado
+	 * Atributo que define si se encuentra disponible
 	 */
-	private boolean reservado;
-		
+	@JsonProperty (value = "estado")
+	private String estado;
 	
 	/**
 	 * Metodo constructor de la habitacion
@@ -87,6 +87,7 @@ public class Habitacion
 		this.tamanio=pTamanio;
 		this.capacidad =pCapacidad;
 		this.idProveedor = pIdProveedor;
+		this.estado = "Disponible";
 	}
 
 	public int getIdHabitacion()
@@ -186,15 +187,14 @@ public class Habitacion
 	{
 		idProveedor = pIdProveedor;
 	}
-	public boolean getReservado()
+	public String getEstado()
 	{
-		return reservado;
+		return estado;
 	}
 	
-	public void setReservado(String tf)
+	public void setEstado(String pEstado)
 	{
-		if(tf.equals(true)) reservado = true;
-		else if(tf.equals(false)) reservado = false;
 		
+		estado = pEstado;
 	}
 }

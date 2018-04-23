@@ -2786,15 +2786,15 @@ public class AlohaAndesTransactionManager
 		
 		if(tipoAlojamiento.equals("Apartamento"))
 		{
-			 reserva = new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso");
+			 reserva = new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
 		}
 		else if(tipoAlojamiento.equals("Vivienda")) 
 		{
-			 reserva = new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso");
+			 reserva = new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
 		}
 		else if(tipoAlojamiento.equals("Habitacion"))
 		{
-			 reserva = new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso");
+			 reserva = new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
 		}
 		
 		addContrato(reserva);
