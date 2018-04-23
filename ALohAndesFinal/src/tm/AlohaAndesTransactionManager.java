@@ -1678,14 +1678,14 @@ public class AlohaAndesTransactionManager
 			else if(contrato.getTipo().equals(Contrato.APARTAMENTO))
 			{
 				if(duracionContratoEnDias>=30){
-					daoContrato.addContratoApartamento((ContratoApartamento) contrato);
+					daoContrato.addContratoApartamentoContratos((ContratoApartamento) contrato);
 				}
 			}
 
 			else if(contrato.getTipo().equals(Contrato.VIVIENDA))
 			{
 				if(duracionContratoEnDias>=30){
-					daoContrato.addContratoVivienda((ContratoVivienda) contrato);
+					daoContrato.addContratoViviendaContratos((ContratoVivienda) contrato);
 				}
 			}
 

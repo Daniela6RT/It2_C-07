@@ -60,7 +60,7 @@ public class DAOContrato
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void addContratoApartamento(ContratoApartamento contrato) throws SQLException, Exception {
+	public void addContratoApartamentoContratos(ContratoApartamento contrato) throws SQLException, Exception {
 
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
@@ -81,6 +81,8 @@ public class DAOContrato
 		PreparedStatement prepStmt6 = conn.prepareStatement(sql);
 		recursos.add(prepStmt6);
 		prepStmt6.executeQuery();
+		
+		
 	}
 
 
@@ -91,7 +93,7 @@ public class DAOContrato
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void addContratoVivienda(ContratoVivienda contrato) throws SQLException, Exception {
+	public void addContratoViviendaContratos(ContratoVivienda contrato) throws SQLException, Exception {
 
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
