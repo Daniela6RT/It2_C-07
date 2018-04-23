@@ -2799,5 +2799,18 @@ public class AlohaAndesTransactionManager
 		
 		addContrato(reserva);
 	}
+	public void cancelarReserva(Integer idContrato) throws SQLException, Exception 
+	{
+		DAOContrato daoContrato = new DAOContrato( );
+		
+			
+			this.conn = darConexion();
+			daoContrato.setConn( conn );
+			Contrato contrato = null;
+			contrato = daoContrato.findContratoById(idContrato);
+			contrato.setCancelado();
+			
+			updateContrato(contrato);
+	}
 
 }

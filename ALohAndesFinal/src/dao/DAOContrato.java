@@ -383,9 +383,9 @@ public class DAOContrato
 		fechaFinal.setMonth(Integer.parseInt(diasFin[1]));
 		fechaFinal.setDate(Integer.parseInt(diasFin[2]));
 
-		String idCliente = resultSet.getString("IDCLIENTE");
+		Integer idCliente = resultSet.getInt("IDCLIENTE");
 
-		String idProveedor = resultSet.getString("IDPROVEEDOR");
+		Integer idProveedor = resultSet.getInt("IDPROVEEDOR");
 
 		
 		String arrFechaCreacion = resultSet.getString("FECHACREACION");
@@ -407,19 +407,19 @@ public class DAOContrato
 		
 		if (tipo.equals(Contrato.APARTAMENTO)) {
 			String idApartamentoS = resultSet.getString("IDAPARTAMENTO");
-			int idApartamento = Integer.parseInt(idApartamentoS);
+			Integer idApartamento = Integer.parseInt(idApartamentoS);
 			contrato= new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
 		}
 		
 		else if (tipo.equals(Contrato.HABITACION)) {
 			String idHabitacionS = resultSet.getString("IDHABITACION");
-			int idHabitacion = Integer.parseInt(idHabitacionS);
+			Integer idHabitacion = Integer.parseInt(idHabitacionS);
 			contrato= new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
 		}
 		
 		else if (tipo.equals(Contrato.VIVIENDA)) {
 			String idViviendaS = resultSet.getString("IDVIVIENDA");
-			int idVivienda = Integer.parseInt(idViviendaS);
+			Integer idVivienda = Integer.parseInt(idViviendaS);
 			contrato= new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
 		}
 		
