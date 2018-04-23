@@ -31,6 +31,7 @@ IdApartamento INTEGER primary key,
  Amoblado char (2) check (Amoblado IN('Y','N')),
 PrecioBase INTEGER not null,
 idProveedor INTEGER not null,
+Estado VARCHAR(20) CHECK(Estado IN('Disponible', 'No disponible')),
 FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
 
 );
@@ -43,6 +44,7 @@ Habitaciones INTEGER not null,
 PrecioBase INTEGER not null,
 Ubicacion VARCHAR(160) not null,
 idProveedor INTEGER not null,
+Estado VARCHAR(20) CHECK(Estado IN('Disponible', 'No disponible')),
 FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
 
 );
@@ -61,6 +63,7 @@ MinCierre VARCHAR(10),
 Tamaño Integer not null,
 Capacidad Integer not null,
 idProveedor INTEGER not null,
+Estado VARCHAR(20) CHECK(Estado IN('Disponible', 'No disponible')),
 FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id),
 CONSTRAINT checkCompartida check (Compartida IN('Y','N'))
 
