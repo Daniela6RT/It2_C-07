@@ -53,7 +53,7 @@ CREATE TABLE Habitaciones
 IdHabitacion INTEGER primary key,
 Tipo Varchar (25) not null,
 PrecioBase INTEGER not null,
-Compartida char (2) check (Compartida IN('Y','N'))not null,
+Compartida char (2) not null,
 HoraApertura VARCHAR(10),
 MinApertura VARCHAR(10),
 HoraCierre VARCHAR(10),
@@ -61,7 +61,8 @@ MinCierre VARCHAR(10),
 Tamaño Integer not null,
 Capacidad Integer not null,
 idProveedor INTEGER not null,
-FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
+FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id),
+CONSTRAINT checkCompartida check (Compartida IN('Y','N'))
 
 );
 
@@ -91,7 +92,8 @@ IdCliente INTEGER not null,
 idProveedor INTEGER not null,
 FOREIGN KEY (idCliente) REFERENCES Cliente(IdCliente),
 FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento(id),
-Estado varchar(20)
+Estado varchar(20) 
+constraint checkEstado check(Estado IN('En curso','Final', 'Exitoso'))
 );
 
 CREATE TABLE Servicios

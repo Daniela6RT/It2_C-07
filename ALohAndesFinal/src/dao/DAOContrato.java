@@ -254,6 +254,29 @@ public class DAOContrato
 
 		return contrato;
 	}
+	
+	public ArrayList<String> get20OfertasPopulares() throws SQLException, Exception
+	{
+		ArrayList<String> ofertas = new ArrayList<>();
+		
+		String sql = String.format("(select count(idcontrato) as cantidadpedidas, idapartamento as idalojamiento,tipoalojamiento from CONTRATOSAPARTAMENTOS\n" + 
+				"group by idapartamento,tipoalojamiento) union all ( (select count(idcontrato) as cantidadpedidas, idhabitacion as idalojamiento,tipoalojamiento\n" + 
+				"from %1$s.CONTRATOSHABITACIONES group by idhabitacion,tipoalojamiento) union all (select count(idcontrato) as cantidadpedidas, idvivienda as idalojamiento, tipoalojamiento\n" + 
+				"from CONTRATOSviviendas group by idvivienda, tipoalojamiento) ) order by cantidadpedidas DESC;", USUARIO);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		while(rs.next())
+		{
+			String añadir ="";
+			
+			ofertas.add(añadir);
+		}
+
+		return ofertas;
+	}
+	
 	/**
 	 * Metodo que actualiza la informacion del contrato en la Base de Datos que tiene el identificador dado por parametro<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
