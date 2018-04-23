@@ -71,7 +71,7 @@ public class DAOVivienda
 	{
 		Vivienda vivienda = null;
 
-		String sql = String.format("SELECT * FROM %1$s.VIVIENDAS WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.VIVIENDAS WHERE IDVIVIENDA = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -93,12 +93,12 @@ public class DAOVivienda
 	 */
 	public void addVivienda(Vivienda vivienda) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.BEBEDORES (ID, UBICACION, PRECIOBASE, HABITACIONES,IDPROVEEDOR) VALUES (%2$s, '%3$s', '%4$s', '%5$s','%6$s')", 
+		String sql = String.format("INSERT INTO %1$s.VIVIENDAS (IDVIVIENDA, HABITACIONES, PRECIOBASE, UBICACION,IDPROVEEDOR) VALUES (%2$s, '%3$s', '%4$s', '%5$s','%6$s')", 
 									USUARIO, 
 									vivienda.getIdVivienda(), 
-									vivienda.getUbicacion(),
-									vivienda.getPrecioBase(), 
 									vivienda.getHabitaciones(),
+									vivienda.getPrecioBase(), 
+									vivienda.getUbicacion(),
 									vivienda.getIdProveedor());
 		System.out.println(sql);
 
@@ -123,7 +123,7 @@ public class DAOVivienda
 				"SET UBICACION = '%1$s', PRECIOBASE = '%2$s', HABITACIONES = '%3$s' ,IDPROVEEDOR = '%4$s'",
 				vivienda.getUbicacion (), vivienda.getPrecioBase (),
 				vivienda.getHabitaciones (),vivienda.getIdProveedor()));
-		sql.append ("WHERE ID = " + vivienda.getIdVivienda ());
+		sql.append ("WHERE IDVIVIENDA = " + vivienda.getIdVivienda ());
 		System.out.println(sql);
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
@@ -140,7 +140,7 @@ public class DAOVivienda
 	 */
 	public void deleteVivienda(Vivienda vivienda) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.VIVIENDA WHERE ID = %2$d", USUARIO, vivienda.getIdVivienda());
+		String sql = String.format("DELETE FROM %1$s.VIVIENDAS WHERE IDVIVIENDA = %2$d", USUARIO, vivienda.getIdVivienda());
 
 		System.out.println(sql);
 		

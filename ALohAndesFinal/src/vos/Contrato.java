@@ -163,7 +163,10 @@ public abstract class Contrato
 		this.idTipo= idTipo;
 	}
 
-
+	public String getEstado()
+	{
+		return estado;
+	}
 
 }
 

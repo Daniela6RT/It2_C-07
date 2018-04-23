@@ -65,7 +65,7 @@ public class DAOContrato
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
 		numContratos++;
-		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFIN, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDAPARTAMENTO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s' )", 
+		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFIN, IDCLIENTE, IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -73,10 +73,7 @@ public class DAOContrato
 				contrato.getFechaFinal(), 
 				contrato.getIdCliente(),
 				contrato.getIdProveedor(),
-				contrato.getFechaCreacion(),
-				contrato.getCosto(),
-				contrato.getTipo(),
-				contrato.getIdApartamento()
+				contrato.getEstado()
 				);
 
 		System.out.println(sql);
@@ -107,10 +104,7 @@ public class DAOContrato
 				contrato.getFechaFinal(), 
 				contrato.getIdCliente(),
 				contrato.getIdProveedor(),
-				contrato.getFechaCreacion(),
-				contrato.getCosto(),
-				contrato.getTipo(),
-				contrato.getIdVivienda()
+				contrato.getEstado()
 				);
 
 		System.out.println(sql);
@@ -140,10 +134,7 @@ public class DAOContrato
 				contrato.getFechaFinal(), 
 				contrato.getIdCliente(),
 				contrato.getIdProveedor(),
-				contrato.getFechaCreacion(),
-				contrato.getCosto(),
-				contrato.getTipo(),
-				contrato.getIdHabitacion()
+				contrato.getEstado()
 				);
 
 		System.out.println(sql);

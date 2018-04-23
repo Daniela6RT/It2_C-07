@@ -1895,7 +1895,7 @@ public class AlohaAndesTransactionManager
 			}
 			else
 			{
-				if()
+			//	if()
 				daoContrato.cancelarContrato(contrato);
 			}
 		}

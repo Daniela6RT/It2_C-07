@@ -63,14 +63,13 @@ public class DAOServicio
 
 		numeroSeguros++;
 
-		String sql = String.format("INSERT INTO %1$s.SERVICIO (ID, NOMBRE, DESCRIPCION, PRECIO, IDCONTRATO, IDVIVIENDA) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+		String sql = String.format("INSERT INTO %1$s.SERVICIOS (IDSERVICIO, NOMBRE, DESCRIPCION, PRECIO) VALUES (%2$s, '%3$s', '%4$s', '%5$s')", 
 				USUARIO,  
 				servicio.getId(),
 				servicio.getNombre(),
 				servicio.getDescripcion(),
-				servicio.getPrecio(),
-				servicio.getIdContrato(),
-				servicio.getIdVivienda()
+				servicio.getPrecio()
+	
 				);
 
 		System.out.println(sql);
@@ -93,7 +92,7 @@ public class DAOServicio
 	{
 		Servicio servicio = null;
 
-		String sql = String.format("SELECT * FROM %1$s.SERVICIOS WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.SERVICIOS WHERE IDSERVICIO = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -153,20 +152,15 @@ public class DAOServicio
 		String precioS = resultSet.getString("PRECIO");
 		int precio = Integer.parseInt(precioS);
 
-		String idContratoS = resultSet.getString("IDCONTRATO");
-		int idContrato = Integer.parseInt(idContratoS);
 
-		String idViviendaS = resultSet.getString("IDVIVIENDA");
-		int idVivienda = Integer.parseInt(idViviendaS);
-
-		Servicio service = new Servicio(id, nombre, descripcion, precio, idContrato, idVivienda);
+		Servicio service = new Servicio(id, nombre, descripcion, precio);
 
 		return service;
 	}
 	
 	public void deleteServicio(Servicio servicio) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.MENAJE WHERE ID = %2$d", USUARIO, servicio.getId());
+		String sql = String.format("DELETE FROM %1$s.SERVICIOS WHERE IDSERVICIO = %2$d", USUARIO, servicio.getId());
 
 		System.out.println(sql);
 
@@ -179,7 +173,7 @@ public class DAOServicio
 	{
 		ArrayList<Servicio> Servicio = new ArrayList<>();
 
-		String sql = String.format("SELECT * FROM %1$s.CONTRATOS ) ", USUARIO ); 
+		String sql = String.format("SELECT * FROM %1$s.SERVICIOS ) ", USUARIO ); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

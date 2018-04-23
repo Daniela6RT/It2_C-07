@@ -18,21 +18,13 @@ public class Servicio
 	@JsonProperty(value="precio")
 	private int precio;
 	
-	@JsonProperty(value="idContrato")
-	private int idContrato;
-	
-	@JsonProperty(value="idVivienda")
-	private int idVivienda;
-	
 	
 	
 	public Servicio(
 			@JsonProperty(value="id")int id, 
 			@JsonProperty(value="nombre")String nombre, 
 			@JsonProperty(value="descripcion")String descripcion,
-			@JsonProperty(value="precio")int precio,
-			@JsonProperty(value="idContrato")int idContrato,
-			@JsonProperty(value="idVivienda")int idVivienda
+			@JsonProperty(value="precio")int precio
 			) {
 		super();
 		this.id = id;
@@ -70,22 +62,6 @@ public class Servicio
 
 	public void setPrecio(int precio) {
 		this.precio = precio;
-	}
-	
-	public int getIdContrato() {
-		return idContrato;
-	}
-	
-	public void setIdContrato(int idContrato) {
-		this.idContrato = idContrato;
-	}	
-	
-	public int getIdVivienda() {
-		return idVivienda;
-	}
-	
-	public void setIdVivienda(int idVivienda) {
-		this.idVivienda = idVivienda;
 	}
 
 	

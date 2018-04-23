@@ -20,7 +20,7 @@ public class DAOMenaje
 	/**
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
-	//Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
+	//Requerimiento 1H: Modifique la constante, reemplazando al ususario  por su ususario de Oracle
 	public final static String USUARIO = "ISIS2304A961810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ public class DAOMenaje
 	public void addMenaje(Menaje menaje) throws SQLException, Exception {
 
 
-		String sql = String.format("INSERT INTO %1$s.MENAJE (ID, NOMBRE, DESCRIPCION, IDVIVIENDA) VALUES (%2$s, '%3$s', '%4$s', '%5$s')", 
+		String sql = String.format("INSERT INTO %1$s.MENAJE (IDMENAJE, NOMBRE, DESCRIPCION, IDVIVIENDA) VALUES (%2$s, '%3$s', '%4$s', '%5$s')", 
 				USUARIO,  
 				menaje.getId(), 
 				menaje.getNombre(),
@@ -91,7 +91,7 @@ public class DAOMenaje
 	{
 		Menaje menaje = null;
 
-		String sql = String.format("SELECT * FROM %1$s.MENAJE WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.MENAJE WHERE IDMENAJE = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

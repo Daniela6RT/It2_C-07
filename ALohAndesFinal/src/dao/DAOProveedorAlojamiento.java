@@ -97,7 +97,7 @@ public class DAOProveedorAlojamiento
 	 */
 	public void addProveedorAlojamiento(ProveedorAlojamiento ProveedorAlojamiento) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.PROVEEDORALOJAMIENTO (ID, NOMBRE, TIPOPROVEEDORALOJAMIENTO) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT INTO %1$s.PROVEEDORALOJAMIENTO (ID, NOMBRE, TIPO) VALUES (%2$s, '%3$s', '%4$s')", 
 									USUARIO, 
 									ProveedorAlojamiento.getIdProveedor(), 
 									ProveedorAlojamiento.getNombre(),
@@ -122,7 +122,7 @@ public class DAOProveedorAlojamiento
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.PROVEEDORALOJAMIENTO ", USUARIO));
 		sql.append (String.format (
-				"SET NOMBRE = '%1$s', TIPOPROVEEDORALOJAMIENTO = '%2$s'",
+				"SET NOMBRE = '%1$s', TIPO = '%2$s'",
 				ProveedorAlojamiento.getNombre(),
 				ProveedorAlojamiento.getTipoProveedorAlojamiento()));
 		sql.append ("WHERE ID = " + ProveedorAlojamiento.getIdProveedor ());

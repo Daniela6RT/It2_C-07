@@ -72,7 +72,7 @@ public class DAOHabitacion
 	{
 		Habitacion habitacion = null;
 
-		String sql = String.format("SELECT * FROM %1$s.HABITACION WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.HABITACIONES WHERE IDHABITACION = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -94,7 +94,7 @@ public class DAOHabitacion
 	 */
 	public void addHabitacion(Habitacion habitacion) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.HABITACIONES (IDHABITACION, TIPO, PRECIOBASE, COMPARTIDA,HORAAPERTURA,MINAPERTURA,HORACIERRE,MINCIERRE,TAMANIO,CAPACIDAD,IDPROVEEDOR) VALUES (%2$s, '%3$s', '%4$s', '%5$s','%6$s',%7$s','%8$s','%9$s','%10$s','%11$s','%12$s')", 
+		String sql = String.format("INSERT INTO %1$s.HABITACIONES (IDHABITACION, TIPO, PRECIOBASE, COMPARTIDA,HORAAPERTURA,MINAPERTURA,HORACIERRE,MINCIERRE,TAMAÑO,CAPACIDAD,IDPROVEEDOR) VALUES (%2$s, '%3$s', '%4$s', '%5$s','%6$s',%7$s','%8$s','%9$s','%10$s','%11$s','%12$s')", 
 									USUARIO, 
 									habitacion.getIdHabitacion(), 
 									habitacion.getTipo(),
