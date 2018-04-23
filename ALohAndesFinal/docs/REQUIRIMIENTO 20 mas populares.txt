@@ -1,0 +1,19 @@
+
+
+
+(select count(idcontrato) as cantidadpedidas, idapartamento as idalojamiento,tipoalojamiento
+from CONTRATOSAPARTAMENTOS
+group by idapartamento,tipoalojamiento)
+union all
+(
+(select count(idcontrato) as cantidadpedidas, idhabitacion as idalojamiento,tipoalojamiento
+from CONTRATOSHABITACIONES
+group by idhabitacion,tipoalojamiento)
+
+union all
+(select count(idcontrato) as cantidadpedidas, idvivienda as idalojamiento, tipoalojamiento
+from CONTRATOSviviendas
+group by idvivienda, tipoalojamiento)
+)
+order by cantidadpedidas DESC
+;

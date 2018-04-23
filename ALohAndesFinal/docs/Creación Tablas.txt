@@ -32,6 +32,7 @@ IdApartamento INTEGER primary key,
 PrecioBase INTEGER not null,
 idProveedor INTEGER not null,
 FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
+
 );
 
 
@@ -43,6 +44,7 @@ PrecioBase INTEGER not null,
 Ubicacion VARCHAR(160) not null,
 idProveedor INTEGER not null,
 FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
+
 );
 
 
@@ -60,6 +62,7 @@ Tamaño Integer not null,
 Capacidad Integer not null,
 idProveedor INTEGER not null,
 FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
+
 );
 
 CREATE TABLE Seguros
@@ -114,7 +117,8 @@ CREATE TABLE ContratosApartamentos
 IdContrato INTEGER not null,
 IdApartamento INTEGER not null,
 FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
-FOREIGN KEY (idApartamento) REFERENCES Apartamentos(idApartamento)
+FOREIGN KEY (idApartamento) REFERENCES Apartamentos(idApartamento),
+TIPOALOJAMIENTO VARCHAR(20) not null
 );
 
 
@@ -123,7 +127,8 @@ CREATE TABLE ContratosViviendas
 IdContrato INTEGER not null,
 IdVivienda INTEGER not null,
 FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
-FOREIGN KEY (IdVivienda) REFERENCES Viviendas(IdVivienda)
+FOREIGN KEY (IdVivienda) REFERENCES Viviendas(IdVivienda),
+TIPOALOJAMIENTO VARCHAR(20) not null
 );
 
 CREATE TABLE ContratosHabitaciones
@@ -131,7 +136,8 @@ CREATE TABLE ContratosHabitaciones
 IdContrato INTEGER not null,
 IdHabitacion INTEGER not null,
 FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
-FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion)
+FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
+TIPOALOJAMIENTO VARCHAR(20) not null
 );
 
 CREATE TABLE TipoAlojamiento
