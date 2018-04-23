@@ -84,6 +84,32 @@ public class DAOContrato
 		
 		
 	}
+	
+	/**
+	 * Metodo que agregar la informacion de un nuevo operador en la Base de Datos a partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
+	 * @param bebedor Bebedor que desea agregar a la Base de Datos
+	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public void addContratoApartamento(ContratoApartamento contrato) throws SQLException, Exception {
+
+		String apartamento="Apartamento";
+		String sql = String.format("INSERT INTO %1$s.CONTRATOSAPARTAMENTOS (IDCONTRATO, IDAPARTAMENTO,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
+				USUARIO,  
+
+				contrato.getId(),
+				contrato.getIdApartamento(),
+				apartamento
+				);
+
+		System.out.println(sql);
+
+		PreparedStatement prepStmt6 = conn.prepareStatement(sql);
+		recursos.add(prepStmt6);
+		prepStmt6.executeQuery();
+	}
+	
 
 
 	/**
@@ -98,7 +124,7 @@ public class DAOContrato
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
 		numContratos++;
-		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDVIVIENDA) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
+		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -125,16 +151,13 @@ public class DAOContrato
 	 */
 	public void addContratoVivienda(ContratoVivienda contrato) throws SQLException, Exception {
 
-
-		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDVIVIENDA) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
+		String vivienda="Vivienda";
+		String sql = String.format("INSERT INTO %1$s.CONTRATOSVIVIENDAS (IDCONTRATO, IDVIVIENDA,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
 				USUARIO,  
 
 				contrato.getId(),
-				contrato.getFechaInicio(),
-				contrato.getFechaFinal(), 
-				contrato.getIdCliente(),
-				contrato.getIdProveedor(),
-				contrato.getEstado()
+				contrato.getIdVivienda(),
+				vivienda
 				);
 
 		System.out.println(sql);
@@ -151,7 +174,7 @@ public class DAOContrato
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void addContratoHabitacion(ContratoHabitacion contrato) throws SQLException, Exception {
+	public void addContratoHabitacionContratos(ContratoHabitacion contrato) throws SQLException, Exception {
 
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
@@ -174,6 +197,33 @@ public class DAOContrato
 		prepStmt6.executeQuery();
 	}
 
+	/**
+	 * Metodo que agregar la informacion de un nuevo operador en la Base de Datos a partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
+	 * @param bebedor Bebedor que desea agregar a la Base de Datos
+	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public void addContratoHabitacion(ContratoHabitacion contrato) throws SQLException, Exception {
+
+		String habitacion="Habitacion";
+		String sql = String.format("INSERT INTO %1$s.CONTRATOSHABITACIONES (IDCONTRATO, IDHABITACION,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
+				USUARIO,  
+
+				contrato.getId(),
+				contrato.getIdHabitacion(),
+				habitacion
+				);
+
+		System.out.println(sql);
+
+		PreparedStatement prepStmt6 = conn.prepareStatement(sql);
+		recursos.add(prepStmt6);
+		prepStmt6.executeQuery();
+	}
+	
+	
+	
 	public int darUsoEnEsteAno(Contrato contrato) throws SQLException
 	{
 		Date hoy= new Date();
