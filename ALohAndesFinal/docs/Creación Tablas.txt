@@ -133,3 +133,9 @@ IdHabitacion INTEGER not null,
 FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
 FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion)
 );
+
+CREATE TABLE TipoAlojamiento
+(
+NOMBREDEALOJAMIENTO VARCHAR(20),
+TIPOALOJAMIENTO INTEGER PRIMARY KEY 
+);
