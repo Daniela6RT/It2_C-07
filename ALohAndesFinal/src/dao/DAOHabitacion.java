@@ -15,7 +15,7 @@ public class DAOHabitacion
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	
-	public final static String USUARIO = "jscabra";
+	public final static String USUARIO = "ISIS2304A961810";
 	
 
 	/**

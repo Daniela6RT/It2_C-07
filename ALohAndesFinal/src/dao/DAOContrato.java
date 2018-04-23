@@ -96,7 +96,7 @@ public class DAOContrato
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
 		numContratos++;
-		String sql = String.format("INSERT INTO %1$s.CONTRATO (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDVIVIENDA) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
+		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDVIVIENDA) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -126,7 +126,7 @@ public class DAOContrato
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
 		numContratos++;
-		String sql = String.format("INSERT INTO %1$s.CONTRATO (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDHABITACION) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
+		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDHABITACION) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -177,7 +177,7 @@ public class DAOContrato
 	{
 		ArrayList<Contrato> contrato = new ArrayList<>();
 
-		String sql = String.format("SELECT * FROM %1$s.CONTRATO WHERE ID_HABITACION = %2$d AND (FECHAINICIO BETWEEN %3$d AND %4$d OR FECHAFIN BETWEEN %3$d AND %4$d  ) ", USUARIO, id,fechaInicio, fechaFin ); 
+		String sql = String.format("SELECT * FROM %1$s.CONTRATOSHABITACIONES WHERE IDHABITACION = %2$d AND (FECHAINICIO BETWEEN %3$d AND %4$d OR FECHAFIN BETWEEN %3$d AND %4$d  ) ", USUARIO, id,fechaInicio, fechaFin ); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -195,7 +195,7 @@ public class DAOContrato
 	{
 		ArrayList<Contrato> contrato = new ArrayList<>();
 
-		String sql = String.format("SELECT * FROM %1$s.CONTRATO WHERE ID_CLIENTE = %2$d ; ", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.CONTRATOS WHERE IDCLIENTE = %2$d ; ", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -217,7 +217,7 @@ public class DAOContrato
 	 */
 	public void deleteContrato(Contrato contrato) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.CONTRATOS WHERE ID = %2$d", USUARIO, contrato.getId());
+		String sql = String.format("DELETE FROM %1$s.CONTRATOS WHERE IDCONTRATO = %2$d", USUARIO, contrato.getId());
 
 		System.out.println(sql);
 
@@ -246,7 +246,7 @@ public class DAOContrato
 	public void updateContrato(Contrato contrato) throws SQLException, Exception {
 
 		StringBuilder sql = new StringBuilder();
-		sql.append(String.format("UPDATE %s.CONTRATO SET ", USUARIO));
+		sql.append(String.format("UPDATE %s.CONTRATOS SET ", USUARIO));
 		sql.append(String.format("COSTO = '%1$s' AND FECHAFIN = '%2$s' AND FECHAINICIO = '%3$s' ", contrato.getCosto(), contrato.getFechaFinal(), contrato.getFechaInicio()));
 
 		System.out.println(sql);
@@ -268,7 +268,7 @@ public class DAOContrato
 	{
 		Contrato contrato = null;
 
-		String sql = String.format("SELECT * FROM %1$s.CONTRATO WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.CONTRATOS WHERE IDCONTRATO = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
