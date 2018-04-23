@@ -10,7 +10,7 @@ public class ContratoApartamento extends Contrato {
 	Integer idApartamento;
 	
 	public ContratoApartamento(Integer id, Date fechaInicio, Date fechaFinal, Integer idCliente, Integer idProveedor,
-			String estado) {
+			String estado, Integer idApartamento) {
 		super(id, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
 		
 		idApartamento = this.idApartamento;
