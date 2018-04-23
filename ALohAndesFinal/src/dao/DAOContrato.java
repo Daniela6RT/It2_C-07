@@ -33,7 +33,7 @@ public class DAOContrato
 	 */
 	private Connection conn;
 
-	private int numContratos;
+	private Integer numContratos;
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS DE INICIALIZACION
@@ -65,7 +65,7 @@ public class DAOContrato
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
 		numContratos++;
-		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFIN, IDCLIENTE, IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+		String sql = String.format("INSERT IntegerO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFIN, IDCLIENTE, IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -95,7 +95,7 @@ public class DAOContrato
 	public void addContratoApartamento(ContratoApartamento contrato) throws SQLException, Exception {
 
 		String apartamento="Apartamento";
-		String sql = String.format("INSERT INTO %1$s.CONTRATOSAPARTAMENTOS (IDCONTRATO, IDAPARTAMENTO,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT IntegerO %1$s.CONTRATOSAPARTAMENTOS (IDCONTRATO, IDAPARTAMENTO,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -124,7 +124,7 @@ public class DAOContrato
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
 		numContratos++;
-		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+		String sql = String.format("INSERT IntegerO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -152,7 +152,7 @@ public class DAOContrato
 	public void addContratoVivienda(ContratoVivienda contrato) throws SQLException, Exception {
 
 		String vivienda="Vivienda";
-		String sql = String.format("INSERT INTO %1$s.CONTRATOSVIVIENDAS (IDCONTRATO, IDVIVIENDA,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT IntegerO %1$s.CONTRATOSVIVIENDAS (IDCONTRATO, IDVIVIENDA,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -179,7 +179,7 @@ public class DAOContrato
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
 		numContratos++;
-		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDHABITACION) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
+		String sql = String.format("INSERT IntegerO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDHABITACION) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -207,7 +207,7 @@ public class DAOContrato
 	public void addContratoHabitacion(ContratoHabitacion contrato) throws SQLException, Exception {
 
 		String habitacion="Habitacion";
-		String sql = String.format("INSERT INTO %1$s.CONTRATOSHABITACIONES (IDCONTRATO, IDHABITACION,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT IntegerO %1$s.CONTRATOSHABITACIONES (IDCONTRATO, IDHABITACION,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -224,7 +224,7 @@ public class DAOContrato
 	
 	
 	
-	public int darUsoEnEsteAno(Contrato contrato) throws SQLException
+	public Integer darUsoEnEsteAno(Contrato contrato) throws SQLException
 	{
 		Date hoy= new Date();
 		String fechaAcutual=hoy.getYear()+"";
@@ -413,7 +413,7 @@ public class DAOContrato
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public Contrato findContratoById(int id) throws SQLException, Exception 
+	public Contrato findContratoById(Integer id) throws SQLException, Exception 
 	{
 		Contrato contrato = null;
 
@@ -465,12 +465,11 @@ public class DAOContrato
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public Contrato convertResultSetToContrato(ResultSet resultSet) throws SQLException {
-		//Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Bebedor. 
-		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
+		
 
 		
-		String idContratoS = resultSet.getString("IDCONTRATO");
-		int idContrato = Integer.parseInt(idContratoS);
+		int idContratoS = resultSet.getInt("IDCONTRATO");
+		Integer idContrato = idContratoS;
 
 		String arrFechaInicio = resultSet.getString("FECHAINICIO");
 		String[] diasInicio=arrFechaInicio.split("-");
@@ -500,7 +499,7 @@ public class DAOContrato
 
 		
 		String costoS = resultSet.getString("COSTO");
-		int costo = Integer.parseInt(costoS);
+		Integer costo = Integer.parseInt(costoS);
 
 		
 		String tipo = resultSet.getString("TIPO");
@@ -511,19 +510,19 @@ public class DAOContrato
 		if (tipo.equals(Contrato.APARTAMENTO)) {
 			String idApartamentoS = resultSet.getString("IDAPARTAMENTO");
 			Integer idApartamento = Integer.parseInt(idApartamentoS);
-			contrato= new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
+			contrato= new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado,idApartamento);
 		}
 		
 		else if (tipo.equals(Contrato.HABITACION)) {
 			String idHabitacionS = resultSet.getString("IDHABITACION");
 			Integer idHabitacion = Integer.parseInt(idHabitacionS);
-			contrato= new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
+			contrato= new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado,idHabitacion);
 		}
 		
 		else if (tipo.equals(Contrato.VIVIENDA)) {
 			String idViviendaS = resultSet.getString("IDVIVIENDA");
 			Integer idVivienda = Integer.parseInt(idViviendaS);
-			contrato= new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado);
+			contrato= new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, estado,idVivienda);
 		}
 		
 		return contrato;
