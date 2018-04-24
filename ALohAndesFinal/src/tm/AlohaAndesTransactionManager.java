@@ -2925,14 +2925,18 @@ public class AlohaAndesTransactionManager
 	
 	public void crearReservaColectiva(ArrayList <Integer> idAlojamiento, Date fechaInicio, Date fechaFinal, Integer idCliente, Integer idProveedor, Integer idContrato, String tipoAlojamiento, String servicios, Integer cantidadReserva, Integer idRC) throws Exception
 	{
+		DAOContrato daoContrato = new DAOContrato();
 		for(int i = 0 ; i < cantidadReserva; i++)
 		{
 			crearReserva(idAlojamiento.get(i), fechaInicio, fechaFinal, idCliente, idProveedor, idContrato, tipoAlojamiento, servicios);
 		}
+		daoContrato.crearReservaColectiva(idAlojamiento, idRC, idCliente);
+	
 	}
 	
 	public void cancelarReservaColectiva( Integer idRC, Integer cantidadReserva) throws SQLException, Exception 
 	{
+		DAOContrato daoContrato = new DAOContrato();
 		
 		/////////////ADD////
 		ArrayList<Integer> idContrato= new ArrayList<>();

@@ -456,6 +456,36 @@ public class DAOContrato
 		
 	}
 	
+	
+	public ArrayList<Integer> getContratosReservaColectiva(Integer idRC) throws SQLException
+	{
+		ArrayList<Integer> contratos= new ArrayList<>();
+		
+		String sql= String.format("SELECT CONTRATOS.IDCONTRATO,\r\n" + 
+		"a.IDRESERVACOLECTIVA,\r\n" + 
+		"  IDPROVEEDOR,\r\n" + 
+		"  ESTADO\r\n" + 
+		"FROM ((SELECT *\r\n" + 
+		"       FROM %1$s.RESERVASCOL\r\n" + 
+		"         NATURAL JOIN RESERVACOLECTIVA)) a\r\n" + 
+		"  FULL OUTER JOIN CONTRATOS\r\n" + 
+		"    ON a.IDCONTRATO = CONTRATOS.IDCONTRATO;",USUARIO);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		while(rs.next())
+		{
+			String añadir="";
+			Integer aña = Integer.parseInt(añadir);
+			contratos.add(aña);
+		}
+		
+		return contratos;
+		
+		}
+	
+	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS AUXILIARES
 	//----------------------------------------------------------------------------------------------------------------------------------
