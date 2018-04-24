@@ -386,7 +386,7 @@ public class ContratoService {
 	 * @return
 	 */
 	@PUT
-	@Path( "desahbilitarOferta" )
+	@Path( "habilitarOferta" )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response habilitarOferta(Contrato contrato, String tipoAlojamiento) {
