@@ -95,7 +95,8 @@ IdCliente INTEGER not null,
 idProveedor INTEGER not null,
 FOREIGN KEY (idCliente) REFERENCES Cliente(IdCliente),
 FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento(id),
-Estado varchar(20) 
+Estado varchar(20),
+Costo Integer
 constraint checkEstado check(Estado IN('En curso','Final', 'Exitoso'))
 );
 
