@@ -13,6 +13,7 @@
 package rest;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -254,5 +255,151 @@ public class ContratoService {
 	
 	}
 	
+	/**
+	 * 	Metodo que crea una reserva
+	 * @param contrato 
+	 * @param tipoAlojamiento
+	 * @param servicios
+	 * @return
+	 */
+	
+	@POST
+	@Path( "crearReserva" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response crearReserva(Contrato contrato,String tipoAlojamiento, String servicios) {
+		
+			try{
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager( getPath( ) );
+			
+			tm.crearReserva(contrato, tipoAlojamiento, servicios);
+			return Response.status( 200 ).entity( contrato ).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+		
+	}
+/**
+ * Metodo que crea una reserva colectiva
+ * @param contratos
+ * @param tipoAlojamiento
+ * @param servicios
+ * @param cantidadReserva
+ * @param idRC
+ * @return
+ */
+	@POST
+	@Path( "crearReservaColectiva" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response crearReservaColectiva(ArrayList<Contrato> contratos, String tipoAlojamiento, String servicios, Integer cantidadReserva, Integer idRC) {
+		
+			try{
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager( getPath( ) );
+			
+			tm.crearReservaColectiva(contratos, tipoAlojamiento, servicios, cantidadReserva, idRC);;
+			return Response.status( 200 ).entity( contratos ).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+		
+	}
+	
+	/**
+	 * Metodo que cancela una reserva
+	 * @param contrato
+	 * @return
+	 */
+	@DELETE
+	@Path( "cancelarReserva" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response cancelarReserva(Contrato contrato) {
+		try{
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager( getPath( ) );
+			
+			tm.cancelarReserva(contrato);
+			return Response.status( 200 ).entity( contrato ).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	
+	}
+	
+	/**
+	 * Metodo que cancela una reserva colectiva
+	 * @param idRC
+	 * @return
+	 */
+	@DELETE
+	@Path( "cancelarReservaColectiva" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response cancelarReservaColectiva(Integer idRC) {
+		try{
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager( getPath( ) );
+			
+			tm.cancelarReservaColectiva(idRC);
+			return Response.status( 200 ).entity( idRC ).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	
+	}
+	
+	
+	/**
+	 * Metodo que desahbilita un alojamiento
+	 * @param contrato
+	 * @param tipoAlojamiento
+	 * @return
+	 */
+	@PUT
+	@Path( "desahbilitarOferta" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response desahbilitarOferta(Contrato contrato, String tipoAlojamiento) {
+		try{
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager( getPath( ) );
+			
+			tm.desahbilitarOferta(contrato, tipoAlojamiento);
+			return Response.status( 200 ).entity( contrato ).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	}
+	
+	/**
+	 * Metodo que habilita un alojamiento
+	 * @param contrato
+	 * @param tipoAlojamiento
+	 * @return
+	 */
+	@PUT
+	@Path( "desahbilitarOferta" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response habilitarOferta(Contrato contrato, String tipoAlojamiento) {
+		try{
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager( getPath( ) );
+			
+			tm.habilitarOferta(contrato, tipoAlojamiento);
+			return Response.status( 200 ).entity( contrato ).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	}
 
 }
