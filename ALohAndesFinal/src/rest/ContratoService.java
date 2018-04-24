@@ -314,7 +314,7 @@ public class ContratoService {
 	 * @param contrato
 	 * @return
 	 */
-	@DELETE
+	@PUT
 	@Path( "cancelarReserva" )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -337,7 +337,7 @@ public class ContratoService {
 	 * @param idRC
 	 * @return
 	 */
-	@DELETE
+	@PUT
 	@Path( "cancelarReservaColectiva" )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	@Consumes(MediaType.APPLICATION_JSON)

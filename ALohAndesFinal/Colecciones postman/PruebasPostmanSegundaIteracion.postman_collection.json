@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "c31c4357-95ad-4233-866f-667fff9ffffe",
+		"name": "PruebasPostmanSegundaIteracion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/It2_C-07/ALohAndesFinal/src/rest/ContratoService/habilitarOferta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/It2_C-07/ALohAndesFinal/src/rest/ContratoService/habilitarOferta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"It2_C-07",
+						"ALohAndesFinal",
+						"src",
+						"rest",
+						"ContratoService",
+						"habilitarOferta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/It2_C-07/ALohAndesFinal/src/rest/ContratoService/desahbilitarOferta",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/It2_C-07/ALohAndesFinal/src/rest/ContratoService/desahbilitarOferta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"It2_C-07",
+						"ALohAndesFinal",
+						"src",
+						"rest",
+						"ContratoService",
+						"desahbilitarOferta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/It2_C-07/ALohAndesFinal/src/rest/ContratoService/crearReservaColectiva",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/It2_C-07/ALohAndesFinal/src/rest/ContratoService/crearReservaColectiva",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"It2_C-07",
+						"ALohAndesFinal",
+						"src",
+						"rest",
+						"ContratoService",
+						"crearReservaColectiva"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/It2_C-07/ALohAndesFinal/src/rest/ContratoService/cancelarReservaColectiva",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/It2_C-07/ALohAndesFinal/src/rest/ContratoService/cancelarReservaColectiva",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"It2_C-07",
+						"ALohAndesFinal",
+						"src",
+						"rest",
+						"ContratoService",
+						"cancelarReservaColectiva"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/It2_C-07/ALohAndesFinal/src/rest/ClienteService/clientesFrecuentes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/It2_C-07/ALohAndesFinal/src/rest/ClienteService/clientesFrecuentes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"It2_C-07",
+						"ALohAndesFinal",
+						"src",
+						"rest",
+						"ClienteService",
+						"clientesFrecuentes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
