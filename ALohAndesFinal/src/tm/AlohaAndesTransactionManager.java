@@ -2803,16 +2803,22 @@ public class AlohaAndesTransactionManager
 		{
 			if(daoApartamento.findApartamentoById(idAlojamiento).getEstado()== "Disponible")
 			 reserva = new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
+			else
+				throw new Exception ("no esta disponible");
 		}
 		else if(tipoAlojamiento.equals("Vivienda")) 
 		{
 			if(daoVivienda.findViviendaById(idAlojamiento).getEstado()== "Disponible")
 			 reserva = new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
+			else
+				throw new Exception ("no esta disponible");
 		}
 		else if(tipoAlojamiento.equals("Habitacion"))
 		{	
 			if(daoHabitacion.findHabitacionById(idAlojamiento).getEstado()== "Disponible")
 			 reserva = new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
+			else
+				throw new Exception ("no esta disponible");
 		}
 		
 		addContrato(reserva);
