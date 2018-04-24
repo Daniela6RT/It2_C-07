@@ -219,4 +219,37 @@ public class DAOCliente
 
 		return cli;
 	}
+	/**
+	 * 
+	 * @return
+	 * @throws SQLException
+	 * @throws Exception
+	 */
+	public ArrayList<Cliente> getClientesFrecuentes() throws SQLException, Exception
+	{
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		
+		String sql = String.format("(\r\n" + 
+				"Select *\r\n" + 
+				"from (\r\n" + 
+				"select Cliente.idCliente, Cliente.Nombre,Cliente.apellido,CONTRATOS.idcontrato, count(idcontrato) as cantidadDeVeces\r\n" + 
+				"from CLIENTE,CONTRATOS\r\n" + 
+				"where CLIENTE.IDCLIENTE =CONTRATOS.IDCLIENTE \r\n" + 
+				"group by Cliente.idCliente, Cliente.Nombre,Cliente.apellido,CONTRATOS.idcontrato\r\n" + 
+				")\r\n" + 
+				"where cantidadDeVeces > 2;\r\n" + 
+				"", USUARIO);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		while(rs.next())
+		{
+			Cliente añadir =null;
+			
+			clientes.add(añadir);
+		}
+
+		return clientes;
+	}
 }

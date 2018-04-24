@@ -1,0 +1,9 @@
+
+Select *
+from (
+select Cliente.idCliente, Cliente.Nombre,Cliente.apellido,CONTRATOS.idcontrato, count(idcontrato) as cantidadDeVeces
+from CLIENTE,CONTRATOS
+where CLIENTE.IDCLIENTE =CONTRATOS.IDCLIENTE 
+group by Cliente.idCliente, Cliente.Nombre,Cliente.apellido,CONTRATOS.idcontrato
+)
+where cantidadDeVeces > 2;

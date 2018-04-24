@@ -2997,4 +2997,12 @@ public class AlohaAndesTransactionManager
 		
 	}
 	
+	public ArrayList<Cliente>getClientesfrecuentes() throws SQLException,Exception
+	{
+		DAOCliente daoCliente = new DAOCliente();
+		this.conn = darConexion();
+		daoCliente.setConn(conn);
+		return daoCliente.getClientesFrecuentes();
+	}
+	
 }

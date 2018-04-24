@@ -206,5 +206,26 @@ public class ClienteService
 		}
 	
 	}
+	
+	/**
+	 * Metodo que da los clientes frecuentes
+	 * @return
+	 */
+	@GET
+	@Path( "clientesFrecuentes" )
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getClientesFrecuentes() {
+		
+		try {
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager(getPath());
+			
+			List<Cliente> clientes;
+			clientes = tm.getClientesfrecuentes();
+			return Response.status(200).entity(clientes).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 
 }
