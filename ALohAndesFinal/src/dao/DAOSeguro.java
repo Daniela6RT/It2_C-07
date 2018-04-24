@@ -9,8 +9,7 @@ import java.util.List;
 
 import vos.*;
 
-public class DAOSeguro 
-{
+public class DAOSeguro extends DAOServicio {
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// CONSTANTES
