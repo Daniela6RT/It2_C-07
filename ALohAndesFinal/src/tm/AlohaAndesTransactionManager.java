@@ -1788,10 +1788,10 @@ public class AlohaAndesTransactionManager
 			{
 				throw new Exception ("no existe el Contrato");
 			}
-			//			else if(Contrato.getNombre()!=null && (Contrato.getTipoContrato()==1||Contrato.getTipoContrato()==0))
-			//			{
-			//				daoContrato.updateContrato(Contrato);
-			//			}
+						else if(Contrato.getId()!=null )
+						{
+							daoContrato.updateContrato(Contrato);
+						}
 			else 
 			{
 				throw new Exception ("no cumple con las normas del negocio");
@@ -2934,15 +2934,15 @@ public class AlohaAndesTransactionManager
 	
 	}
 	
-	public void cancelarReservaColectiva( Integer idRC, Integer cantidadReserva) throws SQLException, Exception 
+	public void cancelarReservaColectiva( Integer idRC) throws SQLException, Exception 
 	{
 		DAOContrato daoContrato = new DAOContrato();
 		
-		/////////////ADD////
-		ArrayList<Integer> idContrato= new ArrayList<>();
-		for(int i = 0; i <cantidadReserva; i++)
+		ArrayList<Integer> contratos =daoContrato.getContratosReservaColectiva(idRC);
+	
+		for(int i = 0; i <contratos.size(); i++)
 		{
-			cancelarReserva(idContrato.get(i));	
+			cancelarReserva(contratos.get(i));	
 		}
 		
 	}
