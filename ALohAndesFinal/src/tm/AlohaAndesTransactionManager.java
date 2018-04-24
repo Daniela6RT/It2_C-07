@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -2921,4 +2922,22 @@ public class AlohaAndesTransactionManager
 			updateHabitacion(h);
 		}
 	}
+	
+	public void crearReservaColectiva(ArrayList <Integer> idAlojamiento, Date fechaInicio, Date fechaFinal, Integer idCliente, Integer idProveedor, Integer idContrato, String tipoAlojamiento, String servicios, Integer cantidadReserva) throws Exception
+	{
+		for(int i = 0 ; i < cantidadReserva; i++)
+		{
+			crearReserva(idAlojamiento.get(i), fechaInicio, fechaFinal, idCliente, idProveedor, idContrato, tipoAlojamiento, servicios);
+		}
+	}
+	
+	public void cancelarReservaColectiva(ArrayList<Integer> idContrato, Integer cantidadReserva) throws SQLException, Exception 
+	{
+		for(int i = 0; i <cantidadReserva; i++)
+		{
+			cancelarReserva(idContrato.get(i));	
+		}
+		
+	}
+	
 }
