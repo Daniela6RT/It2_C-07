@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 import dao.DAOApartamento;
 import dao.DAOCliente;
 import dao.DAOContrato;
@@ -2781,106 +2783,111 @@ public class AlohaAndesTransactionManager
 			}
 		}	
 	}
-	public void crearReserva(Integer idAlojamiento, Date fechaInicio, Date fechaFinal, Integer idCliente, Integer idProveedor, Integer idContrato, String tipoAlojamiento, String servicios) throws Exception
+	public void crearReserva(Contrato contrato, String tipoAlojamiento, String servicios) throws Exception
 	{	
 		Contrato reserva = null;
 		DAOApartamento daoApartamento = new DAOApartamento( );
 
-			this.conn = darConexion();
+			
 			daoApartamento.setConn(conn);
 			
 			DAOVivienda daoVivienda = new DAOVivienda( );
 
-			this.conn = darConexion();
+			
 			daoVivienda.setConn(conn);
 			
 			DAOHabitacion daoHabitacion = new DAOHabitacion( );
 
-			this.conn = darConexion();
+			
 			daoHabitacion.setConn(conn);
 		
 		
 		if(tipoAlojamiento.equals("Apartamento"))
 		{
-			if(daoApartamento.findApartamentoById(idAlojamiento).getEstado()== "Disponible")
-			 reserva = new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
+			ContratoApartamento contratoA =(ContratoApartamento)contrato;
+			if(daoApartamento.findApartamentoById(contratoA.getIdApartamento()).getEstado()== "Disponible")
+			 addContratoWithLimitations(contratoA);
 			else
 				throw new Exception ("no esta disponible");
 		}
 		else if(tipoAlojamiento.equals("Vivienda")) 
 		{
-			if(daoVivienda.findViviendaById(idAlojamiento).getEstado()== "Disponible")
-			 reserva = new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
+			ContratoVivienda contratov = (ContratoVivienda)contrato;
+			if(daoVivienda.findViviendaById(contratov.getIdVivienda()).getEstado()== "Disponible")
+			addContratoWithLimitations(contratov);
 			else
 				throw new Exception ("no esta disponible");
 		}
 		else if(tipoAlojamiento.equals("Habitacion"))
 		{	
-			if(daoHabitacion.findHabitacionById(idAlojamiento).getEstado()== "Disponible")
-			 reserva = new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
+			ContratoHabitacion contratoh = (ContratoHabitacion)contrato; 
+			if(daoHabitacion.findHabitacionById(contratoh.getIdHabitacion()).getEstado()== "Disponible")
+			 addContratoWithLimitations(contratoh);
 			else
 				throw new Exception ("no esta disponible");
 		}
 		
-		addContrato(reserva);
+		
 	}
-	public void cancelarReserva(Integer idContrato) throws SQLException, Exception 
+	public void cancelarReserva(Contrato contrato) throws SQLException, Exception 
 	{
 		DAOContrato daoContrato = new DAOContrato( );
 		
 			
 			this.conn = darConexion();
 			daoContrato.setConn( conn );
-			Contrato contrato = null;
-			contrato = daoContrato.findContratoById(idContrato);
+			
+			contrato = daoContrato.findContratoById(contrato.getId());
 			contrato.setCancelado();
 			updateContrato(contrato);
 	}
 
-	public void desahbilitarOferta(Integer idAlojamiento, String tipoAlojamiento) throws SQLException, Exception
+	public void desahbilitarOferta(Contrato contrato, String tipoAlojamiento) throws SQLException, Exception
 	{
 		
 		DAOApartamento daoApartamento = new DAOApartamento( );
 
-			this.conn = darConexion();
-			daoApartamento.setConn(conn);
-			
-			DAOVivienda daoVivienda = new DAOVivienda( );
+		this.conn = darConexion();
+		daoApartamento.setConn(conn);
+		
+		DAOVivienda daoVivienda = new DAOVivienda( );
 
-			this.conn = darConexion();
-			daoVivienda.setConn(conn);
-			
-			DAOHabitacion daoHabitacion = new DAOHabitacion( );
+	
+		daoVivienda.setConn(conn);
+		
+		DAOHabitacion daoHabitacion = new DAOHabitacion( );
 
-			this.conn = darConexion();
-			daoHabitacion.setConn(conn);
 		
+		daoHabitacion.setConn(conn);
+	
+	
+	if(tipoAlojamiento.equals("Apartamento"))
+	{
+	
+		ContratoApartamento contratoA =(ContratoApartamento)contrato;
+		Apartamento a =daoApartamento.findApartamentoById(contratoA.getIdApartamento());
+		a.setEstado("No disponible");
+		updateApartamento(a);
 		
-		if(tipoAlojamiento.equals("Apartamento"))
-		{
-		
-			Apartamento a =daoApartamento.findApartamentoById(idAlojamiento);
-			a.setEstado("No disponible");
-			updateApartamento(a);
-			
-		}
-		else if(tipoAlojamiento.equals("Vivienda")) 
-		{
-			Vivienda v = daoVivienda.findViviendaById(idAlojamiento);
-			v.setEstado("No disponible");
-			updateVivienda(v);
-			 
-		}
-		else if(tipoAlojamiento.equals("Habitacion"))
-		{	
-			
-			Habitacion h = daoHabitacion.findHabitacionById(idAlojamiento);
-			h.setEstado("No disponible");
-			updateHabitacion(h);
-		}
+	}
+	else if(tipoAlojamiento.equals("Vivienda")) 
+	{
+		ContratoVivienda contratoV = (ContratoVivienda)contrato;
+		Vivienda v = daoVivienda.findViviendaById(contratoV.getIdVivienda());
+		v.setEstado("No disponible");
+		updateVivienda(v);
+		 
+	}
+	else if(tipoAlojamiento.equals("Habitacion"))
+	{	
+		ContratoHabitacion contratoH = (ContratoHabitacion)contrato;
+		Habitacion h = daoHabitacion.findHabitacionById(contratoH.getIdHabitacion());
+		h.setEstado("No disponible");
+		updateHabitacion(h);
+	}
 	}
 	
-	public void habilitarOferta(Integer idAlojamiento, String tipoAlojamiento) throws SQLException, Exception
+	public void habilitarOferta( Contrato contrato, String tipoAlojamiento) throws SQLException, Exception
 	{
 		
 		DAOApartamento daoApartamento = new DAOApartamento( );
@@ -2890,47 +2897,90 @@ public class AlohaAndesTransactionManager
 			
 			DAOVivienda daoVivienda = new DAOVivienda( );
 
-			this.conn = darConexion();
+		
 			daoVivienda.setConn(conn);
 			
 			DAOHabitacion daoHabitacion = new DAOHabitacion( );
 
-			this.conn = darConexion();
+			
 			daoHabitacion.setConn(conn);
 		
 		
 		if(tipoAlojamiento.equals("Apartamento"))
 		{
 		
-			Apartamento a =daoApartamento.findApartamentoById(idAlojamiento);
+			ContratoApartamento contratoA =(ContratoApartamento)contrato;
+			Apartamento a =daoApartamento.findApartamentoById(contratoA.getIdApartamento());
 			a.setEstado("Disponible");
 			updateApartamento(a);
 			
 		}
 		else if(tipoAlojamiento.equals("Vivienda")) 
 		{
-			Vivienda v = daoVivienda.findViviendaById(idAlojamiento);
+			ContratoVivienda contratoV = (ContratoVivienda)contrato;
+			Vivienda v = daoVivienda.findViviendaById(contratoV.getIdVivienda());
 			v.setEstado("Disponible");
 			updateVivienda(v);
 			 
 		}
 		else if(tipoAlojamiento.equals("Habitacion"))
 		{	
-			
-			Habitacion h = daoHabitacion.findHabitacionById(idAlojamiento);
+			ContratoHabitacion contratoH = (ContratoHabitacion)contrato;
+			Habitacion h = daoHabitacion.findHabitacionById(contratoH.getIdHabitacion());
 			h.setEstado("Disponible");
 			updateHabitacion(h);
 		}
 	}
 	
-	public void crearReservaColectiva(ArrayList <Integer> idAlojamiento, Date fechaInicio, Date fechaFinal, Integer idCliente, Integer idProveedor, Integer idContrato, String tipoAlojamiento, String servicios, Integer cantidadReserva, Integer idRC) throws Exception
+	public void crearReservaColectiva(ArrayList<Contrato> contratos, String tipoAlojamiento, String servicios, Integer cantidadReserva, Integer idRC) throws Exception
 	{
 		DAOContrato daoContrato = new DAOContrato();
+		
+		this.conn = darConexion();
+		daoContrato.setConn(conn);
+		
+		DAOApartamento daoApartamento = new DAOApartamento( );
+
+		
+		daoApartamento.setConn(conn);
+		
+		DAOVivienda daoVivienda = new DAOVivienda( );
+
+		
+		daoVivienda.setConn(conn);
+		
+		DAOHabitacion daoHabitacion = new DAOHabitacion( );
+
+		
+		daoHabitacion.setConn(conn);
+		
+		
+		ArrayList<Integer> idAlojamiento = new ArrayList<Integer>();
 		for(int i = 0 ; i < cantidadReserva; i++)
 		{
-			crearReserva(idAlojamiento.get(i), fechaInicio, fechaFinal, idCliente, idProveedor, idContrato, tipoAlojamiento, servicios);
-		}
-		daoContrato.crearReservaColectiva(idAlojamiento, idRC, idCliente);
+			crearReserva(contratos.get(i), tipoAlojamiento, servicios);
+			if(tipoAlojamiento.equals("Apartamento"))
+			{
+				ContratoApartamento contratoA =(ContratoApartamento)contratos.get(i);
+				idAlojamiento.add(contratoA.getIdApartamento());
+				
+			}
+			else if(tipoAlojamiento.equals("Vivienda")) 
+			{
+				ContratoVivienda contratoV =(ContratoVivienda)contratos.get(i);
+				idAlojamiento.add(contratoV.getIdVivienda());
+			
+			}
+			else if(tipoAlojamiento.equals("Habitacion"))
+			{	
+				ContratoHabitacion contratoH =(ContratoHabitacion)contratos.get(i);
+				idAlojamiento.add(contratoH.getIdHabitacion());;
+			
+			}
+			}
+		
+		daoContrato.crearContratosReservaColectiva(idAlojamiento, idRC);
+		
 	
 	}
 	
@@ -2942,7 +2992,7 @@ public class AlohaAndesTransactionManager
 	
 		for(int i = 0; i <contratos.size(); i++)
 		{
-			cancelarReserva(contratos.get(i));	
+			cancelarReserva(daoContrato.findContratoById(contratos.get(i)));	
 		}
 		
 	}

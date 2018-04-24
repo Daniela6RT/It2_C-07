@@ -32,6 +32,7 @@ import javax.ws.rs.core.Response;
 import dao.DAOContrato;
 import tm.AlohaAndesTransactionManager;
 import vos.Contrato;
+import vos.ContratoApartamento;
 import vos.Contrato;
 import vos.Contrato;
 
@@ -252,5 +253,6 @@ public class ContratoService {
 		}
 	
 	}
+	
 
 }
