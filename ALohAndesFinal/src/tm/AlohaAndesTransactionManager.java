@@ -2783,17 +2783,35 @@ public class AlohaAndesTransactionManager
 	public void crearReserva(Integer idAlojamiento, Date fechaInicio, Date fechaFinal, Integer idCliente, Integer idProveedor, Integer idContrato, String tipoAlojamiento, String servicios) throws Exception
 	{	
 		Contrato reserva = null;
+		DAOApartamento daoApartamento = new DAOApartamento( );
+
+			this.conn = darConexion();
+			daoApartamento.setConn(conn);
+			
+			DAOVivienda daoVivienda = new DAOVivienda( );
+
+			this.conn = darConexion();
+			daoVivienda.setConn(conn);
+			
+			DAOHabitacion daoHabitacion = new DAOHabitacion( );
+
+			this.conn = darConexion();
+			daoHabitacion.setConn(conn);
+		
 		
 		if(tipoAlojamiento.equals("Apartamento"))
 		{
+			if(daoApartamento.findApartamentoById(idAlojamiento).getEstado()== "Disponible")
 			 reserva = new ContratoApartamento(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
 		}
 		else if(tipoAlojamiento.equals("Vivienda")) 
 		{
+			if(daoVivienda.findViviendaById(idAlojamiento).getEstado()== "Disponible")
 			 reserva = new ContratoVivienda(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
 		}
 		else if(tipoAlojamiento.equals("Habitacion"))
-		{
+		{	
+			if(daoHabitacion.findHabitacionById(idAlojamiento).getEstado()== "Disponible")
 			 reserva = new ContratoHabitacion(idContrato, fechaInicio, fechaFinal, idCliente, idProveedor, "En curso",idAlojamiento);
 		}
 		
@@ -2809,8 +2827,92 @@ public class AlohaAndesTransactionManager
 			Contrato contrato = null;
 			contrato = daoContrato.findContratoById(idContrato);
 			contrato.setCancelado();
-			
 			updateContrato(contrato);
 	}
 
+	public void desahbilitarOferta(Integer idAlojamiento, String tipoAlojamiento) throws SQLException, Exception
+	{
+		
+		DAOApartamento daoApartamento = new DAOApartamento( );
+
+			this.conn = darConexion();
+			daoApartamento.setConn(conn);
+			
+			DAOVivienda daoVivienda = new DAOVivienda( );
+
+			this.conn = darConexion();
+			daoVivienda.setConn(conn);
+			
+			DAOHabitacion daoHabitacion = new DAOHabitacion( );
+
+			this.conn = darConexion();
+			daoHabitacion.setConn(conn);
+		
+		
+		if(tipoAlojamiento.equals("Apartamento"))
+		{
+		
+			Apartamento a =daoApartamento.findApartamentoById(idAlojamiento);
+			a.setEstado("No disponible");
+			updateApartamento(a);
+			
+		}
+		else if(tipoAlojamiento.equals("Vivienda")) 
+		{
+			Vivienda v = daoVivienda.findViviendaById(idAlojamiento);
+			v.setEstado("No disponible");
+			updateVivienda(v);
+			 
+		}
+		else if(tipoAlojamiento.equals("Habitacion"))
+		{	
+			
+			Habitacion h = daoHabitacion.findHabitacionById(idAlojamiento);
+			h.setEstado("No disponible");
+			updateHabitacion(h);
+		}
+	}
+	
+	public void habilitarOferta(Integer idAlojamiento, String tipoAlojamiento) throws SQLException, Exception
+	{
+		
+		DAOApartamento daoApartamento = new DAOApartamento( );
+
+			this.conn = darConexion();
+			daoApartamento.setConn(conn);
+			
+			DAOVivienda daoVivienda = new DAOVivienda( );
+
+			this.conn = darConexion();
+			daoVivienda.setConn(conn);
+			
+			DAOHabitacion daoHabitacion = new DAOHabitacion( );
+
+			this.conn = darConexion();
+			daoHabitacion.setConn(conn);
+		
+		
+		if(tipoAlojamiento.equals("Apartamento"))
+		{
+		
+			Apartamento a =daoApartamento.findApartamentoById(idAlojamiento);
+			a.setEstado("Disponible");
+			updateApartamento(a);
+			
+		}
+		else if(tipoAlojamiento.equals("Vivienda")) 
+		{
+			Vivienda v = daoVivienda.findViviendaById(idAlojamiento);
+			v.setEstado("Disponible");
+			updateVivienda(v);
+			 
+		}
+		else if(tipoAlojamiento.equals("Habitacion"))
+		{	
+			
+			Habitacion h = daoHabitacion.findHabitacionById(idAlojamiento);
+			h.setEstado("Disponible");
+			updateHabitacion(h);
+		}
+	}
 }
