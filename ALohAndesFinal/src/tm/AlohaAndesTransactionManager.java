@@ -2923,7 +2923,7 @@ public class AlohaAndesTransactionManager
 		}
 	}
 	
-	public void crearReservaColectiva(ArrayList <Integer> idAlojamiento, Date fechaInicio, Date fechaFinal, Integer idCliente, Integer idProveedor, Integer idContrato, String tipoAlojamiento, String servicios, Integer cantidadReserva) throws Exception
+	public void crearReservaColectiva(ArrayList <Integer> idAlojamiento, Date fechaInicio, Date fechaFinal, Integer idCliente, Integer idProveedor, Integer idContrato, String tipoAlojamiento, String servicios, Integer cantidadReserva, Integer idRC) throws Exception
 	{
 		for(int i = 0 ; i < cantidadReserva; i++)
 		{
@@ -2931,8 +2931,11 @@ public class AlohaAndesTransactionManager
 		}
 	}
 	
-	public void cancelarReservaColectiva(ArrayList<Integer> idContrato, Integer cantidadReserva) throws SQLException, Exception 
+	public void cancelarReservaColectiva( Integer idRC, Integer cantidadReserva) throws SQLException, Exception 
 	{
+		
+		/////////////ADD////
+		ArrayList<Integer> idContrato= new ArrayList<>();
 		for(int i = 0; i <cantidadReserva; i++)
 		{
 			cancelarReserva(idContrato.get(i));	

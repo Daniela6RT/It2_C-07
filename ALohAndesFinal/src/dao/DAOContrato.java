@@ -65,7 +65,7 @@ public class DAOContrato
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
 		numContratos++;
-		String sql = String.format("INSERT IntegerO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFIN, IDCLIENTE, IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFIN, IDCLIENTE, IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -95,7 +95,7 @@ public class DAOContrato
 	public void addContratoApartamento(ContratoApartamento contrato) throws SQLException, Exception {
 
 		String apartamento="Apartamento";
-		String sql = String.format("INSERT IntegerO %1$s.CONTRATOSAPARTAMENTOS (IDCONTRATO, IDAPARTAMENTO,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT INTO %1$s.CONTRATOSAPARTAMENTOS (IDCONTRATO, IDAPARTAMENTO,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -124,7 +124,7 @@ public class DAOContrato
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
 		numContratos++;
-		String sql = String.format("INSERT IntegerO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, ESTADO) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -152,7 +152,7 @@ public class DAOContrato
 	public void addContratoVivienda(ContratoVivienda contrato) throws SQLException, Exception {
 
 		String vivienda="Vivienda";
-		String sql = String.format("INSERT IntegerO %1$s.CONTRATOSVIVIENDAS (IDCONTRATO, IDVIVIENDA,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT INTO %1$s.CONTRATOSVIVIENDAS (IDCONTRATO, IDVIVIENDA,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -179,7 +179,7 @@ public class DAOContrato
 		Date actual=new Date();
 		String fecha= (actual.getYear()+"")+"-"+(actual.getMonth()+"")+"-"+(actual.getDate()+"");
 		numContratos++;
-		String sql = String.format("INSERT IntegerO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDHABITACION) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
+		String sql = String.format("INSERT INTO %1$s.CONTRATOS (IDCONTRATO, FECHAINICIO, FECHAFINAL, IDCLIENTE, IDPROVEEDOR, FECHACREACION, COSTO, TIPO, IDHABITACION) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -207,7 +207,7 @@ public class DAOContrato
 	public void addContratoHabitacion(ContratoHabitacion contrato) throws SQLException, Exception {
 
 		String habitacion="Habitacion";
-		String sql = String.format("INSERT IntegerO %1$s.CONTRATOSHABITACIONES (IDCONTRATO, IDHABITACION,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT INTO %1$s.CONTRATOSHABITACIONES (IDCONTRATO, IDHABITACION,TIPOALOJAMIENTO ) VALUES (%2$s, '%3$s', '%4$s')", 
 				USUARIO,  
 
 				contrato.getId(),
@@ -429,6 +429,33 @@ public class DAOContrato
 
 		return contrato;
 	}
+
+	
+	public void crearReservaColectiva(ArrayList <Integer> idAlojamiento, Integer idRC, Integer idCliente) throws SQLException
+	{
+		
+			String sql = String.format("INSERT INTO %1$s.RESERVACOLECTIVA (IDRESERVACOLECTIVA, IDCLIENTE) VALUES (%2$d,%3$d)", USUARIO, idRC, idCliente); 
+
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			crearContratosReservaColectiva(idAlojamiento, idRC);
+		
+	}
+	
+	public void crearContratosReservaColectiva(ArrayList <Integer> idAlojamiento, Integer idRC) throws SQLException
+	{
+		for(int i=0; i<idAlojamiento.size(); i++)
+		{
+			Integer idAloj = idAlojamiento.get(i);
+			String sql = String.format("INSERT INTO %1$s.RESERVACOL (IDCONTRATO, IDRESERVACOLECTIVA) VALUES (%2$d,%3$d)", USUARIO, idAloj, idRC); 
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+		}
+		
+	}
+	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS AUXILIARES
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -529,4 +556,5 @@ public class DAOContrato
 		
 		return contrato;
 	}
+	
 }
