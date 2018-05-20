@@ -1,3 +1,20 @@
+
+CREATE TABLE TipoProveedor
+(
+IdTipo INTEGER primary key,
+Tipo VARCHAR(30) NOT NULL
+
+);
+
+
+CREATE TABLE TipoAlojamiento
+(
+NOMBREALOJAMIENTO VARCHAR(20),
+TIPOALOJAMIENTO INTEGER,
+  CONSTRAINT tipoAloja_PK PRIMARY KEY (NOMBREALOJAMIENTO, TIPOALOJAMIENTO)
+);
+
+
 CREATE TABLE Cliente 
 (
 IdCliente INTEGER primary key,
@@ -9,13 +26,6 @@ PasswordUsuario VARCHAR (16) not null
 );
 
 
-CREATE TABLE TipoProveedor
-(
-IdTipo INTEGER primary key,
-Tipo VARCHAR(30) NOT NULL
-
-);
-
 CREATE TABLE ProveedorAlojamiento
 (
 Id INTEGER primary key,
@@ -24,67 +34,6 @@ tipo INTEGER not null,
 FOREIGN KEY(tipo) REFERENCES TipoProveedor (IdTipo)
 );
 
-CREATE TABLE Apartamentos
-(
-IdApartamento INTEGER primary key,
-
- Amoblado char (2) check (Amoblado IN('Y','N')),
-PrecioBase INTEGER not null,
-idProveedor INTEGER not null,
-Estado VARCHAR(20) CHECK(Estado IN('Disponible', 'No disponible')),
-FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
-
-);
-
-
-CREATE TABLE Viviendas
-(
-IdVivienda INTEGER primary key,
-Habitaciones INTEGER not null,
-PrecioBase INTEGER not null,
-Ubicacion VARCHAR(160) not null,
-idProveedor INTEGER not null,
-Estado VARCHAR(20) CHECK(Estado IN('Disponible', 'No disponible')),
-FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id)
-
-);
-
-
-CREATE TABLE Habitaciones
-(
-IdHabitacion INTEGER primary key,
-Tipo Varchar (25) not null,
-PrecioBase INTEGER not null,
-Compartida char (2) not null,
-HoraApertura VARCHAR(10),
-MinApertura VARCHAR(10),
-HoraCierre VARCHAR(10),
-MinCierre VARCHAR(10),
-Tamaño Integer not null,
-Capacidad Integer not null,
-idProveedor INTEGER not null,
-Estado VARCHAR(20) CHECK(Estado IN('Disponible', 'No disponible')),
-FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id),
-CONSTRAINT checkCompartida check (Compartida IN('Y','N'))
-
-);
-
-CREATE TABLE Seguros
-(
-IdSeguro INTEGER primary key,
-Costo INTEGER not null,
-IdVivienda INTEGER not null,
-FOREIGN KEY (idVivienda) REFERENCES Viviendas (idVivienda)
-);
-
-CREATE TABLE Menaje
-(
-IdMenaje INTEGER primary key,
-Nombre VARCHAR (30),
-Descripcion VARCHAR (160) not null,
-IdVivienda INTEGER not null,
-FOREIGN KEY (idVivienda) REFERENCES Viviendas (idVivienda)
-);
 
 CREATE TABLE Contratos
 (
@@ -93,12 +42,21 @@ fechaInicio DATE not null,
 fechaFin DATE not null,
 IdCliente INTEGER not null,
 idProveedor INTEGER not null,
-FOREIGN KEY (idCliente) REFERENCES Cliente(IdCliente),
-FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento(id),
+CONSTRAINT contratos_FKidCl FOREIGN KEY (idCliente) REFERENCES Cliente(IdCliente),
+CONSTRAINT contratos_FKidP FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento(id),
 Estado varchar(20),
 Costo Integer,
-constraint checkEstado check(Estado IN('En curso','Final', 'Exitoso'))
+constraint checkEstado check(Estado IN('En curso','Cancelado', 'Exitoso'))
 );
+
+
+CREATE TABLE ALOJAMIENTOS(
+  idAlojamiento INTEGER,
+  tipo VARCHAR(20) NOT NULL,
+  idTipo INTEGER NOT NULL,
+  CONSTRAINT alojamientos_PK PRIMARY KEY (idAlojamiento) ENABLE,
+CONSTRAINT alojamientos_FK foreign key (tipo,idTipo) REFERENCES TIPOALOJAMIENTO(nombrealojamiento, TIPOALOJAMIENTO));
+
 
 CREATE TABLE Servicios
 (
@@ -110,21 +68,76 @@ IdContrato INTEGER not null,
 FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato)
 );
 
-CREATE TABLE TIENESERVICIOS
+
+CREATE TABLE Habitaciones
 (
-  IdContrato INTEGER not NULL,
-  IdServicios INTEGER not null,
-  FOREIGN KEY (IdContrato )  REFERENCES CONTRATOS(IDCONTRATO) ,
-  FOREIGN KEY (IdServicios) REFERENCES SERVICIOS(IDSERVICIO) 
+IdHabitacion INTEGER primary key,
+PrecioBase INTEGER not null,
+Compartida char (2) not null,
+HoraApertura VARCHAR(10),
+MinApertura VARCHAR(10),
+HoraCierre VARCHAR(10),
+MinCierre VARCHAR(10),
+Tamaño Integer not null,
+Capacidad Integer not null,
+idProveedor INTEGER not null,
+Estado VARCHAR(20) CHECK(Estado IN('Disponible', 'No disponible')),
+CONSTRAINT hab_FK_idPr FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id),
+CONSTRAINT checkCompartida check (Compartida IN('Y','N')),
+CONSTRAINT hab_FKid FOREIGN KEY (IdHabitacion) REFERENCES ALOJAMIENTOS(IDALOJAMIENTO)
+);
+
+
+CREATE TABLE Viviendas
+(
+IdVivienda INTEGER primary key,
+Habitaciones INTEGER not null,
+PrecioBase INTEGER not null,
+Ubicacion VARCHAR(160) not null,
+idProveedor INTEGER not null,
+Estado VARCHAR(20) CHECK(Estado IN('Disponible', 'No disponible')),
+CONSTRAINT vivien_FKidP FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id),
+CONSTRAINT vivien_FKidV_Tipo FOREIGN KEY (IdVivienda) REFERENCES ALOJAMIENTOS(IDALOJAMIENTO)
+);
+
+
+CREATE TABLE Apartamentos
+(
+  IdApartamento INTEGER primary key,
+    idTipo INTEGER NOT NULL,
+  Amoblado char (2) check (Amoblado IN('Y','N')),
+  PrecioBase INTEGER not null,
+  idProveedor INTEGER not null,
+  Estado VARCHAR(20) CHECK(Estado IN('Disponible', 'No disponible')),
+ CONSTRAINT apartamentos_FKidP FOREIGN KEY (idProveedor) REFERENCES ProveedorAlojamiento (Id),
+  CONSTRAINT apartamentos_FKidA FOREIGN KEY (IdApartamento) REFERENCES ALOJAMIENTOS(IDALOJAMIENTO)
+);
+
+CREATE TABLE Seguros
+(
+IdSeguro INTEGER primary key,
+Costo INTEGER not null,
+IdVivienda INTEGER not null,
+CONSTRAINT seguros_FK FOREIGN KEY (idVivienda) REFERENCES Viviendas (idVivienda)
+);
+
+CREATE TABLE Menaje
+(
+IdMenaje INTEGER primary key,
+Nombre VARCHAR (30),
+Descripcion VARCHAR (160) not null,
+IdVivienda INTEGER not null,
+CONSTRAINT menaje_FK FOREIGN KEY (idVivienda) REFERENCES Viviendas (idVivienda)
 );
 
 CREATE TABLE ContratosApartamentos
 (
 IdContrato INTEGER not null,
 IdApartamento INTEGER not null,
-FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
-FOREIGN KEY (idApartamento) REFERENCES Apartamentos(idApartamento),
-TIPOALOJAMIENTO VARCHAR(20) not null
+CONSTRAINT contrAp_FKidC FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
+CONSTRAINT contrAp_FKidAp FOREIGN KEY (idApartamento) REFERENCES Apartamentos(idApartamento),
+TIPOALOJAMIENTO VARCHAR(20) not null,
+constraint checkTipoA check(TIPOALOJAMIENTO IN('Apartamento'))
 );
 
 
@@ -132,38 +145,42 @@ CREATE TABLE ContratosViviendas
 (
 IdContrato INTEGER not null,
 IdVivienda INTEGER not null,
-FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
-FOREIGN KEY (IdVivienda) REFERENCES Viviendas(IdVivienda),
-TIPOALOJAMIENTO VARCHAR(20) not null
+CONSTRAINT contrVi_FKidC FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
+CONSTRAINT contrVi_FKidVi FOREIGN KEY (IdVivienda) REFERENCES Viviendas(IdVivienda),
+TIPOALOJAMIENTO VARCHAR(20) not null,
+constraint checkTipoV check(TIPOALOJAMIENTO IN('Vivienda'))
 );
 
 CREATE TABLE ContratosHabitaciones
 (
 IdContrato INTEGER not null,
 IdHabitacion INTEGER not null,
-FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
-FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
-TIPOALOJAMIENTO VARCHAR(20) not null
-);
-
-CREATE TABLE TipoAlojamiento
-(
-NOMBREDEALOJAMIENTO VARCHAR(20),
-TIPOALOJAMIENTO INTEGER PRIMARY KEY 
-);
-
-CREATE TABLE RESERVASCOL
-(
-  idContrato INTEGER PRIMARY KEY not NULL,
-  idReservaColectiva INTEGER,
-  FOREIGN KEY(idContrato)   REFERENCES CONTRATOS(idContrato),
-  FOREIGN KEY(idReservaColectiva)   REFERENCES RESERVACOLECTIVA(idReservaColectiva)
-
+TIPOALOJAMIENTO VARCHAR(20) not null,
+CONSTRAINT contrHb_FKidC FOREIGN KEY (IdContrato) REFERENCES Contratos(idContrato),
+CONSTRAINT contrHb_FKidHb FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
+constraint checkTipoH check(TIPOALOJAMIENTO IN('Habitacion'))
 );
 
 CREATE TABLE RESERVACOLECTIVA
 (
   idReservaColectiva INTEGER PRIMARY KEY not null,
   idCliente INTEGER NOT NULL,
-  FOREIGN KEY (idCliente) REFERENCES CLIENTE(idCliente)
+  CONSTRAINT reservaColectiva_FK FOREIGN KEY (idCliente) REFERENCES CLIENTE(idCliente)
+);
+
+CREATE TABLE RESERVASCOL
+(
+  idContrato INTEGER PRIMARY KEY not NULL,
+  idReservaColectiva INTEGER,
+  CONSTRAINT reservaCol_FKidC FOREIGN KEY(idContrato)   REFERENCES CONTRATOS(idContrato),
+  CONSTRAINT reservaC_FKidRC FOREIGN KEY(idReservaColectiva)   REFERENCES RESERVACOLECTIVA(idReservaColectiva)
+
+);
+
+CREATE TABLE TIENESERVICIOS
+(
+  IdContrato INTEGER not NULL,
+  IdServicios INTEGER not null,
+  CONSTRAINT tieneServ_FKidC FOREIGN KEY (IdContrato )  REFERENCES CONTRATOS(IDCONTRATO) ,
+  CONSTRAINT tieneServ_FKidSer FOREIGN KEY (IdServicios) REFERENCES SERVICIOS(IDSERVICIO) 
 );
