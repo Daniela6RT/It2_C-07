@@ -46,7 +46,7 @@ public class AlohaAndesTransactionManager
 	/**
 	 * Constante que contiene el path relativo del archivo que tiene los datos de la conexion
 	 */
-	private static final String CONNECTION_DATA_FILE_NAME_REMOTE = "/conexion.properties";
+	private static final String CONNECTION_DATA_FILE_id_REMOTE = "/conexion.properties";
 
 	/**
 	 * Atributo estatico que contiene el path absoluto del archivo que tiene los datos de la conexion
@@ -91,17 +91,17 @@ public class AlohaAndesTransactionManager
 	 * 							Se inicializna los atributos para la conexion con la Base de Datos
 	 * @param contextPathP Path absoluto que se encuentra en el servidor del contexto del deploy actual
 	 * @throws IOException Se genera una excepcion al tener dificultades con la inicializacion de la conexion<br/>
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 */
 	public AlohaAndesTransactionManager(String contextPathP) {
 
 		try {
-			CONNECTION_DATA_PATH = contextPathP + CONNECTION_DATA_FILE_NAME_REMOTE;
+			CONNECTION_DATA_PATH = contextPathP + CONNECTION_DATA_FILE_id_REMOTE;
 			initializeConnectionData();
-		} 
-		catch (ClassNotFoundException e) {			
+		}
+		catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} 
+		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -111,7 +111,7 @@ public class AlohaAndesTransactionManager
 	 * Metodo encargado de inicializar los atributos utilizados para la conexion con la Base de Datos.<br/>
 	 * <b>post: </b> Se inicializan los atributos para la conexion<br/>
 	 * @throws IOException Se genera una excepcion al no encontrar el archivo o al tener dificultades durante su lectura<br/>
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 */
 	private void initializeConnectionData() throws IOException, ClassNotFoundException {
 
@@ -149,7 +149,7 @@ public class AlohaAndesTransactionManager
 	public List<Apartamento> getAllApartamentos() throws Exception {
 		DAOApartamento daoApartamento = new DAOApartamento();
 		List<Apartamento> apartamentos;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoApartamento.setConn(conn);
@@ -159,17 +159,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoApartamento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -183,38 +183,38 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que busca el Apartamento en la base de datos que tiene el ID dado por parametro. <br/>
-	 * @param name -id del Apartamento a buscar. id != null
+	 * @param id -id del Apartamento a buscar. id != null
 	 * @return Apartamento - Apartamento que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public Apartamento getApartamentoById(int id) throws Exception {
 		DAOApartamento daoApartamento = new DAOApartamento();
 		Apartamento Apartamento = null;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoApartamento.setConn(conn);
 			Apartamento = daoApartamento.findApartamentoById(id);
 			if(Apartamento == null)
 			{
-				throw new Exception("El Apartamento con el id = " + id + " no se encuentra persistido en la base de datos.");				
+				throw new Exception("El Apartamento con el id = " + id + " no se encuentra persistido en la base de datos.");
 			}
-		} 
+		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoApartamento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -233,7 +233,7 @@ public class AlohaAndesTransactionManager
 	 * @param Apartamento - el Apartamento a agregar. Apartamento != null
 	 * @throws Exception - Cualquier error que se genere agregando el Apartamento
 	 */
-	public void addApartamento(Apartamento Apartamento) throws Exception 
+	public void addApartamento(Apartamento Apartamento) throws Exception
 	{
 
 		DAOApartamento daoApartamento = new DAOApartamento( );
@@ -250,17 +250,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoApartamento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -273,13 +273,13 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que agrega un Apartamento a la base de datos  <br/>
-	 * unicamente si el número de apartamentos que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
+	 * unicamente si el nÃºmero de apartamentos que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
 	 * <b> post: </b> Si se cumple la condicion, se ha agregado el Apartamento que entra como parametro  <br/>
 	 * @param Apartamento - el Apartamento a agregar. Apartamento != null
-	 * @param cantidadMaxima -representa la cantidad maxima de apartamentos que pueden haber en la misma ciudad
+	 * @param Apartamento -representa la cantidad maxima de apartamentos que pueden haber en la misma ciudad
 	 * @throws Exception - Cualquier error que se genere agregando el Apartamento
 	 */
-	public void addApartamentoWithLimitations(Apartamento Apartamento) throws Exception 
+	public void addApartamentoWithLimitations(Apartamento Apartamento) throws Exception
 	{
 		DAOApartamento daoApartamento = new DAOApartamento( );
 		try
@@ -300,17 +300,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoApartamento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -330,7 +330,7 @@ public class AlohaAndesTransactionManager
 	 * @param Apartamento - Apartamento a actualizar. Apartamento != null
 	 * @throws Exception - Cualquier error que se genere actualizando al Apartamento.
 	 */
-	public void updateApartamento(Apartamento Apartamento) throws Exception 
+	public void updateApartamento(Apartamento Apartamento) throws Exception
 	{
 		DAOApartamento daoApartamento = new DAOApartamento( );
 		try
@@ -352,17 +352,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoApartamento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -370,7 +370,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al Apartamento que entra por parametro. <br/>
@@ -379,7 +379,7 @@ public class AlohaAndesTransactionManager
 	 * @param Apartamento - Apartamento a eliminar. Apartamento != null
 	 * @throws Exception - Cualquier error que se genere eliminando al Apartamento.
 	 */
-	public void deleteApartamento(Apartamento Apartamento) throws Exception 
+	public void deleteApartamento(Apartamento Apartamento) throws Exception
 	{
 		DAOApartamento daoApartamento = new DAOApartamento( );
 		try
@@ -401,17 +401,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoApartamento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -419,7 +419,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 
 	/**
@@ -430,7 +430,7 @@ public class AlohaAndesTransactionManager
 	public List<Cliente> getAllClientes() throws Exception {
 		DAOCliente daoCliente = new DAOCliente();
 		List<Cliente> clientes;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoCliente.setConn(conn);
@@ -440,17 +440,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoCliente.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -464,38 +464,38 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que busca el Cliente en la base de datos que tiene el ID dado por parametro. <br/>
-	 * @param name -id del Cliente a buscar. id != null
+	 * @param id -id del Cliente a buscar. id != null
 	 * @return Cliente - Cliente que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public Cliente getClienteById(int id) throws Exception {
 		DAOCliente daoCliente = new DAOCliente();
 		Cliente Cliente = null;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoCliente.setConn(conn);
 			Cliente = daoCliente.findClienteById(id);
 			if(Cliente == null)
 			{
-				throw new Exception("El Cliente con el id = " + id + " no se encuentra persistido en la base de datos.");				
+				throw new Exception("El Cliente con el id = " + id + " no se encuentra persistido en la base de datos.");
 			}
-		} 
+		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoCliente.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -514,7 +514,7 @@ public class AlohaAndesTransactionManager
 	 * @param Cliente - el Cliente a agregar. Cliente != null
 	 * @throws Exception - Cualquier error que se genere agregando el Cliente
 	 */
-	public void addCliente(Cliente Cliente) throws Exception 
+	public void addCliente(Cliente Cliente) throws Exception
 	{
 
 		DAOCliente daoCliente = new DAOCliente( );
@@ -531,17 +531,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoCliente.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -554,13 +554,13 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que agrega un Cliente a la base de datos  <br/>
-	 * unicamente si el número de clientes que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
+	 * unicamente si el nÃºmero de clientes que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
 	 * <b> post: </b> Si se cumple la condicion, se ha agregado el Cliente que entra como parametro  <br/>
 	 * @param Cliente - el Cliente a agregar. Cliente != null
-	 * @param cantidadMaxima -representa la cantidad maxima de clientes que pueden haber en la misma ciudad
+	 * @param Cliente -representa la cantidad maxima de clientes que pueden haber en la misma ciudad
 	 * @throws Exception - Cualquier error que se genere agregando el Cliente
 	 */
-	public void addClienteWithLimitations(Cliente Cliente) throws Exception 
+	public void addClienteWithLimitations(Cliente Cliente) throws Exception
 	{
 		DAOCliente daoCliente = new DAOCliente( );
 		try
@@ -581,17 +581,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoCliente.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -611,7 +611,7 @@ public class AlohaAndesTransactionManager
 	 * @param Cliente - Cliente a actualizar. Cliente != null
 	 * @throws Exception - Cualquier error que se genere actualizando al Cliente.
 	 */
-	public void updateCliente(Cliente Cliente) throws Exception 
+	public void updateCliente(Cliente Cliente) throws Exception
 	{
 		DAOCliente daoCliente = new DAOCliente( );
 		try
@@ -633,17 +633,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoCliente.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -651,7 +651,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al Cliente que entra por parametro. <br/>
@@ -660,7 +660,7 @@ public class AlohaAndesTransactionManager
 	 * @param Cliente - Cliente a eliminar. Cliente != null
 	 * @throws Exception - Cualquier error que se genere eliminando al Cliente.
 	 */
-	public void deleteCliente(Cliente Cliente) throws Exception 
+	public void deleteCliente(Cliente Cliente) throws Exception
 	{
 		DAOCliente daoCliente = new DAOCliente( );
 		try
@@ -682,17 +682,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoCliente.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -700,7 +700,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 
 
@@ -713,7 +713,7 @@ public class AlohaAndesTransactionManager
 	public List<Habitacion> getAllHabitaciones() throws Exception {
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		List<Habitacion> habitaciones;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoHabitacion.setConn(conn);
@@ -723,17 +723,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoHabitacion.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -747,38 +747,38 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que busca el Habitacion en la base de datos que tiene el ID dado por parametro. <br/>
-	 * @param name -id del Habitacion a buscar. id != null
+	 * @param id -id del Habitacion a buscar. id != null
 	 * @return Habitacion - Habitacion que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public Habitacion getHabitacionById(int id) throws Exception {
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		Habitacion Habitacion = null;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoHabitacion.setConn(conn);
 			Habitacion = daoHabitacion.findHabitacionById(id);
 			if(Habitacion == null)
 			{
-				throw new Exception("El Habitacion con el id = " + id + " no se encuentra persistido en la base de datos.");				
+				throw new Exception("El Habitacion con el id = " + id + " no se encuentra persistido en la base de datos.");
 			}
-		} 
+		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoHabitacion.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -797,7 +797,7 @@ public class AlohaAndesTransactionManager
 	 * @param Habitacion - el Habitacion a agregar. Habitacion != null
 	 * @throws Exception - Cualquier error que se genere agregando el Habitacion
 	 */
-	public void addHabitacion(Habitacion Habitacion) throws Exception 
+	public void addHabitacion(Habitacion Habitacion) throws Exception
 	{
 
 		DAOHabitacion daoHabitacion = new DAOHabitacion( );
@@ -814,17 +814,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoHabitacion.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -837,13 +837,13 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que agrega un Habitacion a la base de datos  <br/>
-	 * unicamente si el número de habitaciones que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
+	 * unicamente si el nÃºmero de habitaciones que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
 	 * <b> post: </b> Si se cumple la condicion, se ha agregado el Habitacion que entra como parametro  <br/>
 	 * @param Habitacion - el Habitacion a agregar. Habitacion != null
-	 * @param cantidadMaxima -representa la cantidad maxima de habitaciones que pueden haber en la misma ciudad
+	 * @param Habitacion -representa la cantidad maxima de habitaciones que pueden haber en la misma ciudad
 	 * @throws Exception - Cualquier error que se genere agregando el Habitacion
 	 */
-	public void addHabitacionWithLimitations(Habitacion Habitacion) throws Exception 
+	public void addHabitacionWithLimitations(Habitacion Habitacion) throws Exception
 	{
 		DAOHabitacion daoHabitacion = new DAOHabitacion( );
 		try
@@ -864,17 +864,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoHabitacion.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -894,7 +894,7 @@ public class AlohaAndesTransactionManager
 	 * @param Habitacion - Habitacion a actualizar. Habitacion != null
 	 * @throws Exception - Cualquier error que se genere actualizando al Habitacion.
 	 */
-	public void updateHabitacion(Habitacion Habitacion) throws Exception 
+	public void updateHabitacion(Habitacion Habitacion) throws Exception
 	{
 		DAOHabitacion daoHabitacion = new DAOHabitacion( );
 		try
@@ -919,17 +919,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoHabitacion.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -937,7 +937,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al Habitacion que entra por parametro. <br/>
@@ -946,7 +946,7 @@ public class AlohaAndesTransactionManager
 	 * @param Habitacion - Habitacion a eliminar. Habitacion != null
 	 * @throws Exception - Cualquier error que se genere eliminando al Habitacion.
 	 */
-	public void deleteHabitacion(Habitacion Habitacion) throws Exception 
+	public void deleteHabitacion(Habitacion Habitacion) throws Exception
 	{
 		DAOHabitacion daoHabitacion = new DAOHabitacion( );
 		try
@@ -968,17 +968,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoHabitacion.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -986,7 +986,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 
 
@@ -998,7 +998,7 @@ public class AlohaAndesTransactionManager
 	public List<Vivienda> getAllviviendas() throws Exception {
 		DAOVivienda daoVivienda = new DAOVivienda();
 		List<Vivienda> viviendas;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoVivienda.setConn(conn);
@@ -1008,17 +1008,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoVivienda.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1032,38 +1032,38 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que busca el Vivienda en la base de datos que tiene el ID dado por parametro. <br/>
-	 * @param name -id del Vivienda a buscar. id != null
+	 * @param id -id del Vivienda a buscar. id != null
 	 * @return Vivienda - Vivienda que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public Vivienda getViviendaById(int id) throws Exception {
 		DAOVivienda daoVivienda = new DAOVivienda();
 		Vivienda Vivienda = null;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoVivienda.setConn(conn);
 			Vivienda = daoVivienda.findViviendaById(id);
 			if(Vivienda == null)
 			{
-				throw new Exception("El Vivienda con el id = " + id + " no se encuentra persistido en la base de datos.");				
+				throw new Exception("El Vivienda con el id = " + id + " no se encuentra persistido en la base de datos.");
 			}
-		} 
+		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoVivienda.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1082,7 +1082,7 @@ public class AlohaAndesTransactionManager
 	 * @param Vivienda - el Vivienda a agregar. Vivienda != null
 	 * @throws Exception - Cualquier error que se genere agregando el Vivienda
 	 */
-	public void addVivienda(Vivienda Vivienda) throws Exception 
+	public void addVivienda(Vivienda Vivienda) throws Exception
 	{
 
 		DAOVivienda daoVivienda = new DAOVivienda( );
@@ -1099,17 +1099,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoVivienda.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1122,13 +1122,13 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que agrega un Vivienda a la base de datos  <br/>
-	 * unicamente si el número de viviendas que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
+	 * unicamente si el nÃºmero de viviendas que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
 	 * <b> post: </b> Si se cumple la condicion, se ha agregado el Vivienda que entra como parametro  <br/>
 	 * @param Vivienda - el Vivienda a agregar. Vivienda != null
-	 * @param cantidadMaxima -representa la cantidad maxima de viviendas que pueden haber en la misma ciudad
+	 * @param Vivienda -representa la cantidad maxima de viviendas que pueden haber en la misma ciudad
 	 * @throws Exception - Cualquier error que se genere agregando el Vivienda
 	 */
-	public void addViviendaWithLimitations(Vivienda Vivienda) throws Exception 
+	public void addViviendaWithLimitations(Vivienda Vivienda) throws Exception
 	{
 		DAOVivienda daoVivienda = new DAOVivienda( );
 		try
@@ -1149,17 +1149,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoVivienda.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1179,7 +1179,7 @@ public class AlohaAndesTransactionManager
 	 * @param Vivienda - Vivienda a actualizar. Vivienda != null
 	 * @throws Exception - Cualquier error que se genere actualizando al Vivienda.
 	 */
-	public void updateVivienda(Vivienda Vivienda) throws Exception 
+	public void updateVivienda(Vivienda Vivienda) throws Exception
 	{
 		DAOVivienda daoVivienda = new DAOVivienda( );
 		try
@@ -1195,7 +1195,7 @@ public class AlohaAndesTransactionManager
 			{
 				daoVivienda.updateVivienda(Vivienda);
 			}
-			else 
+			else
 			{
 				throw new Exception ("no cumple con las normas del negocio");
 			}
@@ -1205,17 +1205,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoVivienda.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1223,7 +1223,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al Vivienda que entra por parametro. <br/>
@@ -1232,7 +1232,7 @@ public class AlohaAndesTransactionManager
 	 * @param Vivienda - Vivienda a eliminar. Vivienda != null
 	 * @throws Exception - Cualquier error que se genere eliminando al Vivienda.
 	 */
-	public void deleteVivienda(Vivienda Vivienda) throws Exception 
+	public void deleteVivienda(Vivienda Vivienda) throws Exception
 	{
 		DAOVivienda daoVivienda = new DAOVivienda( );
 		try
@@ -1254,17 +1254,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoVivienda.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1272,7 +1272,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 
 	/**
@@ -1283,7 +1283,7 @@ public class AlohaAndesTransactionManager
 	public List<ProveedorAlojamiento> getAllProveedoresAlojamiento() throws Exception {
 		DAOProveedorAlojamiento daoProveedorAlojamiento = new DAOProveedorAlojamiento();
 		List<ProveedorAlojamiento> ProveedoresAlojamiento;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoProveedorAlojamiento.setConn(conn);
@@ -1293,17 +1293,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoProveedorAlojamiento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1317,38 +1317,38 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que busca el ProveedorAlojamiento en la base de datos que tiene el ID dado por parametro. <br/>
-	 * @param name -id del ProveedorAlojamiento a buscar. id != null
+	 * @param id -id del ProveedorAlojamiento a buscar. id != null
 	 * @return ProveedorAlojamiento - ProveedorAlojamiento que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public ProveedorAlojamiento getProveedorAlojamientoById(int id) throws Exception {
 		DAOProveedorAlojamiento daoProveedorAlojamiento = new DAOProveedorAlojamiento();
 		ProveedorAlojamiento ProveedorAlojamiento = null;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoProveedorAlojamiento.setConn(conn);
 			ProveedorAlojamiento = daoProveedorAlojamiento.findProveedorAlojamientoById(id);
 			if(ProveedorAlojamiento == null)
 			{
-				throw new Exception("El ProveedorAlojamiento con el id = " + id + " no se encuentra persistido en la base de datos.");				
+				throw new Exception("El ProveedorAlojamiento con el id = " + id + " no se encuentra persistido en la base de datos.");
 			}
-		} 
+		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoProveedorAlojamiento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1367,7 +1367,7 @@ public class AlohaAndesTransactionManager
 	 * @param ProveedorAlojamiento - el ProveedorAlojamiento a agregar. ProveedorAlojamiento != null
 	 * @throws Exception - Cualquier error que se genere agregando el ProveedorAlojamiento
 	 */
-	public void addProveedorAlojamiento(ProveedorAlojamiento ProveedorAlojamiento) throws Exception 
+	public void addProveedorAlojamiento(ProveedorAlojamiento ProveedorAlojamiento) throws Exception
 	{
 
 		DAOProveedorAlojamiento daoProveedorAlojamiento = new DAOProveedorAlojamiento( );
@@ -1384,17 +1384,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoProveedorAlojamiento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1407,13 +1407,13 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que agrega un ProveedorAlojamiento a la base de datos  <br/>
-	 * unicamente si el número de ProveedoresAlojamiento que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
+	 * unicamente si el nÃºmero de ProveedoresAlojamiento que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
 	 * <b> post: </b> Si se cumple la condicion, se ha agregado el ProveedorAlojamiento que entra como parametro  <br/>
 	 * @param ProveedorAlojamiento - el ProveedorAlojamiento a agregar. ProveedorAlojamiento != null
-	 * @param cantidadMaxima -representa la cantidad maxima de ProveedoresAlojamiento que pueden haber en la misma ciudad
+	 * @param ProveedorAlojamiento -representa la cantidad maxima de ProveedoresAlojamiento que pueden haber en la misma ciudad
 	 * @throws Exception - Cualquier error que se genere agregando el ProveedorAlojamiento
 	 */
-	public void addProveedorAlojamientoWithLimitations(ProveedorAlojamiento ProveedorAlojamiento) throws Exception 
+	public void addProveedorAlojamientoWithLimitations(ProveedorAlojamiento ProveedorAlojamiento) throws Exception
 	{
 		DAOProveedorAlojamiento daoProveedorAlojamiento = new DAOProveedorAlojamiento( );
 		try
@@ -1434,17 +1434,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoProveedorAlojamiento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1464,7 +1464,7 @@ public class AlohaAndesTransactionManager
 	 * @param ProveedorAlojamiento - ProveedorAlojamiento a actualizar. ProveedorAlojamiento != null
 	 * @throws Exception - Cualquier error que se genere actualizando al ProveedorAlojamiento.
 	 */
-	public void updateProveedorAlojamiento(ProveedorAlojamiento ProveedorAlojamiento) throws Exception 
+	public void updateProveedorAlojamiento(ProveedorAlojamiento ProveedorAlojamiento) throws Exception
 	{
 		DAOProveedorAlojamiento daoProveedorAlojamiento = new DAOProveedorAlojamiento( );
 		try
@@ -1480,7 +1480,7 @@ public class AlohaAndesTransactionManager
 			{
 				daoProveedorAlojamiento.updateProveedorAlojamiento(ProveedorAlojamiento);
 			}
-			else 
+			else
 			{
 				throw new Exception ("no cumple con las normas del negocio");
 			}
@@ -1490,17 +1490,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoProveedorAlojamiento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1508,7 +1508,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al ProveedorAlojamiento que entra por parametro. <br/>
@@ -1517,7 +1517,7 @@ public class AlohaAndesTransactionManager
 	 * @param ProveedorAlojamiento - ProveedorAlojamiento a eliminar. ProveedorAlojamiento != null
 	 * @throws Exception - Cualquier error que se genere eliminando al ProveedorAlojamiento.
 	 */
-	public void deleteProveedorAlojamiento(ProveedorAlojamiento ProveedorAlojamiento) throws Exception 
+	public void deleteProveedorAlojamiento(ProveedorAlojamiento ProveedorAlojamiento) throws Exception
 	{
 		DAOProveedorAlojamiento daoProveedorAlojamiento = new DAOProveedorAlojamiento( );
 		try
@@ -1539,17 +1539,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoProveedorAlojamiento.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1557,7 +1557,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 
 
@@ -1570,7 +1570,7 @@ public class AlohaAndesTransactionManager
 	public List<Contrato> getAllContratos() throws Exception {
 		DAOContrato daoContrato = new DAOContrato();
 		List<Contrato> Contratos;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoContrato.setConn(conn);
@@ -1580,17 +1580,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoContrato.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1604,38 +1604,38 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que busca el Contrato en la base de datos que tiene el ID dado por parametro. <br/>
-	 * @param name -id del Contrato a buscar. id != null
+	 * @param id -id del Contrato a buscar. id != null
 	 * @return Contrato - Contrato que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public Contrato getContratoById(int id) throws Exception {
 		DAOContrato daoContrato = new DAOContrato();
 		Contrato Contrato = null;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoContrato.setConn(conn);
 			Contrato = daoContrato.findContratoById(id);
 			if(Contrato == null)
 			{
-				throw new Exception("El Contrato con el id = " + id + " no se encuentra persistido en la base de datos.");				
+				throw new Exception("El Contrato con el id = " + id + " no se encuentra persistido en la base de datos.");
 			}
-		} 
+		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoContrato.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1654,9 +1654,9 @@ public class AlohaAndesTransactionManager
 	 * @param contrato - el Contrato a agregar. Contrato != null
 	 * @throws Exception - Cualquier error que se genere agregando el Contrato
 	 */
-	public void addContrato(Contrato contrato) throws Exception 
+	public void addContrato(Contrato contrato) throws Exception
 	{
-		
+
 		DAOContrato daoContrato = new DAOContrato( );
 		try
 		{
@@ -1666,7 +1666,7 @@ public class AlohaAndesTransactionManager
 
 			Date fechaFinal= contrato.getFechaFinal();
 			Date fechaInicial= contrato.getFechaInicio();
-			int duracionContratoEnDias = (int)( (fechaFinal.getTime() - fechaInicial.getTime()) 
+			int duracionContratoEnDias = (int)( (fechaFinal.getTime() - fechaInicial.getTime())
 					/ (1000 * 60 * 60 * 24) );
 
 			if(contrato.getTipo().equals(Contrato.HABITACION))
@@ -1698,17 +1698,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoContrato.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1721,13 +1721,13 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que agrega un Contrato a la base de datos  <br/>
-	 * unicamente si el número de Contratos que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
+	 * unicamente si el nÃºmero de Contratos que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
 	 * <b> post: </b> Si se cumple la condicion, se ha agregado el Contrato que entra como parametro  <br/>
 	 * @param Contrato - el Contrato a agregar. Contrato != null
-	 * @param cantidadMaxima -representa la cantidad maxima de Contratos que pueden haber en la misma ciudad
+	 * @param Contrato -representa la cantidad maxima de Contratos que pueden haber en la misma ciudad
 	 * @throws Exception - Cualquier error que se genere agregando el Contrato
 	 */
-	public void addContratoWithLimitations(Contrato Contrato) throws Exception 
+	public void addContratoWithLimitations(Contrato Contrato) throws Exception
 	{
 		DAOContrato daoContrato = new DAOContrato( );
 		try
@@ -1748,17 +1748,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoContrato.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1778,7 +1778,7 @@ public class AlohaAndesTransactionManager
 	 * @param Contrato - Contrato a actualizar. Contrato != null
 	 * @throws Exception - Cualquier error que se genere actualizando al Contrato.
 	 */
-	public void updateContrato(Contrato Contrato) throws Exception 
+	public void updateContrato(Contrato Contrato) throws Exception
 	{
 		DAOContrato daoContrato = new DAOContrato( );
 		try
@@ -1790,11 +1790,11 @@ public class AlohaAndesTransactionManager
 			{
 				throw new Exception ("no existe el Contrato");
 			}
-						else if(Contrato.getId()!=null )
-						{
-							daoContrato.updateContrato(Contrato);
-						}
-			else 
+			else if(Contrato.getId()!=null )
+			{
+				daoContrato.updateContrato(Contrato);
+			}
+			else
 			{
 				throw new Exception ("no cumple con las normas del negocio");
 			}
@@ -1804,17 +1804,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoContrato.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1822,7 +1822,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al Contrato que entra por parametro. <br/>
@@ -1831,7 +1831,7 @@ public class AlohaAndesTransactionManager
 	 * @param Contrato - Contrato a eliminar. Contrato != null
 	 * @throws Exception - Cualquier error que se genere eliminando al Contrato.
 	 */
-	public void deleteContrato(Contrato Contrato) throws Exception 
+	public void deleteContrato(Contrato Contrato) throws Exception
 	{
 		DAOContrato daoContrato = new DAOContrato( );
 		try
@@ -1853,17 +1853,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoContrato.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1871,7 +1871,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 
 
@@ -1880,10 +1880,10 @@ public class AlohaAndesTransactionManager
 	 * Metodo que modela la transaccion que elimina de la base de datos al Contrato que entra por parametro. <br/>
 	 * Solamente se actualiza si existe el Contrato en la Base de Datos <br/>
 	 * <b> post: </b> se ha eliminado el Contrato que entra por parametro <br/>
-	 * @param Contrato - Contrato a eliminar. Contrato != null
+	 * @param contrato - Contrato a eliminar. Contrato != null
 	 * @throws Exception - Cualquier error que se genere eliminando al Contrato.
 	 */
-	public void cancelarContrato(Contrato contrato) throws Exception 
+	public void cancelarContrato(Contrato contrato) throws Exception
 	{
 		DAOContrato daoContrato = new DAOContrato( );
 		try
@@ -1898,7 +1898,7 @@ public class AlohaAndesTransactionManager
 			}
 			else
 			{
-			//	if()
+				//	if()
 				daoContrato.cancelarContrato(contrato);
 			}
 		}
@@ -1906,17 +1906,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoContrato.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1924,7 +1924,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 
 
@@ -1939,7 +1939,7 @@ public class AlohaAndesTransactionManager
 	public List<Menaje> getAllMenajes() throws Exception {
 		DAOMenaje daoMenaje = new DAOMenaje();
 		List<Menaje> Menajes;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoMenaje.setConn(conn);
@@ -1949,17 +1949,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoMenaje.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -1973,38 +1973,38 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que busca el Menaje en la base de datos que tiene el ID dado por parametro. <br/>
-	 * @param name -id del Menaje a buscar. id != null
+	 * @param id -id del Menaje a buscar. id != null
 	 * @return Menaje - Menaje que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public Menaje getMenajeById(int id) throws Exception {
 		DAOMenaje daoMenaje = new DAOMenaje();
 		Menaje Menaje = null;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoMenaje.setConn(conn);
 			Menaje = daoMenaje.findMenajeById(id);
 			if(Menaje == null)
 			{
-				throw new Exception("El Menaje con el id = " + id + " no se encuentra persistido en la base de datos.");				
+				throw new Exception("El Menaje con el id = " + id + " no se encuentra persistido en la base de datos.");
 			}
-		} 
+		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoMenaje.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2023,7 +2023,7 @@ public class AlohaAndesTransactionManager
 	 * @param Menaje - el Menaje a agregar. Menaje != null
 	 * @throws Exception - Cualquier error que se genere agregando el Menaje
 	 */
-	public void addMenaje(Menaje Menaje) throws Exception 
+	public void addMenaje(Menaje Menaje) throws Exception
 	{
 
 		DAOMenaje daoMenaje = new DAOMenaje( );
@@ -2040,17 +2040,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoMenaje.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2063,13 +2063,13 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que agrega un Menaje a la base de datos  <br/>
-	 * unicamente si el número de Menajes que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
+	 * unicamente si el nÃºmero de Menajes que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
 	 * <b> post: </b> Si se cumple la condicion, se ha agregado el Menaje que entra como parametro  <br/>
 	 * @param Menaje - el Menaje a agregar. Menaje != null
-	 * @param cantidadMaxima -representa la cantidad maxima de Menajes que pueden haber en la misma ciudad
+	 * @param Menaje -representa la cantidad maxima de Menajes que pueden haber en la misma ciudad
 	 * @throws Exception - Cualquier error que se genere agregando el Menaje
 	 */
-	public void addMenajeWithLimitations(Menaje Menaje) throws Exception 
+	public void addMenajeWithLimitations(Menaje Menaje) throws Exception
 	{
 		DAOMenaje daoMenaje = new DAOMenaje( );
 		try
@@ -2090,17 +2090,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoMenaje.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2120,7 +2120,7 @@ public class AlohaAndesTransactionManager
 	 * @param Menaje - Menaje a actualizar. Menaje != null
 	 * @throws Exception - Cualquier error que se genere actualizando al Menaje.
 	 */
-	public void updateMenaje(Menaje Menaje) throws Exception 
+	public void updateMenaje(Menaje Menaje) throws Exception
 	{
 		DAOMenaje daoMenaje = new DAOMenaje( );
 		try
@@ -2132,7 +2132,7 @@ public class AlohaAndesTransactionManager
 			{
 				throw new Exception ("no existe el Menaje");
 			}
-			else 
+			else
 			{
 				throw new Exception ("no cumple con las normas del negocio");
 			}
@@ -2142,17 +2142,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoMenaje.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2160,7 +2160,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al Menaje que entra por parametro. <br/>
@@ -2169,7 +2169,7 @@ public class AlohaAndesTransactionManager
 	 * @param Menaje - Menaje a eliminar. Menaje != null
 	 * @throws Exception - Cualquier error que se genere eliminando al Menaje.
 	 */
-	public void deleteMenaje(Menaje Menaje) throws Exception 
+	public void deleteMenaje(Menaje Menaje) throws Exception
 	{
 		DAOMenaje daoMenaje = new DAOMenaje( );
 		try
@@ -2191,17 +2191,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoMenaje.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2209,7 +2209,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 
 
@@ -2230,7 +2230,7 @@ public class AlohaAndesTransactionManager
 	public List<Seguro> getAllSeguros() throws Exception {
 		DAOSeguro daoSeguro = new DAOSeguro();
 		List<Seguro> Seguros;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoSeguro.setConn(conn);
@@ -2240,17 +2240,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoSeguro.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2264,38 +2264,38 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que busca el Seguro en la base de datos que tiene el ID dado por parametro. <br/>
-	 * @param name -id del Seguro a buscar. id != null
+	 * @param id -id del Seguro a buscar. id != null
 	 * @return Seguro - Seguro que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public Seguro getSeguroById(int id) throws Exception {
 		DAOSeguro daoSeguro = new DAOSeguro();
 		Seguro Seguro = null;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoSeguro.setConn(conn);
 			Seguro = daoSeguro.findSeguroById(id);
 			if(Seguro == null)
 			{
-				throw new Exception("El Seguro con el id = " + id + " no se encuentra persistido en la base de datos.");				
+				throw new Exception("El Seguro con el id = " + id + " no se encuentra persistido en la base de datos.");
 			}
-		} 
+		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoSeguro.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2314,7 +2314,7 @@ public class AlohaAndesTransactionManager
 	 * @param Seguro - el Seguro a agregar. Seguro != null
 	 * @throws Exception - Cualquier error que se genere agregando el Seguro
 	 */
-	public void addSeguro(Seguro Seguro) throws Exception 
+	public void addSeguro(Seguro Seguro) throws Exception
 	{
 
 		DAOSeguro daoSeguro = new DAOSeguro( );
@@ -2331,17 +2331,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoSeguro.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2354,13 +2354,13 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que agrega un Seguro a la base de datos  <br/>
-	 * unicamente si el número de Seguros que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
+	 * unicamente si el nÃºmero de Seguros que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
 	 * <b> post: </b> Si se cumple la condicion, se ha agregado el Seguro que entra como parametro  <br/>
 	 * @param seguro - el Seguro a agregar. Seguro != null
-	 * @param cantidadMaxima -representa la cantidad maxima de Seguros que pueden haber en la misma ciudad
+	 * @param seguro -representa la cantidad maxima de Seguros que pueden haber en la misma ciudad
 	 * @throws Exception - Cualquier error que se genere agregando el Seguro
 	 */
-	public void addSeguroWithLimitations(Seguro seguro) throws Exception 
+	public void addSeguroWithLimitations(Seguro seguro) throws Exception
 	{
 		DAOSeguro daoSeguro = new DAOSeguro( );
 		try
@@ -2381,17 +2381,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoSeguro.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2411,7 +2411,7 @@ public class AlohaAndesTransactionManager
 	 * @param seguro - Seguro a actualizar. Seguro != null
 	 * @throws Exception - Cualquier error que se genere actualizando al Seguro.
 	 */
-	public void updateSeguro(Seguro seguro) throws Exception 
+	public void updateSeguro(Seguro seguro) throws Exception
 	{
 		DAOSeguro daoSeguro = new DAOSeguro( );
 		try
@@ -2423,7 +2423,7 @@ public class AlohaAndesTransactionManager
 			{
 				throw new Exception ("no existe el Seguro");
 			}
-			else 
+			else
 			{
 				throw new Exception ("no cumple con las normas del negocio");
 			}
@@ -2433,17 +2433,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoSeguro.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2451,7 +2451,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al Seguro que entra por parametro. <br/>
@@ -2460,7 +2460,7 @@ public class AlohaAndesTransactionManager
 	 * @param seguro - Seguro a eliminar. Seguro != null
 	 * @throws Exception - Cualquier error que se genere eliminando al Seguro.
 	 */
-	public void deleteSeguro(Seguro seguro) throws Exception 
+	public void deleteSeguro(Seguro seguro) throws Exception
 	{
 		DAOSeguro daoSeguro = new DAOSeguro( );
 		try
@@ -2482,17 +2482,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoSeguro.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2500,7 +2500,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 
 	/**
@@ -2511,7 +2511,7 @@ public class AlohaAndesTransactionManager
 	public List<Servicio> getAllServicios() throws Exception {
 		DAOServicio daoServicio = new DAOServicio();
 		List<Servicio> servicios;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoServicio.setConn(conn);
@@ -2521,17 +2521,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoServicio.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2545,38 +2545,38 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que busca el Servicio en la base de datos que tiene el ID dado por parametro. <br/>
-	 * @param name -id del Servicio a buscar. id != null
+	 * @param id -id del Servicio a buscar. id != null
 	 * @return Servicio - Servicio que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
 	public Servicio getServicioById(int id) throws Exception {
 		DAOServicio daoServicio = new DAOServicio();
 		Servicio Servicio = null;
-		try 
+		try
 		{
 			this.conn = darConexion();
 			daoServicio.setConn(conn);
 			Servicio = daoServicio.findServicioById(id);
 			if(Servicio == null)
 			{
-				throw new Exception("El Servicio con el id = " + id + " no se encuentra persistido en la base de datos.");				
+				throw new Exception("El Servicio con el id = " + id + " no se encuentra persistido en la base de datos.");
 			}
-		} 
+		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoServicio.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2595,7 +2595,7 @@ public class AlohaAndesTransactionManager
 	 * @param Servicio - el Servicio a agregar. Servicio != null
 	 * @throws Exception - Cualquier error que se genere agregando el Servicio
 	 */
-	public void addServicio(Servicio Servicio) throws Exception 
+	public void addServicio(Servicio Servicio) throws Exception
 	{
 
 		DAOServicio daoServicio = new DAOServicio( );
@@ -2612,17 +2612,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoServicio.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2635,13 +2635,13 @@ public class AlohaAndesTransactionManager
 
 	/**
 	 * Metodo que modela la transaccion que agrega un Servicio a la base de datos  <br/>
-	 * unicamente si el número de servicios que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
+	 * unicamente si el nÃºmero de servicios que existen en su ciudad es menor la constante CANTIDAD_MAXIMA <br/>
 	 * <b> post: </b> Si se cumple la condicion, se ha agregado el Servicio que entra como parametro  <br/>
 	 * @param Servicio - el Servicio a agregar. Servicio != null
-	 * @param cantidadMaxima -representa la cantidad maxima de servicios que pueden haber en la misma ciudad
+	 * @param Servicio -representa la cantidad maxima de servicios que pueden haber en la misma ciudad
 	 * @throws Exception - Cualquier error que se genere agregando el Servicio
 	 */
-	public void addServicioWithLimitations(Servicio Servicio) throws Exception 
+	public void addServicioWithLimitations(Servicio Servicio) throws Exception
 	{
 		DAOServicio daoServicio = new DAOServicio( );
 		try
@@ -2662,17 +2662,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoServicio.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2692,7 +2692,7 @@ public class AlohaAndesTransactionManager
 	 * @param Servicio - Servicio a actualizar. Servicio != null
 	 * @throws Exception - Cualquier error que se genere actualizando al Servicio.
 	 */
-	public void updateServicio(Servicio Servicio) throws Exception 
+	public void updateServicio(Servicio Servicio) throws Exception
 	{
 		DAOServicio daoServicio = new DAOServicio( );
 		try
@@ -2704,7 +2704,7 @@ public class AlohaAndesTransactionManager
 			{
 				throw new Exception ("no existe el Servicio");
 			}
-			else 
+			else
 			{
 				throw new Exception ("no cumple con las normas del negocio");
 			}
@@ -2714,17 +2714,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoServicio.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2732,7 +2732,7 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al Servicio que entra por parametro. <br/>
@@ -2741,7 +2741,7 @@ public class AlohaAndesTransactionManager
 	 * @param Servicio - Servicio a eliminar. Servicio != null
 	 * @throws Exception - Cualquier error que se genere eliminando al Servicio.
 	 */
-	public void deleteServicio(Servicio Servicio) throws Exception 
+	public void deleteServicio(Servicio Servicio) throws Exception
 	{
 		DAOServicio daoServicio = new DAOServicio( );
 		try
@@ -2763,17 +2763,17 @@ public class AlohaAndesTransactionManager
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
 			throw sqlException;
-		} 
+		}
 		catch (Exception exception) {
 			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
 			exception.printStackTrace();
 			throw exception;
-		} 
+		}
 		finally {
 			try {
 				daoServicio.cerrarRecursos();
 				if(this.conn!=null){
-					this.conn.close();					
+					this.conn.close();
 				}
 			}
 			catch (SQLException exception) {
@@ -2781,180 +2781,180 @@ public class AlohaAndesTransactionManager
 				exception.printStackTrace();
 				throw exception;
 			}
-		}	
+		}
 	}
 	public void crearReserva(Contrato contrato, String tipoAlojamiento, String servicios) throws Exception
-	{	
+	{
 		Contrato reserva = null;
 		DAOApartamento daoApartamento = new DAOApartamento( );
 
-			
-			daoApartamento.setConn(conn);
-			
-			DAOVivienda daoVivienda = new DAOVivienda( );
 
-			
-			daoVivienda.setConn(conn);
-			
-			DAOHabitacion daoHabitacion = new DAOHabitacion( );
+		daoApartamento.setConn(conn);
 
-			
-			daoHabitacion.setConn(conn);
-		
-		
+		DAOVivienda daoVivienda = new DAOVivienda( );
+
+
+		daoVivienda.setConn(conn);
+
+		DAOHabitacion daoHabitacion = new DAOHabitacion( );
+
+
+		daoHabitacion.setConn(conn);
+
+
 		if(tipoAlojamiento.equals("Apartamento"))
 		{
 			ContratoApartamento contratoA =(ContratoApartamento)contrato;
 			if(daoApartamento.findApartamentoById(contratoA.getIdApartamento()).getEstado()== "Disponible")
-			 addContratoWithLimitations(contratoA);
+				addContratoWithLimitations(contratoA);
 			else
 				throw new Exception ("no esta disponible");
 		}
-		else if(tipoAlojamiento.equals("Vivienda")) 
+		else if(tipoAlojamiento.equals("Vivienda"))
 		{
 			ContratoVivienda contratov = (ContratoVivienda)contrato;
 			if(daoVivienda.findViviendaById(contratov.getIdVivienda()).getEstado()== "Disponible")
-			addContratoWithLimitations(contratov);
+				addContratoWithLimitations(contratov);
 			else
 				throw new Exception ("no esta disponible");
 		}
 		else if(tipoAlojamiento.equals("Habitacion"))
-		{	
-			ContratoHabitacion contratoh = (ContratoHabitacion)contrato; 
+		{
+			ContratoHabitacion contratoh = (ContratoHabitacion)contrato;
 			if(daoHabitacion.findHabitacionById(contratoh.getIdHabitacion()).getEstado()== "Disponible")
-			 addContratoWithLimitations(contratoh);
+				addContratoWithLimitations(contratoh);
 			else
 				throw new Exception ("no esta disponible");
 		}
-		
-		
+
+
 	}
-	public void cancelarReserva(Contrato contrato) throws SQLException, Exception 
+	public void cancelarReserva(Contrato contrato) throws SQLException, Exception
 	{
 		DAOContrato daoContrato = new DAOContrato( );
-		
-			
-			this.conn = darConexion();
-			daoContrato.setConn( conn );
-			
-			contrato = daoContrato.findContratoById(contrato.getId());
-			contrato.setCancelado();
-			updateContrato(contrato);
+
+
+		this.conn = darConexion();
+		daoContrato.setConn( conn );
+
+		contrato = daoContrato.findContratoById(contrato.getId());
+		contrato.setCancelado();
+		updateContrato(contrato);
 	}
 
 	public void desahbilitarOferta(Contrato contrato, String tipoAlojamiento) throws SQLException, Exception
 	{
-		
+
 		DAOApartamento daoApartamento = new DAOApartamento( );
 
 		this.conn = darConexion();
 		daoApartamento.setConn(conn);
-		
+
 		DAOVivienda daoVivienda = new DAOVivienda( );
 
-	
+
 		daoVivienda.setConn(conn);
-		
+
 		DAOHabitacion daoHabitacion = new DAOHabitacion( );
 
-		
+
 		daoHabitacion.setConn(conn);
-	
-	
-	if(tipoAlojamiento.equals("Apartamento"))
-	{
-	
-		ContratoApartamento contratoA =(ContratoApartamento)contrato;
-		Apartamento a =daoApartamento.findApartamentoById(contratoA.getIdApartamento());
-		a.setEstado("No disponible");
-		updateApartamento(a);
-		
-	}
-	else if(tipoAlojamiento.equals("Vivienda")) 
-	{
-		ContratoVivienda contratoV = (ContratoVivienda)contrato;
-		Vivienda v = daoVivienda.findViviendaById(contratoV.getIdVivienda());
-		v.setEstado("No disponible");
-		updateVivienda(v);
-		 
-	}
-	else if(tipoAlojamiento.equals("Habitacion"))
-	{	
-		ContratoHabitacion contratoH = (ContratoHabitacion)contrato;
-		Habitacion h = daoHabitacion.findHabitacionById(contratoH.getIdHabitacion());
-		h.setEstado("No disponible");
-		updateHabitacion(h);
-	}
-	}
-	
-	public void habilitarOferta( Contrato contrato, String tipoAlojamiento) throws SQLException, Exception
-	{
-		
-		DAOApartamento daoApartamento = new DAOApartamento( );
 
-			this.conn = darConexion();
-			daoApartamento.setConn(conn);
-			
-			DAOVivienda daoVivienda = new DAOVivienda( );
 
-		
-			daoVivienda.setConn(conn);
-			
-			DAOHabitacion daoHabitacion = new DAOHabitacion( );
-
-			
-			daoHabitacion.setConn(conn);
-		
-		
 		if(tipoAlojamiento.equals("Apartamento"))
 		{
-		
+
+			ContratoApartamento contratoA =(ContratoApartamento)contrato;
+			Apartamento a =daoApartamento.findApartamentoById(contratoA.getIdApartamento());
+			a.setEstado("No disponible");
+			updateApartamento(a);
+
+		}
+		else if(tipoAlojamiento.equals("Vivienda"))
+		{
+			ContratoVivienda contratoV = (ContratoVivienda)contrato;
+			Vivienda v = daoVivienda.findViviendaById(contratoV.getIdVivienda());
+			v.setEstado("No disponible");
+			updateVivienda(v);
+
+		}
+		else if(tipoAlojamiento.equals("Habitacion"))
+		{
+			ContratoHabitacion contratoH = (ContratoHabitacion)contrato;
+			Habitacion h = daoHabitacion.findHabitacionById(contratoH.getIdHabitacion());
+			h.setEstado("No disponible");
+			updateHabitacion(h);
+		}
+	}
+
+	public void habilitarOferta( Contrato contrato, String tipoAlojamiento) throws SQLException, Exception
+	{
+
+		DAOApartamento daoApartamento = new DAOApartamento( );
+
+		this.conn = darConexion();
+		daoApartamento.setConn(conn);
+
+		DAOVivienda daoVivienda = new DAOVivienda( );
+
+
+		daoVivienda.setConn(conn);
+
+		DAOHabitacion daoHabitacion = new DAOHabitacion( );
+
+
+		daoHabitacion.setConn(conn);
+
+
+		if(tipoAlojamiento.equals("Apartamento"))
+		{
+
 			ContratoApartamento contratoA =(ContratoApartamento)contrato;
 			Apartamento a =daoApartamento.findApartamentoById(contratoA.getIdApartamento());
 			a.setEstado("Disponible");
 			updateApartamento(a);
-			
+
 		}
-		else if(tipoAlojamiento.equals("Vivienda")) 
+		else if(tipoAlojamiento.equals("Vivienda"))
 		{
 			ContratoVivienda contratoV = (ContratoVivienda)contrato;
 			Vivienda v = daoVivienda.findViviendaById(contratoV.getIdVivienda());
 			v.setEstado("Disponible");
 			updateVivienda(v);
-			 
+
 		}
 		else if(tipoAlojamiento.equals("Habitacion"))
-		{	
+		{
 			ContratoHabitacion contratoH = (ContratoHabitacion)contrato;
 			Habitacion h = daoHabitacion.findHabitacionById(contratoH.getIdHabitacion());
 			h.setEstado("Disponible");
 			updateHabitacion(h);
 		}
 	}
-	
+
 	public void crearReservaColectiva(ArrayList<Contrato> contratos, String tipoAlojamiento, String servicios, Integer cantidadReserva, Integer idRC) throws Exception
 	{
 		DAOContrato daoContrato = new DAOContrato();
-		
+
 		this.conn = darConexion();
 		daoContrato.setConn(conn);
-		
+
 		DAOApartamento daoApartamento = new DAOApartamento( );
 
-		
+
 		daoApartamento.setConn(conn);
-		
+
 		DAOVivienda daoVivienda = new DAOVivienda( );
 
-		
+
 		daoVivienda.setConn(conn);
-		
+
 		DAOHabitacion daoHabitacion = new DAOHabitacion( );
 
-		
+
 		daoHabitacion.setConn(conn);
-		
-		
+
+
 		ArrayList<Integer> idAlojamiento = new ArrayList<Integer>();
 		for(int i = 0 ; i < cantidadReserva; i++)
 		{
@@ -2963,40 +2963,40 @@ public class AlohaAndesTransactionManager
 			{
 				ContratoApartamento contratoA =(ContratoApartamento)contratos.get(i);
 				idAlojamiento.add(contratoA.getIdApartamento());
-				
+
 			}
-			else if(tipoAlojamiento.equals("Vivienda")) 
+			else if(tipoAlojamiento.equals("Vivienda"))
 			{
 				ContratoVivienda contratoV =(ContratoVivienda)contratos.get(i);
 				idAlojamiento.add(contratoV.getIdVivienda());
-			
+
 			}
 			else if(tipoAlojamiento.equals("Habitacion"))
-			{	
+			{
 				ContratoHabitacion contratoH =(ContratoHabitacion)contratos.get(i);
 				idAlojamiento.add(contratoH.getIdHabitacion());;
-			
+
 			}
-			}
-		
+		}
+
 		daoContrato.crearContratosReservaColectiva(idAlojamiento, idRC);
-		
-	
+
+
 	}
-	
-	public void cancelarReservaColectiva( Integer idRC) throws SQLException, Exception 
+
+	public void cancelarReservaColectiva( Integer idRC) throws SQLException, Exception
 	{
 		DAOContrato daoContrato = new DAOContrato();
-		
+
 		ArrayList<Integer> contratos =daoContrato.getContratosReservaColectiva(idRC);
-	
+
 		for(int i = 0; i <contratos.size(); i++)
 		{
-			cancelarReserva(daoContrato.findContratoById(contratos.get(i)));	
+			cancelarReserva(daoContrato.findContratoById(contratos.get(i)));
 		}
-		
+
 	}
-	
+
 	public ArrayList<Cliente>getClientesfrecuentes() throws SQLException,Exception
 	{
 		DAOCliente daoCliente = new DAOCliente();
@@ -3004,5 +3004,5 @@ public class AlohaAndesTransactionManager
 		daoCliente.setConn(conn);
 		return daoCliente.getClientesFrecuentes();
 	}
-	
+
 }
