@@ -34,8 +34,25 @@ public class Cliente {
 		 */
 		@JsonProperty (value = "password")
 		private String password;
-	
-		/**
+
+
+	/**
+	 * Metodo constructor de Cliente
+	 * <b>post: </b> Crea el cliente con los valores que entran por parametro
+	 * @param pIdCliente - IdCliente del cliente.
+	 * @param pNombre - Nombre del cliente.
+	 * @param pApellido - Apellido del cliente.
+	 */
+	public Cliente(@JsonProperty(value="idCliente")int pIdCliente,@JsonProperty(value="nombre")String pNombre, @JsonProperty(value="apellido") String pApellido)
+	{
+		this.idCliente = pIdCliente;
+		this.nombre= pNombre;
+		this.apellido = pApellido;
+
+	}
+
+
+	/**
 		 * Metodo constructor de Cliente
 		 * <b>post: </b> Crea el cliente con los valores que entran por parametro
 		 * @param pIdCliente - IdCliente del cliente.

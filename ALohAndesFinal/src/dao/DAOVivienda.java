@@ -85,9 +85,9 @@ public class DAOVivienda
 	}
 	
 	/**
-	 * Metodo que agregar la informacion de un nuevo bebedor en la Base de Datos a partir del parametro ingresado<br/>
+	 * Metodo que agregar la informacion de un nuevo vivienda en la Base de Datos a partir del parametro ingresado<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
-	 * @param bebedor Bebedor que desea agregar a la Base de Datos
+	 * @param vivienda vivienda que desea agregar a la Base de Datos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
@@ -112,7 +112,7 @@ public class DAOVivienda
 	/**
 	 * Metodo que actualiza la informacion de la vivienda en la Base de Datos que tiene el identificador dado por parametro<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
-	 * @param bebedor Bebedor que desea actualizar a la Base de Datos
+	 * @param vivienda vivienda que desea actualizar a la Base de Datos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
@@ -178,19 +178,18 @@ public class DAOVivienda
 	
 	/**
 	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla VIVIENDAS) en una instancia de la clase Vivienda.
-	 * @param resultSet ResultSet con la informacion de un bebedor que se obtuvo de la base de datos.
-	 * @return Bebedor cuyos atributos corresponden a los valores asociados a un registro particular de la tabla VIVIENDAS.
+	 * @param resultSet ResultSet con la informacion de un vivienda que se obtuvo de la base de datos.
+	 * @return vivienda cuyos atributos corresponden a los valores asociados a un registro particular de la tabla VIVIENDAS.
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public Vivienda convertResultSetToVivienda(ResultSet resultSet) throws SQLException {
 	
 		int id = Integer.parseInt(resultSet.getString("IDVIVIENDA"));
-		String ubicacion = resultSet.getString("UBICACION");
 		int precio = Integer.parseInt(resultSet.getString("PRECIOBASE"));
 		int habitaciones = Integer.parseInt(resultSet.getString("HABITACIONES"));
 		int idProveedor = Integer.parseInt(resultSet.getString("IDPROVEEDOR"));
 
-		Vivienda viv = new Vivienda(id, ubicacion, precio, habitaciones,idProveedor);
+		Vivienda viv = new Vivienda(id, precio, habitaciones,idProveedor);
 
 		return viv;
 	}

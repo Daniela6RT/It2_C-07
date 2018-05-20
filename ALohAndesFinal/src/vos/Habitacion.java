@@ -66,7 +66,7 @@ public class Habitacion
 	 * @param pTipo - tipo de la habitacion.
 	 * @param pPrecioBase - Precio Base de a habitacion.
 	 * @param pCompartida - Sí es compartida o no la habitacion.
-	 * @param pHotaApertura - Hora de apertura de la habitacion.
+	 * @param pHoraApertura - Hora de apertura de la habitacion.
 	 * @param pHoraCierre - Hora de cierre de la habitacion.
 	 * @param pMinCierre - Minimo para el cierre de la habitacion.
 	 * @param pMinApertura - Minimo para la apertura de la habitacion.

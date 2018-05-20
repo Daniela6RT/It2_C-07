@@ -40,21 +40,23 @@ public class Vivienda
 	 */
 	@JsonProperty (value = "estado")
 	private String estado;
-	
-	
+
+	public static final String DISPONIBLE = "Disponible";
+
+	public static final String NODISPONIBLE = "No disponible";
+
+
 	/**
 	 * Metodo constructor de la Vivienda
 	 * <b>post: </b> Crea la Vivienda con los valores que entran por parametro
 	 * @param pIdVivienda - Id de la vivienda.
-	 * @param pUbicacino - Ubicacion de la vivienda.
 	 * @param pPrecioBase - Precio Base de la vivienda.
 	 * @param pHabitaciones - Habitaciones de la vivienda.
 	 * @param pIdProveedor - Id del proveedor de la vivienda.
 	 */
-	public Vivienda(@JsonProperty(value="IdVivienda")int pIdVivienda,@JsonProperty(value="ubicacion")String pUbicacion, @JsonProperty(value="precioBase") int pPrecioBase, @JsonProperty(value="habitaciones")int pHabitaciones,@JsonProperty(value="idProveedor")int pIdProveedor) 
+	public Vivienda(@JsonProperty(value="IdVivienda")int pIdVivienda,@JsonProperty(value="precioBase") int pPrecioBase, @JsonProperty(value="habitaciones")int pHabitaciones,@JsonProperty(value="idProveedor")int pIdProveedor)
 	{
 		this.IdVivienda = pIdVivienda;
-		this.ubicacion= pUbicacion;
 		this.precioBase = pPrecioBase;
 		this.habitaciones = pHabitaciones;
 		this.idProveedor = pIdProveedor;
@@ -109,9 +111,13 @@ public class Vivienda
 		return estado;
 	}
 	
-	public void setEstado(String pEstado)
+	public void habilitar()
 	{
-		
-		estado = pEstado;
+		estado=DISPONIBLE;
+	}
+
+	public void desHabilitar()
+	{
+		estado=NODISPONIBLE;
 	}
 }

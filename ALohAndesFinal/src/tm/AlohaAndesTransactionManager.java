@@ -2874,7 +2874,7 @@ public class AlohaAndesTransactionManager
 		{
 			ContratoVivienda contratoV = (ContratoVivienda)contrato;
 			Vivienda v = daoVivienda.findViviendaById(contratoV.getIdVivienda());
-			v.setEstado("No disponible");
+			v.desHabilitar();
 			updateVivienda(v);
 
 		}
@@ -2919,7 +2919,7 @@ public class AlohaAndesTransactionManager
 		{
 			ContratoVivienda contratoV = (ContratoVivienda)contrato;
 			Vivienda v = daoVivienda.findViviendaById(contratoV.getIdVivienda());
-			v.setEstado("Disponible");
+			v.desHabilitar();
 			updateVivienda(v);
 
 		}

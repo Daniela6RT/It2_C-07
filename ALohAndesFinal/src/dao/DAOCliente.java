@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.*;
 
 
-import vos.Cliente;
+import vos.*;
 
 public class DAOCliente
 {
@@ -211,14 +211,33 @@ public class DAOCliente
 		int id = Integer.parseInt(resultSet.getString("IDCLIENTE"));
 		String nombre = resultSet.getString("NOMBRE");
 		String apellido = resultSet.getString("APELLIDO");
-		String login = resultSet.getString("APELLIDO");
-		String password = resultSet.getString("APELLIDO");
 
 
-		Cliente cli = new Cliente(id, nombre, apellido, login,password);
+		Cliente cli = new Cliente(id, nombre, apellido);
 
 		return cli;
 	}
+
+    /**
+     * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla CLIENTE) en una instancia de la clase Cliente.
+     * @param resultSet ResultSet con la informacion de un cliente que se obtuvo de la base de datos.
+     * @return Cliente cuyos atributos corresponden a los valores asociados a un registro particular de la tabla CLIENTE.
+     * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+     */
+    public Cliente convertResultSetToClienteConPW(ResultSet resultSet) throws SQLException {
+
+        int id = Integer.parseInt(resultSet.getString("IDCLIENTE"));
+        String nombre = resultSet.getString("NOMBRE");
+        String apellido = resultSet.getString("APELLIDO");
+        String login = resultSet.getString("APELLIDO");
+        String password = resultSet.getString("APELLIDO");
+
+
+        Cliente cli = new Cliente(id, nombre, apellido, login,password);
+
+        return cli;
+    }
+
 	/**
 	 *
 	 * @return
@@ -252,4 +271,34 @@ public class DAOCliente
 
 		return clientes;
 	}
+
+	public ArrayList<Cliente> consultarConsumoAlohAndes(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws SQLException {
+        ArrayList<Cliente> respuesta=null;
+        String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO FROM\n" +
+                        "  (SELECT * FROM CLIENTE cl NATURAL JOIN (\n" +
+                        "select * from CONTRATOS  natural JOIN CONTRATOSAPARTAMENTOS ca\n" +
+                        "UNION\n" +
+                        "(select * from CONTRATOS natural JOIN CONTRATOSHABITACIONES ch)\n" +
+                        "UNION\n" +
+                        "(select * from CONTRATOS natural JOIN CONTRATOSVIVIENDAS cv)))\n" +
+                        "WHERE (ESTADO='En curso' OR ESTADO = 'Exitoso') AND\n" +
+                        "      (FECHAINICIO BETWEEN %1$d AND %2$d \n" +
+                        "      OR FECHAFIN BETWEEN %3$d AND %4$d" +
+                        "     AND (IDCLIENTE=1) ORDER BY %5$d",
+                fecha1,
+                fecha2,
+                fecha1,
+                fecha2,
+                organizacion);
+
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        recursos.add(prepStmt);
+        ResultSet rs = prepStmt.executeQuery();
+
+        while (rs.next()) {
+            respuesta.add(convertResultSetToClienteConPW(rs));
+        }
+
+        return respuesta;
+    }
 }
