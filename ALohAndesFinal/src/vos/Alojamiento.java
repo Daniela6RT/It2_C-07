@@ -36,6 +36,13 @@ public class Alojamiento {
      * Constante que define Habitacion
      */
     public static final String HABITACION ="Habitacion";
+    
+    public static final int IDVIVIENDA=1;
+    
+    public static final int IDAPARTAMENTO=2;
+    
+    public static final int IDHABITACION=3;
+    
 
     /**
      * Metodo constructor de Cliente
@@ -63,20 +70,38 @@ public class Alojamiento {
     public String getTipo() {
         return tipo;
     }
+    
+    public Apartamento getApartamento()
+    {
+    	Apartamento apar=null;
+    	
+    	
+    	return apar;
+    	
+    	
+    }
 
     public void setApartamento()
     {
         tipo=APARTAMENTO;
+        idTipo=IDAPARTAMENTO;
     }
 
     public void setHabitacion()
     {
         tipo=HABITACION;
+        idTipo=IDHABITACION;
     }
 
     public void setVivienda()
     {
         tipo=VIVIENDA;
+        idTipo=IDVIVIENDA;
+    }
+    
+    public int getIdTipo()
+    {
+    	return idTipo;
     }
 
 }

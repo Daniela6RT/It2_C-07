@@ -281,10 +281,10 @@ public class DAOCliente
                         "(select * from CONTRATOS natural JOIN CONTRATOSHABITACIONES ch)\n" +
                         "UNION\n" +
                         "(select * from CONTRATOS natural JOIN CONTRATOSVIVIENDAS cv)))\n" +
-                        "WHERE (ESTADO='En curso' OR ESTADO = 'Exitoso') AND\n" +
-                        "      (FECHAINICIO BETWEEN %1$d AND %2$d \n" +
-                        "      OR FECHAFIN BETWEEN %3$d AND %4$d" +
-                        "     AND (IDCLIENTE=1) ORDER BY %5$d",
+                        "WHERE (IDAPARTAMENTO=%1%s) AND (ESTADO='En curso' OR ESTADO = 'Exitoso') AND\n" +
+                        "      (FECHAINICIO BETWEEN %2$d AND %3$d \n" +
+                        "      OR FECHAFIN BETWEEN %4$d AND %5$d" +
+                        "     AND (IDCLIENTE=%6$d) ORDER BY %7$d",
                 fecha1,
                 fecha2,
                 fecha1,
