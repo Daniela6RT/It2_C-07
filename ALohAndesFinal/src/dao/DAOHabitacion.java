@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+import vos.Apartamento;
 import vos.Habitacion;
 
 public class DAOHabitacion 
@@ -210,4 +210,34 @@ public class DAOHabitacion
 
 		return hab;
 	}
+	
+    /**
+     * Metodo que obtiene el funcionamiento de todos las habitaciones en la Base de Datos <br/>
+     * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+     *
+     * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+     * @throws Exception    Si se genera un error dentro del metodo.
+     * @return lista con la informacion de todos los apartamentos que se encuentran en la Base de Datos
+     */
+    public ArrayList getFuncionamientoHabitaciones() throws SQLException, Exception {
+        ArrayList habitaciones = new ArrayList<Apartamento>();
+
+        String sql = String.format("\r\n" + 
+        		"SSELECT CONTRATOSHABITACIONES.IDHABITACION,to_char(FECHAINICIO,'ww')AS NUMSEMANA, COUNT(IDPROVEEDOR)AS CANTIDADPROVEEDOR\r\n" + 
+        		"FROM CONTRATOS, CONTRATOSHABITACIONES\r\n" + 
+        		"WHERE CONTRATOS.IDCONTRATO = CONTRATOSHABITACIONES.IDCONTRATO\r\n" + 
+        		"GROUP BY CONTRATOSHABITACIONES.IDHABITACION,CONTRATOS.IDPROVEEDOR, to_char(FECHAINICIO,'ww') \r\n" + 
+        		"ORDER BY COUNT(IDPROVEEDOR);\r\n" + 
+        		");\r\n" + 
+        		"", USUARIO);
+
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        recursos.add(prepStmt);
+        ResultSet rs = prepStmt.executeQuery();
+
+        while (rs.next()) {
+        	habitaciones.add(rs.getObject(sql));
+        }
+        return habitaciones;
+    }
 }

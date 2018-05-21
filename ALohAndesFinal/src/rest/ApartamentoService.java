@@ -208,5 +208,24 @@ public class ApartamentoService
 		}
 	
 	}
+	
+	
+	@GET
+	@Path("funcionalidadA")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getFuncionalidadViviendas() {
+		
+		try {
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager(getPath());
+			
+			List apartamentos;
+	
+			apartamentos = tm.getFuncionamiento("Apartamento");
+			return Response.status(200).entity(apartamentos).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 
 }

@@ -195,4 +195,31 @@ public class DAOProveedorAlojamiento
 
 		return prov;
 	}
+	
+	
+
+	
+		/**
+	 * Metodo que obtiene la informacion del dinero obtenido por los proveedores  <br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * @return	lista con la informacion de todos los ProveedorAlojamiento que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList getDineroProveedores() throws SQLException, Exception {
+		ArrayList ProveedorAlojamiento = new ArrayList<ProveedorAlojamiento>();
+
+		String sql = String.format("	Select idproveedor, sum(costo), extract (year from fechainicio)\r\n" + 
+				"	from contratos\r\n" + 
+				"	group by idproveedor, extract (year from fechainicio);", USUARIO);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			ProveedorAlojamiento.add(rs.getObject(sql));
+		}
+		return ProveedorAlojamiento;
+	}
 }

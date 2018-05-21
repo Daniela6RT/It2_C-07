@@ -204,5 +204,24 @@ public class ViviendaService
 		}
 	
 	}
+	
+			
+	@GET
+	@Path("funcionalidadV")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getFuncionalidadViviendas() {
+		
+		try {
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager(getPath());
+			
+			List viviendas;
+			
+			viviendas = tm.getFuncionamiento("Vivienda");
+			return Response.status(200).entity(viviendas).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 
 }

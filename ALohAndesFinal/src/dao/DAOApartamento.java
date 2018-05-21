@@ -201,6 +201,35 @@ public class DAOApartamento {
         return apto;
     }
 
+    
+    /**
+     * Metodo que obtiene el funcionamiento de todos los apartamentos en la Base de Datos <br/>
+     * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+     *
+     * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+     * @throws Exception    Si se genera un error dentro del metodo.
+     * @return lista con la informacion de todos los apartamentos que se encuentran en la Base de Datos
+     */
+    public ArrayList getFuncionamientoApartamentos() throws SQLException, Exception {
+        ArrayList apartamentos = new ArrayList<Apartamento>();
+
+        String sql = String.format("\r\n" + 
+        		"SELECT  CONTRATOSAPARTAMENTOS.IDAPARTAMENTO,CONTRATOS.IDPROVEEDOR,to_char(FECHAINICIO,'ww') AS NUMSEMANA, COUNT(IDPROVEEDOR)AS CANTIDADPROVEEDOR\r\n" + 
+        		"FROM CONTRATOS, CONTRATOSAPARTAMENTOS\r\n" + 
+        		"WHERE CONTRATOS.IDCONTRATO = CONTRATOSAPARTAMENTOS.IDCONTRATO\r\n" + 
+        		"GROUP BY CONTRATOSAPARTAMENTOS.IDAPARTAMENTO,CONTRATOS.IDPROVEEDOR, to_char(FECHAINICIO,'ww') \r\n" + 
+        		"ORDER BY COUNT(IDPROVEEDOR);\r\n" + 
+        		"", USUARIO);
+
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        recursos.add(prepStmt);
+        ResultSet rs = prepStmt.executeQuery();
+
+        while (rs.next()) {
+            apartamentos.add(rs.getObject(sql));
+        }
+        return apartamentos;
+    }
 
 }
 
