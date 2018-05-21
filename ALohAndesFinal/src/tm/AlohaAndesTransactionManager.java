@@ -22,6 +22,7 @@ import dao.DAOProveedorAlojamiento;
 import dao.DAOSeguro;
 import dao.DAOServicio;
 import dao.DAOVivienda;
+import jdk.management.resource.internal.inst.DatagramChannelImplRMHooks;
 import dao.DAOApartamento;
 import vos.Apartamento;
 import vos.Cliente;
@@ -3004,5 +3005,52 @@ public class AlohaAndesTransactionManager
 		daoCliente.setConn(conn);
 		return daoCliente.getClientesFrecuentes();
 	}
+	
+	public ArrayList getClientesBuenos() throws SQLException,Exception
+	{
+		DAOCliente daoCliente = new DAOCliente();
+		this.conn = darConexion();
+		daoCliente.setConn(conn);
+		return daoCliente.getClientesBuenos();
+	}
+	
+	public ArrayList getFuncionamiento(String tipo)throws SQLException,Exception
+	
+	{
+		ArrayList retorno = new ArrayList();
+		DAOApartamento daoApartamento = new DAOApartamento();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		DAOVivienda daoVivienda = new DAOVivienda();
+		
+		if(tipo.equalsIgnoreCase("Apartamento"))
+		{
+			retorno =daoApartamento.getFuncionamientoApartamentos();
+		}
+		else if(tipo.equalsIgnoreCase("Habitacion"))
+				{
+			retorno = daoHabitacion.getFuncionamientoHabitaciones();
+				}
+		else if(tipo.equalsIgnoreCase("Vivienda"))
+		{
+			retorno = daoVivienda.getFuncionamientoVivienda();
+		}
+		else 
+		{
+			throw new Exception("no es un tipo valido");
+		}
+		return retorno;
+		
+
+	}
+	
+	public ArrayList<String> get20OfertasMasPopulares()throws SQLException,Exception
+	{
+		ArrayList<String>retorno = new ArrayList<>();
+		DAOContrato  daoContrato = new DAOContrato();
+		retorno = daoContrato.get20OfertasPopulares();
+		
+		return retorno;
+	}
+	
 
 }

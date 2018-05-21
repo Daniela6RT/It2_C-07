@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import vos.*;
 
@@ -336,4 +337,37 @@ public class DAOCliente
 
         return respuesta;
     }
+	
+	/**
+	 * Metodo que obtiene la informacion de todos los clientes en la Base de Datos <br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * @return	lista con la informacion de todos los clientes que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList<Cliente> getClientesBuenos() throws SQLException, Exception {
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+
+		String sql = String.format("SELECT X.IDCLIENTE\r\n" + 
+				"FROM(\r\n" + 
+				"SELECT IDCLIENTE, EXTRACT(MONTH FROM FECHAINICIO)AS MES, COUNT(IDCLIENTE) AS CANTIDADDEVECES\r\n" + 
+				"FROM CONTRATOS\r\n" + 
+				"\r\n" + 
+				"GROUP BY IDCLIENTE, EXTRACT(MONTH FROM FECHAINICIO)\r\n" + 
+				"ORDER BY COUNT(IDCLIENTE)\r\n" + 
+				")X,CONTRATOS, CONTRATOSHABITACIONES, HABITACIONES\r\n" + 
+				"WHERE X.IDCLIENTE = CONTRATOS.IDCLIENTE AND (X.CANTIDADDEVECES >=1 OR CONTRATOS.COSTO >=150 OR (CONTRATOS.IDCONTRATO = CONTRATOSHABITACIONES.IDCONTRATO AND CONTRATOSHABITACIONES.IDHABITACION = HABITACIONES.IDHABITACION AND HABITACIONES.TIPO = 'Suite') )\r\n" + 
+				"GROUP BY X.IDCLIENTE\r\n" + 
+				"ORDER BY X.IDCLIENTE;", USUARIO);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		String a =rs.getArray(sql).getArray().toString();
+		while (rs.next()) {
+			
+			clientes.add(findClienteById(Integer.parseInt(a)));
+		}
+		return clientes;
+	}
 }

@@ -227,5 +227,27 @@ public class ClienteService
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
+	
+	
+	/**
+	 * Metodo que da los clientes frecuentes
+	 * @return
+	 */
+	@GET
+	@Path( "clientesBuenos" )
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getClientesBuenos() {
+		
+		try {
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager(getPath());
+			
+			List<Cliente> clientes;
+			clientes = tm.getClientesBuenos();
+			return Response.status(200).entity(clientes).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 
 }

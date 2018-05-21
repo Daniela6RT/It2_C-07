@@ -402,4 +402,30 @@ public class ContratoService {
 		}
 	}
 
+	
+	
+	/**
+	 * Metodo GET que trae a todos los Contratoes en la Base de datos. <br/>
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
+	 * <b>URL: </b> http://localhost:8080/TutorialAlohaAndes/rest/Contratoes <br/>
+	 * @return	<b>Response Status 200</b> - JSON que contiene a todos los Contratoes que estan en la Base de Datos <br/>
+	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
+	 */			
+	@GET
+	@Path("20ofertas")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response get20OfertasMasPopulares() {
+
+		try {
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager(getPath());
+
+			List Ofertas;
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			Ofertas = tm.get20OfertasMasPopulares();
+			return Response.status(200).entity(Ofertas).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 }

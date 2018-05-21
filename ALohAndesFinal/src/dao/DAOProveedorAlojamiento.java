@@ -1,3 +1,4 @@
+
 package dao;
 
 import java.sql.Connection;
@@ -18,7 +19,7 @@ public class DAOProveedorAlojamiento
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
 	public final static String USUARIO = "ISIS2304A961810";
-	
+
 
 	/**
 	 * Arraylits de recursos que se usan para la ejecucion de sentencias SQL
@@ -29,15 +30,15 @@ public class DAOProveedorAlojamiento
 	 * Atributo que genera la conexion a la base de datos
 	 */
 	private Connection conn;
-	
+
 	private DAOCliente daoCliente;
 	/**
 	 * Metodo constructor de la clase DAOProveedorAlojamiento <br/>
-	*/
+	 */
 	public DAOProveedorAlojamiento() {
 		recursos = new ArrayList<Object>();
 	}
-	
+
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -63,8 +64,8 @@ public class DAOProveedorAlojamiento
 		}
 		return ProveedorAlojamiento;
 	}
-	
-	
+
+
 	/**
 	 * Metodo que obtiene la informacion del ProveedorAlojamiento en la Base de Datos que tiene el identificador dado por parametro<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
@@ -90,7 +91,7 @@ public class DAOProveedorAlojamiento
 
 		return ProveedorAlojamiento;
 	}
-	
+
 	/**
 	 * Metodo que agregar la informacion de un nuevo ProveedorAlojamiento en la Base de Datos a partir del parametro ingresado<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
@@ -101,10 +102,10 @@ public class DAOProveedorAlojamiento
 	public void addProveedorAlojamiento(ProveedorAlojamiento ProveedorAlojamiento) throws SQLException, Exception {
 
 		String sql = String.format("INSERT INTO %1$s.PROVEEDORALOJAMIENTO (ID, NOMBRE, TIPO) VALUES (%2$s, '%3$s', '%4$s')", 
-									USUARIO, 
-									ProveedorAlojamiento.getIdProveedor(), 
-									ProveedorAlojamiento.getNombre(),
-									ProveedorAlojamiento.getTipoProveedorAlojamiento());
+				USUARIO, 
+				ProveedorAlojamiento.getIdProveedor(), 
+				ProveedorAlojamiento.getNombre(),
+				ProveedorAlojamiento.getTipoProveedorAlojamiento());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -112,7 +113,7 @@ public class DAOProveedorAlojamiento
 		prepStmt.executeQuery();
 
 	}
-	
+
 	/**
 	 * Metodo que actualiza la informacion del ProveedorAlojamiento en la Base de Datos que tiene el identificador dado por parametro<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
@@ -130,7 +131,7 @@ public class DAOProveedorAlojamiento
 				ProveedorAlojamiento.getTipoProveedorAlojamiento()));
 		sql.append ("WHERE ID = " + ProveedorAlojamiento.getIdProveedor ());
 		System.out.println(sql);
-		
+
 		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
@@ -148,14 +149,14 @@ public class DAOProveedorAlojamiento
 		String sql = String.format("DELETE FROM %1$s.ProveedoresAlojamiento WHERE ID = %2$d", USUARIO, ProveedorAlojamiento.getIdProveedor());
 
 		System.out.println(sql);
-		
+
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Metodo encargado de inicializar la conexion del DAO a la Base de Datos a partir del parametro <br/>
 	 * <b>Postcondicion: </b> el atributo conn es inicializado <br/>
@@ -164,7 +165,7 @@ public class DAOProveedorAlojamiento
 	public void setConn(Connection connection){
 		this.conn = connection;
 	}
-	
+
 	/**
 	 * Metodo que cierra todos los recursos que se encuentran en el arreglo de recursos<br/>
 	 * <b>Postcondicion: </b> Todos los recurso del arreglo de recursos han sido cerrados.
@@ -179,71 +180,71 @@ public class DAOProveedorAlojamiento
 				}
 		}
 	}
-	
-	
+
+
 	public ArrayList<Cliente> consultarConsumoAlohAndesRFC10(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws SQLException {
-        ArrayList<Cliente> respuesta=null;
-        String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO FROM\n" +
-                        "  (SELECT * FROM CLIENTE cl NATURAL JOIN (\n" +
-                        "select * from CONTRATOS  natural JOIN CONTRATOSAPARTAMENTOS ca\n" +
-                        "UNION\n" +
-                        "(select * from CONTRATOS natural JOIN CONTRATOSHABITACIONES ch)\n" +
-                        "UNION\n" +
-                        "(select * from CONTRATOS natural JOIN CONTRATOSVIVIENDAS cv)))\n" +
-                        "WHERE (IDAPARTAMENTO=%1%s) AND (ESTADO='En curso' OR ESTADO = 'Exitoso') AND\n" +
-                        "      (FECHAINICIO BETWEEN %2$d AND %3$d \n" +
-                        "      OR FECHAFIN BETWEEN %4$d AND %5$d" +
-                        "     AND (IDCLIENTE=%6$d) ORDER BY %7$d",
-                fecha1,
-                fecha2,
-                fecha1,
-                fecha2,
-                organizacion);
+		ArrayList<Cliente> respuesta=null;
+		String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO FROM\n" +
+				"  (SELECT * FROM CLIENTE cl NATURAL JOIN (\n" +
+				"select * from CONTRATOS  natural JOIN CONTRATOSAPARTAMENTOS ca\n" +
+				"UNION\n" +
+				"(select * from CONTRATOS natural JOIN CONTRATOSHABITACIONES ch)\n" +
+				"UNION\n" +
+				"(select * from CONTRATOS natural JOIN CONTRATOSVIVIENDAS cv)))\n" +
+				"WHERE (IDAPARTAMENTO=%1%s) AND (ESTADO='En curso' OR ESTADO = 'Exitoso') AND\n" +
+				"      (FECHAINICIO BETWEEN %2$d AND %3$d \n" +
+				"      OR FECHAFIN BETWEEN %4$d AND %5$d" +
+				"     AND (IDCLIENTE=%6$d) ORDER BY %7$d",
+				fecha1,
+				fecha2,
+				fecha1,
+				fecha2,
+				organizacion);
 
-        PreparedStatement prepStmt = conn.prepareStatement(sql);
-        recursos.add(prepStmt);
-        ResultSet rs = prepStmt.executeQuery();
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
 
-        while (rs.next()) {
-            respuesta.add(daoCliente.convertResultSetToClienteConPW(rs));
-        }
+		while (rs.next()) {
+			respuesta.add(daoCliente.convertResultSetToClienteConPW(rs));
+		}
 
-        return respuesta;
-    }
-	
+		return respuesta;
+	}
+
 	public ArrayList<Cliente> consultarConsumoAlohAndesRFC11(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws SQLException {
-        ArrayList<Cliente> respuesta=null;
-        
-        String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO FROM\r\n" + 
-        		"  (SELECT * FROM %1$s.CLIENTE NATURAL JOIN (\r\n" + 
-        		"select * from CONTRATOS  natural JOIN CONTRATOSAPARTAMENTOS ca\r\n" + 
-        		"UNION\r\n" + 
-        		"(select * from CONTRATOS natural JOIN CONTRATOSHABITACIONES ch)\r\n" + 
-        		"UNION\r\n" + 
-        		"(select * from CONTRATOS natural JOIN CONTRATOSVIVIENDAS cv)))\r\n" + 
-        		"WHERE (IDAPARTAMENTO<> %2$d) AND (ESTADO<>'En curso' OR ESTADO <> 'Exitoso') AND\r\n" + 
-        		"      (FECHAINICIO BETWEEN %3$d AND %4$d\r\n" + 
-        		"      OR FECHAFIN BETWEEN %5$d AND %6$d\r\n" + 
-        		"        ORDER BY %7$d",
-        		USUARIO,
-        		alojamiento.getIdAlojamiento(),
-                fecha1,
-                fecha2,
-                fecha1,
-                fecha2,
-                organizacion);
+		ArrayList<Cliente> respuesta=null;
 
-        PreparedStatement prepStmt = conn.prepareStatement(sql);
-        recursos.add(prepStmt);
-        ResultSet rs = prepStmt.executeQuery();
+		String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO FROM\r\n" + 
+				"  (SELECT * FROM %1$s.CLIENTE NATURAL JOIN (\r\n" + 
+				"select * from CONTRATOS  natural JOIN CONTRATOSAPARTAMENTOS ca\r\n" + 
+				"UNION\r\n" + 
+				"(select * from CONTRATOS natural JOIN CONTRATOSHABITACIONES ch)\r\n" + 
+				"UNION\r\n" + 
+				"(select * from CONTRATOS natural JOIN CONTRATOSVIVIENDAS cv)))\r\n" + 
+				"WHERE (IDAPARTAMENTO<> %2$d) AND (ESTADO<>'En curso' OR ESTADO <> 'Exitoso') AND\r\n" + 
+				"      (FECHAINICIO BETWEEN %3$d AND %4$d\r\n" + 
+				"      OR FECHAFIN BETWEEN %5$d AND %6$d\r\n" + 
+				"        ORDER BY %7$d",
+				USUARIO,
+				alojamiento.getIdAlojamiento(),
+				fecha1,
+				fecha2,
+				fecha1,
+				fecha2,
+				organizacion);
 
-        while (rs.next()) {
-            respuesta.add(daoCliente.convertResultSetToClienteConPW(rs));
-        }
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
 
-        return respuesta;
-    }
-	
+		while (rs.next()) {
+			respuesta.add(daoCliente.convertResultSetToClienteConPW(rs));
+		}
+
+		return respuesta;
+	}
+
 	/**
 	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla ProveedoresAlojamiento) en una instancia de la clase ProveedorAlojamiento.
 	 * @param resultSet ResultSet con la informacion de un ProveedorAlojamiento que se obtuvo de la base de datos.
@@ -261,5 +262,28 @@ public class DAOProveedorAlojamiento
 		ProveedorAlojamiento prov = new ProveedorAlojamiento(id, nombre, tipo);
 
 		return prov;
+	}
+	/**
+	 * Metodo que obtiene la informacion del dinero obtenido por los proveedores  <br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * @return	lista con la informacion de todos los ProveedorAlojamiento que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList getDineroProveedores() throws SQLException, Exception {
+		ArrayList ProveedorAlojamiento = new ArrayList<ProveedorAlojamiento>();
+
+		String sql = String.format("	Select idproveedor, sum(costo), extract (year from fechainicio)\r\n" + 
+				"	from contratos\r\n" + 
+				"	group by idproveedor, extract (year from fechainicio);", USUARIO);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			ProveedorAlojamiento.add(rs.getObject(sql));
+		}
+		return ProveedorAlojamiento;
 	}
 }

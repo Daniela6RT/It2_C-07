@@ -204,5 +204,23 @@ public class HabitacionService
 		}
 	
 	}
+	
+	@GET
+	@Path("funcionalidadH")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getFuncionalidadViviendas() {
+		
+		try {
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager(getPath());
+			
+			List habitaciones;
+			
+			habitaciones = tm.getFuncionamiento("Habitacion");
+			return Response.status(200).entity(habitaciones).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 
 }
