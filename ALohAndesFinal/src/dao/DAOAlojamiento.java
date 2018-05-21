@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import vos.Alojamiento;
+import vos.Apartamento;
 
 public class DAOAlojamiento 
 {
@@ -147,7 +149,18 @@ public class DAOAlojamiento
 		prepStmt.executeQuery();
 	}
 	
+	public Apartamento getApartamento() throws SQLException
+	{
 
+		String sql = String.format("SELECT APARTAMENTOS.* FROM %1$s.ALOJAMIENTOS  JOIN APARTAMENTOS ON ALOJAMIENTOS.IDALOJAMIENTO = APARTAMENTOS.IDAPARTAMENTO", USUARIO); 
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		
+		Apartamento apa = convertResultSetToApartamento(rs);
+		return apa;
+	}
 	
 	/**
 	 * Metodo encargado de inicializar la conexion del DAO a la Base de Datos a partir del parametro <br/>
@@ -190,4 +203,20 @@ public class DAOAlojamiento
 
 		return aloj;
 	}
+	
+	public Apartamento convertResultSetToApartamento(ResultSet resultSet) throws SQLException {
+		
+
+		int idApartamento = Integer.parseInt(resultSet.getString("idApartamento"));
+		String amoblado = resultSet.getString("amoblado");
+		int precioBase = Integer.parseInt(resultSet.getString("precioBase"));
+		int habitaciones = Integer.parseInt(resultSet.getString("habitaciones"));
+		int idProveedor = Integer.parseInt(resultSet.getString("idProveedor"));
+		
+
+		Apartamento apar = new Apartamento(idApartamento,amoblado, precioBase, habitaciones, idProveedor);
+
+		return apar;
+	}
+	
 }

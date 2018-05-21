@@ -272,7 +272,7 @@ public class DAOCliente
 		return clientes;
 	}
 
-	public ArrayList<Cliente> consultarConsumoAlohAndes(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws SQLException {
+	public ArrayList<Cliente> consultarConsumoAlohAndesRFC10(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws Exception {
         ArrayList<Cliente> respuesta=null;
         String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO FROM\n" +
                         "  (SELECT * FROM CLIENTE cl NATURAL JOIN (\n" +
@@ -285,6 +285,41 @@ public class DAOCliente
                         "      (FECHAINICIO BETWEEN %2$d AND %3$d \n" +
                         "      OR FECHAFIN BETWEEN %4$d AND %5$d" +
                         "     AND (IDCLIENTE=%6$d) ORDER BY %7$d",
+                alojamiento.getIdAlojamiento(),
+                fecha1,
+                fecha2,
+                fecha1,
+                fecha2,
+                this.getClientes().get(0).getIdCliente(),
+                organizacion);
+
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        recursos.add(prepStmt);
+        ResultSet rs = prepStmt.executeQuery();
+
+        while (rs.next()) {
+            respuesta.add(convertResultSetToClienteConPW(rs));
+        }
+
+        return respuesta;
+    }
+	
+	public ArrayList<Cliente> consultarConsumoAlohAndesRFC11(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws SQLException {
+        ArrayList<Cliente> respuesta=null;
+        
+        String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO FROM\r\n" + 
+        		"  (SELECT * FROM %1$s.CLIENTE NATURAL JOIN (\r\n" + 
+        		"select * from CONTRATOS  natural JOIN CONTRATOSAPARTAMENTOS ca\r\n" + 
+        		"UNION\r\n" + 
+        		"(select * from CONTRATOS natural JOIN CONTRATOSHABITACIONES ch)\r\n" + 
+        		"UNION\r\n" + 
+        		"(select * from CONTRATOS natural JOIN CONTRATOSVIVIENDAS cv)))\r\n" + 
+        		"WHERE (IDAPARTAMENTO<> %2$d) AND (ESTADO<>'En curso' OR ESTADO <> 'Exitoso') AND\r\n" + 
+        		"      (FECHAINICIO BETWEEN %3$d AND %4$d\r\n" + 
+        		"      OR FECHAFIN BETWEEN %5$d AND %6$d\r\n" + 
+        		"        ORDER BY %7$d",
+        		USUARIO,
+        		alojamiento.getIdAlojamiento(),
                 fecha1,
                 fecha2,
                 fecha1,
