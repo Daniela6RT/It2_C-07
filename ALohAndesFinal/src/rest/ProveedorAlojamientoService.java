@@ -1,5 +1,6 @@
 package rest;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -17,8 +18,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.AlohaAndesTransactionManager;
-
-
+import vos.Alojamiento;
+import vos.Cliente;
 import vos.ProveedorAlojamiento;
 @Path("habitaciones")
 public class ProveedorAlojamientoService 
@@ -206,5 +207,48 @@ public class ProveedorAlojamientoService
 		}
 	
 	}
+	
+	/**
+	 * Metodo que retorna el consumo den alohandes (version 1)
+	 * @return
+	 */
+	@GET
+	@Path( "consumoUnaReserva" )
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getConsumoAlohAndesRFC10(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) {
+		 
+		try {
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager(getPath());
+			
+			List<Cliente> clientes;
+			clientes = tm.consultarConsumoRFC10(alojamiento, fecha1, fecha2, organizacion);
+			return Response.status(200).entity(clientes).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	/**
+	 * Metodo que retorna el consumo den alohandes (version 1)
+	 * @return
+	 */
+	@GET
+	@Path( "consumoNingunaReserva" )
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getConsumoAlohAndesRFC11(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) {
+		 
+		try {
+			AlohaAndesTransactionManager tm = new AlohaAndesTransactionManager(getPath());
+			
+			List<Cliente> clientes;
+			clientes = tm.consultarConsumoRFC11(alojamiento, fecha1, fecha2, organizacion);
+			return Response.status(200).entity(clientes).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
 
 }

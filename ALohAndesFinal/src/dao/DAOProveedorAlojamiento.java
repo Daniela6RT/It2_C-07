@@ -193,8 +193,8 @@ public class DAOProveedorAlojamiento
 				"(select * from CONTRATOS natural JOIN CONTRATOSVIVIENDAS cv)))\n" +
 				"WHERE (IDAPARTAMENTO=%1%s) AND (ESTADO='En curso' OR ESTADO = 'Exitoso') AND\n" +
 				"      (FECHAINICIO BETWEEN %2$d AND %3$d \n" +
-				"      OR FECHAFIN BETWEEN %4$d AND %5$d" +
-				"     AND (IDCLIENTE=%6$d) ORDER BY %7$d",
+				"      OR FECHAFIN BETWEEN %4$d AND %5$d)" +
+				"      ORDER BY %6$d",
 				fecha1,
 				fecha2,
 				fecha1,
@@ -206,7 +206,7 @@ public class DAOProveedorAlojamiento
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			respuesta.add(daoCliente.convertResultSetToClienteConPW(rs));
+			respuesta.add(daoCliente.convertResultSetToCliente(rs));
 		}
 
 		return respuesta;
@@ -224,7 +224,7 @@ public class DAOProveedorAlojamiento
 				"(select * from CONTRATOS natural JOIN CONTRATOSVIVIENDAS cv)))\r\n" + 
 				"WHERE (IDAPARTAMENTO<> %2$d) AND (ESTADO<>'En curso' OR ESTADO <> 'Exitoso') AND\r\n" + 
 				"      (FECHAINICIO BETWEEN %3$d AND %4$d\r\n" + 
-				"      OR FECHAFIN BETWEEN %5$d AND %6$d\r\n" + 
+				"      OR FECHAFIN BETWEEN %5$d AND %6$d)\r\n" + 
 				"        ORDER BY %7$d",
 				USUARIO,
 				alojamiento.getIdAlojamiento(),
@@ -239,7 +239,7 @@ public class DAOProveedorAlojamiento
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			respuesta.add(daoCliente.convertResultSetToClienteConPW(rs));
+			respuesta.add(daoCliente.convertResultSetToCliente(rs));
 		}
 
 		return respuesta;

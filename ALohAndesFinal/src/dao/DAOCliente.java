@@ -275,7 +275,7 @@ public class DAOCliente
 
 	public ArrayList<Cliente> consultarConsumoAlohAndesRFC10(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws Exception {
         ArrayList<Cliente> respuesta=null;
-        String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO FROM\n" +
+        String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO, LOGIN FROM\n" +
                         "  (SELECT * FROM CLIENTE cl NATURAL JOIN (\n" +
                         "select * from CONTRATOS  natural JOIN CONTRATOSAPARTAMENTOS ca\n" +
                         "UNION\n" +
@@ -305,26 +305,27 @@ public class DAOCliente
         return respuesta;
     }
 	
-	public ArrayList<Cliente> consultarConsumoAlohAndesRFC11(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws SQLException {
+	public ArrayList<Cliente> consultarConsumoAlohAndesRFC11(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws Exception {
         ArrayList<Cliente> respuesta=null;
         
-        String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO FROM\r\n" + 
-        		"  (SELECT * FROM %1$s.CLIENTE NATURAL JOIN (\r\n" + 
+        String sql = String.format("SELECT IDCLIENTE, NOMBRE, APELLIDO, LOGIN FROM\r\n" + 
+        		"  (SELECT * FROM %1$s.CLIENTE cl NATURAL JOIN (\r\n" + 
         		"select * from CONTRATOS  natural JOIN CONTRATOSAPARTAMENTOS ca\r\n" + 
         		"UNION\r\n" + 
         		"(select * from CONTRATOS natural JOIN CONTRATOSHABITACIONES ch)\r\n" + 
         		"UNION\r\n" + 
         		"(select * from CONTRATOS natural JOIN CONTRATOSVIVIENDAS cv)))\r\n" + 
-        		"WHERE (IDAPARTAMENTO<> %2$d) AND (ESTADO<>'En curso' OR ESTADO <> 'Exitoso') AND\r\n" + 
+        		"WHERE (IDAPARTAMENTO<> %2$d ) AND (ESTADO<>'En curso' OR ESTADO <> 'Exitoso') AND\r\n" + 
         		"      (FECHAINICIO BETWEEN %3$d AND %4$d\r\n" + 
-        		"      OR FECHAFIN BETWEEN %5$d AND %6$d\r\n" + 
-        		"        ORDER BY %7$d",
+        		"      OR FECHAFIN BETWEEN %5$d AND %6$d) AND (IDCLIENTE=%7$d)\r\n" + 
+        		"        ORDER BY %8$d",
         		USUARIO,
         		alojamiento.getIdAlojamiento(),
                 fecha1,
                 fecha2,
                 fecha1,
                 fecha2,
+                this.getClientes().get(0).getIdCliente(),
                 organizacion);
 
         PreparedStatement prepStmt = conn.prepareStatement(sql);

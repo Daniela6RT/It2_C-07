@@ -24,6 +24,7 @@ import dao.DAOServicio;
 import dao.DAOVivienda;
 import jdk.management.resource.internal.inst.DatagramChannelImplRMHooks;
 import dao.DAOApartamento;
+import vos.Alojamiento;
 import vos.Apartamento;
 import vos.Cliente;
 import vos.Contrato;
@@ -3050,6 +3051,52 @@ public class AlohaAndesTransactionManager
 		retorno = daoContrato.get20OfertasPopulares();
 		
 		return retorno;
+	}
+	
+	public boolean esCliente(String user) throws Exception
+	{
+		for(int i=0; i<getAllClientes().size(); i++)
+		{
+			Cliente actual = getAllClientes().get(i);
+			if(actual.getLogin().equals(user)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public ArrayList<Cliente> consultarConsumoRFC10(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws Exception
+	{
+	DAOCliente daoCliente = new DAOCliente();	
+	DAOProveedorAlojamiento daoProveedor = new DAOProveedorAlojamiento();
+	
+	this.conn=darConexion();
+	
+		if(esCliente(user)) {
+			daoCliente.setConn(conn);
+			return daoCliente.consultarConsumoAlohAndesRFC10(alojamiento, fecha1, fecha2, organizacion);
+		}
+		else {
+			daoProveedor.setConn(conn);
+			return daoProveedor.consultarConsumoAlohAndesRFC10(alojamiento, fecha1, fecha2, organizacion);
+		}
+	}
+	
+	public ArrayList<Cliente> consultarConsumoRFC11(Alojamiento alojamiento, Date fecha1, Date fecha2 , String organizacion) throws Exception
+	{
+	DAOCliente daoCliente = new DAOCliente();	
+	DAOProveedorAlojamiento daoProveedor = new DAOProveedorAlojamiento();
+	
+	this.conn=darConexion();
+	
+		if(esCliente(user)) {
+			daoCliente.setConn(conn);
+			return daoCliente.consultarConsumoAlohAndesRFC11(alojamiento, fecha1, fecha2, organizacion);
+		}
+		else {
+			daoProveedor.setConn(conn);
+			return daoProveedor.consultarConsumoAlohAndesRFC11(alojamiento, fecha1, fecha2, organizacion);
+		}
 	}
 	
 
