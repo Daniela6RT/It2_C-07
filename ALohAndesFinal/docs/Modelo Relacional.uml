@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>a909fc85-2777-41ba-ba96-f1607152d7b1.SCHEMA:ISIS2304A961810</OriginalElement>
+  <nodes>
+    <node x="1087.5" y="580.5">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.PROVEEDORALOJAMIENTO</node>
+    <node x="2214.0" y="221.0">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOSHABITACIONES</node>
+    <node x="1387.0" y="594.0">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.TIPOPROVEEDOR</node>
+    <node x="1666.5" y="420.0">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.APARTAMENTOS</node>
+    <node x="638.5" y="34.5">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.TIPOALOJAMIENTO</node>
+    <node x="-32.0" y="220.5">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.SEGUROS</node>
+    <node x="1080.0" y="1046.5">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOS</node>
+    <node x="1063.5" y="99.0">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.HABITACIONES</node>
+    <node x="683.0" y="1114.5">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.TIENESERVICIOS</node>
+    <node x="2409.5" y="1073.5">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CLIENTE</node>
+    <node x="254.0" y="701.0">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOSVIVIENDAS</node>
+    <node x="2411.5" y="1354.0">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.RESERVACOLECTIVA</node>
+    <node x="2014.0" y="461.0">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOSAPARTAMENTOS</node>
+    <node x="670.5" y="220.5">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.ALOJAMIENTOS</node>
+    <node x="672.0" y="833.5">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.SERVICIOS</node>
+    <node x="277.0" y="166.5">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.VIVIENDAS</node>
+    <node x="1051.5" y="1354.0">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.RESERVASCOL</node>
+    <node x="272.0" y="-33.0">a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.MENAJE</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.VIVIENDAS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.ALOJAMIENTOS">
+      <point x="123.0" y="0.0" />
+      <point x="-129.5" y="0.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.RESERVACOLECTIVA" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CLIENTE">
+      <point x="0.0" y="-46.0" />
+      <point x="0.0" y="86.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOSHABITACIONES" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOS">
+      <point x="0.0" y="59.0" />
+      <point x="2360.0" y="1120.0" />
+      <point x="120.0" y="-40.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.APARTAMENTOS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.ALOJAMIENTOS">
+      <point x="-133.5" y="0.0" />
+      <point x="800.0" y="520.0" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOSVIVIENDAS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOS">
+      <point x="146.0" y="0.0" />
+      <point x="1160.0" y="760.0" />
+      <point x="-40.0" y="-113.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.ALOJAMIENTOS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.TIPOALOJAMIENTO">
+      <point x="0.0" y="-59.5" />
+      <point x="0.0" y="45.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CLIENTE">
+      <point x="120.0" y="0.0" />
+      <point x="-150.5" y="0.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.VIVIENDAS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.PROVEEDORALOJAMIENTO">
+      <point x="40.0" y="113.5" />
+      <point x="440.0" y="640.0" />
+      <point x="-112.5" y="0.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.SEGUROS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.VIVIENDAS">
+      <point x="112.0" y="0.0" />
+      <point x="-123.0" y="0.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.TIENESERVICIOS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOS">
+      <point x="117.0" y="0.0" />
+      <point x="-120.0" y="0.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOSVIVIENDAS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.VIVIENDAS">
+      <point x="0.0" y="-59.0" />
+      <point x="0.0" y="113.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.RESERVASCOL" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.RESERVACOLECTIVA">
+      <point x="148.5" y="0.0" />
+      <point x="-148.5" y="0.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.HABITACIONES" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.PROVEEDORALOJAMIENTO">
+      <point x="0.0" y="181.0" />
+      <point x="0.0" y="-59.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.PROVEEDORALOJAMIENTO" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.TIPOPROVEEDOR">
+      <point x="112.5" y="0.0" />
+      <point x="-93.0" y="0.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOSHABITACIONES" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.HABITACIONES">
+      <point x="-146.0" y="0.0" />
+      <point x="136.5" y="0.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.HABITACIONES" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.ALOJAMIENTOS">
+      <point x="-136.5" y="0.0" />
+      <point x="129.5" y="0.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.SERVICIOS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOS">
+      <point x="128.0" y="0.0" />
+      <point x="1120.0" y="920.0" />
+      <point x="-80.0" y="-113.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.TIENESERVICIOS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.SERVICIOS">
+      <point x="0.0" y="-45.5" />
+      <point x="0.0" y="86.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOSAPARTAMENTOS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.APARTAMENTOS">
+      <point x="-146.0" y="0.0" />
+      <point x="133.5" y="0.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOSAPARTAMENTOS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOS">
+      <point x="0.0" y="59.0" />
+      <point x="2160.0" y="1080.0" />
+      <point x="120.0" y="-80.0" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.RESERVASCOL" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOS">
+      <point x="0.0" y="-46.0" />
+      <point x="0.0" y="113.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.MENAJE" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.VIVIENDAS">
+      <point x="0.0" y="73.0" />
+      <point x="0.0" y="-113.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.APARTAMENTOS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.PROVEEDORALOJAMIENTO">
+      <point x="0.0" y="100.0" />
+      <point x="1800.0" y="760.0" />
+      <point x="1240.0" y="760.0" />
+      <point x="40.0" y="59.5" />
+    </edge>
+    <edge source="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.CONTRATOS" target="a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.PROVEEDORALOJAMIENTO">
+      <point x="0.0" y="-113.5" />
+      <point x="0.0" y="59.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.32340052585451357" x="1052.5" y="1202.119241192412" />
+  <SelectedNodes>
+    <node>a909fc85-2777-41ba-ba96-f1607152d7b1.TABLE:ISIS2304A961810.MENAJE</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+
